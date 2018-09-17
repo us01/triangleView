@@ -1,0 +1,235 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
+<title>Insert title here</title>
+<style>
+	.rightContent {
+		display:inline-block;	
+		border:1px solid #E5E5E5;
+		float:right;
+		width:15%;
+		border-radius:10px;
+		margin-top:9px;
+		background:white;
+		margin-bottom:80px;
+	}
+	.rightMenu{
+		list-style: none;
+		padding-left: 0px;
+	}
+	
+	.hotTagArea p, .favorRiviewArea .favorTitle, .companyArea .companyTitle{
+		display:inline-block;
+		width:90%;
+		font-weight:bold;
+		font-size:17px;
+		font-family:"나눔고딕";
+		text-align:left;
+		color:#474747;
+		margin-bottom:10px;
+		margin-top:40px;
+	}
+	.companyArea .companyTitle{
+		margin-top:0px;
+	}
+	.hotTagArea ul{
+		margin:0 auto;
+		width:85%;
+		list-style: none;
+		padding-left: 0px;
+		
+	}
+	.hotTagArea li{
+		width:100%;
+		text-align:left;
+		font-size:13px;
+		margin-bottom:5px;
+	}
+	.hotTagArea em {
+		background:ghostwhite;
+		display:inline-block;
+		min-width:15px;
+		height:15px;
+		border:1px solid #e0e0e0;
+		font-size:11px;
+		font-family:"나눔고딕";
+		margin-right:8px;
+		font-style:normal;
+		text-align:center;
+		vertical-align: bottom;
+	}
+	.rolling_panel {
+		display:inline-block;
+		position: relative;
+		width: 137px;
+		height: 180px;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+	
+	.rolling_panel ul {
+		position: absolute;
+		margin: 0px;
+		padding: 0;
+		list-style: none;
+	}
+	
+	.rolling_panel ul li {
+		float: left;
+		width: 137px;
+		height: 180px;
+	}
+	.rolling_panel ul li img {
+		width: 137px;
+		height: 130px;
+	}
+	.reviewTitle {
+		display:inline-block;;
+		font-size:14px;
+		font-weight:bold;
+		color:#555555;
+		padding:2px 0 2px 0;
+		overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		width:137px;
+		margin-top:0px;
+		margin-bottom:0px;
+		text-align:left;
+	}
+	
+	.member_id{
+		display:inline-block;
+		font-size:8px;
+		font-weight:bold;
+		color:#393939;
+		padding:2px 0 2px 0;
+		overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		width:137px;
+		margin-top:5px;
+		margin-bottom:3px;
+		text-align:right;
+	}
+	@media all and (max-width:768px) {
+		.rightContent { display:none; }
+	}
+</style>
+<script>
+	$(function(){
+		var $panel = $(".rolling_panel").find("ul");
+		 
+	    var itemWidth = $panel.children().outerWidth(); // 아이템 가로 길이
+	    var itemLength = $panel.children().length;      // 아이템 수
+	
+	    // Auto 롤링 아이디
+	    var rollingId;
+	
+	    auto();
+	
+	    // 배너 마우스 오버 이벤트
+	    $panel.mouseover(function() {
+	        clearInterval(rollingId);
+	    });
+	
+	    // 배너 마우스 아웃 이벤트
+	    $panel.mouseout(function() {
+	        auto();
+	    });
+	    
+	    function auto() {
+	        rollingId = setInterval(function() {
+	            start();
+	        }, 4000);
+	    }
+	
+	    function start() {
+	        $panel.css("width", itemWidth * itemLength);
+	        $panel.animate({"left": - itemWidth + "px"}, function() {
+	
+	            // 첫번째 아이템을 마지막에 추가하기
+	            $(this).append("<li>" + $(this).find("li:first").html() + "</li>");
+	
+	            // 첫번째 아이템을 삭제하기
+	            $(this).find("li:first").remove();
+	
+	            // 좌측 패널 수치 초기화
+	            $(this).css("left", 0);
+	        });
+	    }
+	})
+</script>
+</head>
+<body>
+	<div class="rightContent">
+		<ul class="rightMenu">
+			<li>
+				<div class="companyArea">
+					 <p class="companyTitle">기업공고</p>
+					 <div class="rolling_panel">
+						<ul>
+							<li>
+								<img src="/triangleView/img/test4.PNG">
+								<p class="reviewTitle">#인간뇌에 AI탑재 기능 선보일 분</p>
+								<p class="member_id">@ brain_is_die</p>
+							</li>
+							<li>
+								<img src="/triangleView/img/test5.jpg">
+								<p class="reviewTitle">#자동차로 하늘을 날 분들</p>
+								<p class="member_id">@ you_are_die</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="hotTagArea">
+					<p>핫태그</p>
+					<ul>
+						<li><em>1</em>오늘날씨</li>
+						<li><em>2</em>하루만에석방</li>
+						<li><em>3</em>중부</li>
+						<li><em>4</em>로또</li>
+						<li><em>5</em>인생</li>
+						<li><em>6</em>스벌</li>
+						<li><em>7</em>블로그</li>
+						<li><em>8</em>세모뷰</li>
+						<li><em>9</em>그랭</li>
+						<li><em>10</em>바이</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="favorRiviewArea">
+					<p class="favorTitle">인기리뷰</p>
+					<div class="rolling_panel">
+						<ul>
+							<li>
+								<img src="/triangleView/img/test2.jpg">
+								<p class="reviewTitle">#고래는 밥일까 사냥일까 </p>
+								<p class="member_id">@ one_bin_293</p>
+							</li>
+							<li>
+								<img src="/triangleView/img/test3.jpg">
+								<p class="reviewTitle">#쌈자의 출현 시기 </p>
+								<p class="member_id">@ ssamJa_2018</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

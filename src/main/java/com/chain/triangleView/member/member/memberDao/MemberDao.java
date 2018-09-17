@@ -1,0 +1,345 @@
+package com.chain.triangleView.member.member.memberDao;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Properties;
+
+import com.chain.triangleView.member.member.vo.Attachment;
+import com.chain.triangleView.member.member.vo.Member;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
+
+
+import static com.chain.triangleView.common.JDBCTemplate.*;
+
+public class MemberDao {
+	private Properties prop = new Properties();
+
+	public MemberDao(){
+		String fileName = MemberDao.class.getResource("/resources/member/member-query.properties").getPath();
+
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Member loginCheck(Connection con, String userId, String userPwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member loginUser = null;
+
+		String query = prop.getProperty("loginUserSelect");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+
+			rset = pstmt.executeQuery();
+
+			System.out.println(rset);
+			if(rset.next()){
+				loginUser = new Member();
+
+				loginUser.setUserNo(rset.getInt("userNo"));
+				loginUser.setUserId(rset.getString("userId"));
+				loginUser.setUserPwd(rset.getString("userPwd"));
+				loginUser.setAge(rset.getInt("age"));
+				loginUser.setGender(rset.getString("gender"));
+				loginUser.setIntro(rset.getString("intro"));
+				loginUser.setNick(rset.getString("nick"));
+				loginUser.setEnrollDate(rset.getDate("enrollDate"));
+				loginUser.setWithdraw(rset.getString("withDraw"));
+				loginUser.setWithdrawDate(rset.getDate("withDrawDate"));
+				//loginUser.setUserType(rset.getString("userType"));
+				loginUser.setPersonName(rset.getString("personName"));
+				loginUser.setBusinessNo(rset.getInt("businessNo"));
+
+				loginUser.setCopName(rset.getString("copName"));
+				loginUser.setUserLevel(rset.getInt("userLevel"));
+				loginUser.setAddress(rset.getString("address"));
+				loginUser.setPoint(rset.getInt("point"));
+				loginUser.setPostNo(rset.getInt("postNo"));
+				loginUser.setPhone(rset.getString("phone"));
+
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		System.out.println("Dao : " + loginUser);
+		return loginUser;
+	}
+
+	public int modifyUserPwd(Connection con, String userId, String userPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("modifyUserPwd");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userPwd);
+			pstmt.setString(2, userId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertMember(Connection con, Member m, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		String query = prop.getProperty("insertMember");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setInt(3, m.getAge());
+			pstmt.setString(4, m.getGender());
+			pstmt.setString(5, m.getIntro());
+			pstmt.setString(6, m.getNick());
+			pstmt.setString(7, m.getPhone());
+			pstmt.setString(8, m.getAddress());
+			pstmt.setInt(9, m.getPostNo());
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+
+		}
+		System.out.println(result);
+
+		return result;
+	}
+
+	public int NickCheck(Connection con, String nick) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = prop.getProperty("NickCheck");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, nick);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+
+		}
+
+
+		return result;
+	}
+
+	public int insertCompanyMember(Connection con, Member m, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+
+		String query = prop.getProperty("insertCompanyMember");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+
+			pstmt.setString(3, m.getIntro());
+			pstmt.setString(4, m.getNick());
+			pstmt.setString(5, m.getPersonName());
+			pstmt.setInt(6, m.getBusinessNo());
+			pstmt.setString(7, m.getPhone());
+			pstmt.setString(8, m.getCopName());
+			pstmt.setString(9, m.getAddress());
+			pstmt.setInt(10, m.getPostNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int fid = 0;
+
+		String query = prop.getProperty("selectCurrval");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()){
+				fid = rset.getInt("currval");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(stmt);
+			close(rset);
+		}
+
+
+		return fid;
+	}
+
+	public int insertAttachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertAttachment");
+
+		try {
+			for(int i = 0; i < fileList.size(); i++){
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2,fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFileSize());
+				pstmt.setString(4, fileList.get(i).getFileType());
+				pstmt.setInt(5, fileList.get(i).getUserId());
+
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
+
+
+
+		return result;
+
+	}
+
+	public int insertInterestCategory(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println(m.getUserNo());
+		String query = prop.getProperty("insertInterestCategory");
+
+		try {
+
+			for(int i =0; i < m.getCateNum().length; i++){
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, m.getUserNo());
+				pstmt.setInt(2, Integer.parseInt(m.getCateNum()[i]));
+				result += pstmt.executeUpdate();
+			}
+
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+	public Member userNoCheck(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member member = null;
+
+		String query = prop.getProperty("userNoCheck");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1,m.getUserId());
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()){
+				member = new Member();
+
+				member.setUserNo(rset.getInt("userNo"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		return member;
+	}
+
+	public int insertCategory1(Connection con, Member userNoCheck) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query =  prop.getProperty("insertInterestCategory");
+
+		try {
+			for(int i =0; i < userNoCheck.getCateNum().length; i++){
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, userNoCheck.getUserNo());
+				pstmt.setInt(2, Integer.parseInt(userNoCheck.getCateNum()[i]));
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+}
