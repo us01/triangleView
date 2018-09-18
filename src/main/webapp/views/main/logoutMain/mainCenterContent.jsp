@@ -48,7 +48,6 @@
 		position:relative;
 		border:1px solid #dbdbdb;
 		height:287px;
-		cursor:pointer;
 	}
 	
 	.viewForm:first-child{
@@ -60,6 +59,7 @@
 	.viewMainImage img{
 		width:203px;
 		height:221px;
+		cursor:pointer;
 	}
 	.viewForm div:nth-of-type(6) p{
 		font-size:8px;

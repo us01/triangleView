@@ -63,6 +63,17 @@
 		}
 	}
 </style>
+<script>
+	$(function(){
+		$("#searchReviewInput").keypress(function(key) {
+			if(key.which == 13){
+				var searchHash = $("#searchReviewInput").val();
+				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash;
+			}
+			
+		});
+	})
+</script>
 </head>
 <body>
 	<div class="category">

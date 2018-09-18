@@ -4,40 +4,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+public class LoginMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public LoginServlet() {
+    public LoginMainServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-	
-		Member loginUser = new MemberService().loginCheck(userId, userPwd);
-		
-		if(loginUser != null){
-			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(userNo);
+		if(interestReviewList != null){
 			request.setAttribute("interestReviewList", interestReviewList);
 			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
-			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요");
+			request.setAttribute("msg", "관심 정보가 조회되지 않았어요");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}

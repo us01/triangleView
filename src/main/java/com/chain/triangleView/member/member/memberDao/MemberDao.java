@@ -60,7 +60,7 @@ public class MemberDao {
 				loginUser.setEnrollDate(rset.getDate("enrollDate"));
 				loginUser.setWithdraw(rset.getString("withDraw"));
 				loginUser.setWithdrawDate(rset.getDate("withDrawDate"));
-				//loginUser.setUserType(rset.getString("userType"));
+				loginUser.setUserType(rset.getInt("userType"));
 				loginUser.setPersonName(rset.getString("personName"));
 				loginUser.setBusinessNo(rset.getInt("businessNo"));
 

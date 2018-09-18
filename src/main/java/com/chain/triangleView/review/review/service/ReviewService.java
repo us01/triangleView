@@ -59,7 +59,15 @@ public class ReviewService {
 		
 		return reviewList;
 	}
-	
-	
+
+	public ArrayList<Review> searchHashSelect(String searchHash) {
+		Connection con = getConnection();
+		
+		ArrayList<Review> searchReviewList = new ReviewDao().searchHashSelect(con, searchHash);
+		
+		close(con);
+		
+		return searchReviewList;
+	}
 	
 }	

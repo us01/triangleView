@@ -1,9 +1,11 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,11 +15,6 @@
 <link rel="stylesheet" href="/triangleView/css/w3.css">
 <title></title>
 <style>
-	.centerContent {
-		margin:0 auto;
-		display:inline-block;
-		width:68%;
-	}
 	.viewForm{
 		width:210px;
 		height:287px;
@@ -32,6 +29,7 @@
 	.viewMainImage img{
 		width:210px;
 		height:210px;
+		cursor:pointer;
 	}
 	.formType{
 		top:0px;
@@ -47,7 +45,9 @@
 	.viewTitle p {
 		font-size:13px;
 		font-weight:bold;
-		width:210px;
+		overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
 		padding-left:5px;
 		margin-top:5px;
 		margin-bottom:5px;
@@ -115,31 +115,48 @@
 		document.getElementById('formArea').style.display = 'none';
 		document.getElementById('formAreaArea').style.display = 'none';
 	}
+	
+	function goHome(word){
+		var goUser = $(word).attr("id");
+		var goMe = '<%= loginUser.getNick() %>';
+		
+		if(goMe != goUser){
+			location.href='<%= request.getContextPath()%>/userHome';
+		}else{
+			location.href='<%= request.getContextPath()%>/myHome';
+		}
+	}
 </script>
 </head>
 <body>
 	<div class="centerContent">
-		<% for(int i = 0; i <= reviewList.size()-1; i++){ %>
+		<% for(int i = 0; i <= interestReviewList.size()-1; i++){ %>
 			<div class="viewForm">
 				<div class="viewMainImage">
-					<img src="/triangleView/img/test3.jpg" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>)">
+					<img src="/triangleView/img/test3.jpg" onclick="loadReivewForm(<%= interestReviewList.get(i).getRwNo() %>, <%= interestReviewList.get(i).getRwContentType() %>)">
 				</div>
 				<div class="formType">
-					<img src="/triangleView/img/viewList/video.png">
+					<% if(interestReviewList.get(i).getRwContentType() == 0){ %>
+						<img src="/triangleView/img/viewList/text.png">
+					<% }else if(interestReviewList.get(i).getRwContentType() == 1){ %>
+						<img src="/triangleView/img/viewList/card.png">
+					<% }else{ %>
+						<img src="/triangleView/img/viewList/video.png">
+					<% } %>
 				</div>
 				<div class="viewTitle">
-					<p><%= reviewList.get(i).getRwTitle() %></p>
+					<p><%= interestReviewList.get(i).getRwTitle() %></p>
 				</div>
 				<div class="viewSearchImage">
 					<img src="/triangleView/img/viewList/views.png">
-					<p><%= reviewList.get(i).getRwCount() %></p>
+					<p><%= interestReviewList.get(i).getRwCount() %></p>
 				</div>
 				<div class="viewLikeImage">
 					<img src="/triangleView/img/viewList/like.png">
-					<p><%= reviewList.get(i).getLikeCount() %></p>
+					<p><%= interestReviewList.get(i).getLikeCount() %></p>
 				</div>
 				<div class="reviewWriter">
-					@ <p><%= reviewList.get(i).getNick() %></p>
+					@ <p onclick="goHome(this)" id="<%= interestReviewList.get(i).getNick() %>"><%= interestReviewList.get(i).getNick() %></p>
 				</div>
 			</div>
 		<% } %>

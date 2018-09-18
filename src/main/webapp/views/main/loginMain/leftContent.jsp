@@ -93,6 +93,11 @@
 		margin:3px;
 		font-size:9px;
 	}
+	.logoutleftArea {
+		margin-top:266px;
+		margin-bottom:266px;
+		font-size:12px;
+	}
 	@media all and (max-width:768px) {
 		.leftContent {
 			display: none;
@@ -102,44 +107,48 @@
 </head>
 <body>
 	<div class="leftContent">
-		<ul class="leftProfile">
-			<li>
-				<div class="leftProfileImage">
-					<img src="/triangleView/img/test.png" style="border-radius:50%; width:120px; height:120px;">
-				</div>
-			</li>
-
-			<li>
-				<p class="introduction">
-					<%= loginUser.getIntro() %>
-				</p>
-			</li>
-			<li>
-				<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
-			</li>
-			<li>
-				<h6>팔로우</h6>
-				<p class="follow">102</p>
-			</li>
-			<li>
-				<h6>팔로워</h6>
-				<p class="follower">291</p>
-			</li>
-			<li>
-				<h6>관심주제</h6>
-				<div class="interest">
-					<div class="category">게임</div>
-					<div class="category">취미</div>
-					<div class="category">IT</div>
-					<div class="category">인생</div>
-					<div class="category">금융</div>
-					<div class="category">스포츠</div>
-					<div class="category">뷰티</div>
-					<div class="category">동물</div>
-					<div class="category">기타</div>
-				</div>
-			</li>
-		</ul>
+		<% if(loginUser != null){ %>
+			<ul class="leftProfile">
+				<li>
+					<div class="leftProfileImage">
+						<img src="/triangleView/img/test.png" style="border-radius:50%; width:120px; height:120px;">
+					</div>
+				</li>
+	
+				<li>
+					<p class="introduction">
+						<%= loginUser.getIntro() %>
+					</p>
+				</li>
+				<li>
+					<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
+				</li>
+				<li>
+					<h6>팔로우</h6>
+					<p class="follow">102</p>
+				</li>
+				<li>
+					<h6>팔로워</h6>
+					<p class="follower">291</p>
+				</li>
+				<li>
+					<h6>관심주제</h6>
+					<div class="interest">
+						<div class="category">게임</div>
+						<div class="category">취미</div>
+						<div class="category">IT</div>
+						<div class="category">인생</div>
+						<div class="category">금융</div>
+						<div class="category">스포츠</div>
+						<div class="category">뷰티</div>
+						<div class="category">동물</div>
+						<div class="category">기타</div>
+					</div>
+				</li>
+			</ul>
+		<% }else{ %>
+			<p class="logoutleftArea">로그인 안했네???</p>
+		<% } %>
 	</div>
 </body>
 </html>
