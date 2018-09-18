@@ -171,14 +171,7 @@
 			</li>
 			<li>
 				<p class="MyHomeIntroduction">
-					<%-- <%= loginUser.getIntro() %> --%>
-					asdjfkljasdlkfjasdklfjasdfkljasdfjasdkl;fj
-					asdfjiasdjfiasdjf'asd
-					fajsdiofjw[0vj'afsjv'al;ksg]arg
-					aejrgoa
-					gr
-					aosir
-					goosfaisjfgojdfgiajdfg
+					<%= loginUser.getIntro() %>
 				</p>
 			</li>
 		</ul>
