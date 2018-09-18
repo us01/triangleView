@@ -1,5 +1,6 @@
 package com.chain.triangleView.review.review.service;
 
+import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.reviewDao.ReviewDao;
 import com.chain.triangleView.review.review.vo.Form;
 import com.chain.triangleView.review.review.vo.Review;
@@ -68,6 +69,45 @@ public class ReviewService {
 		close(con);
 		
 		return searchReviewList;
+	}
+	
+	public int write2Review(Review rw, Member m) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().write2Review(con,rw,m);
+		
+	/*	if(result >0){
+			Review rw = new ReviewDao().wri
+			for(int i =0; i < fileList.size(); i++){
+				fileList.get(i).setUserId(member.getUserNo());
+			}
+		}*/
+		/*int result1 = new ReviewDao().write2Hash(con,rw);*/
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int write3Review(Review rw, Member m) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().write3Review(con,rw,m);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 	
 }	

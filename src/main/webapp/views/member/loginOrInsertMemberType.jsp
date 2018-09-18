@@ -148,13 +148,27 @@
 		$(".submitBtn").submit();
 	}
 	function findId(){
-		location.href="";
+		document.getElementById('insertMemberTypeArea').style.display = 'none';
+		$(".insertMemberTypeArea").css("margin-left", "-175px");
+		$(".insertMemberTypeArea").css("background-color", "white" );
+		$(".insertMemberTypeArea").css("width", "380px" );
+		$.ajax({
+			url : "/triangleView/views/member/findId.jsp",
+			data : "html",
+			success : function(data) {
+				$(".insertMemberTypeArea").html(data);
+				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+				document.getElementById('insertMemberTypeArea').style.display = 'block';
+			}
+		});
 	}
 	function findPwd(){
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
-		$(".insertMemberTypeArea").css("margin-left", "-100px");
+		$(".insertMemberTypeArea").css("margin-left", "-175px");
+		$(".insertMemberTypeArea").css("background-color", "white" );
+		$(".insertMemberTypeArea").css("width", "380px" );
 		$.ajax({
-			url : "/triangleView/views/member/test.jsp",
+			url : "/triangleView/views/member/findPass.jsp",
 			data : "html",
 			success : function(data) {
 				$(".insertMemberTypeArea").html(data);

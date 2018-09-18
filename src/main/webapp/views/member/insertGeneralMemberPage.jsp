@@ -256,7 +256,7 @@
 </script>
 </head>
 <body>
-   <form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertMember.bo" method="post" encType="multipart/form-data">
+   <form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertMember.me" method="post" encType="multipart/form-data">
 
       <div id="container" class="w3-container">
          <div class="page-header">
