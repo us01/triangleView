@@ -195,4 +195,49 @@ public class ReviewDao {
 		return reviewList;
 	}
 
+	public ArrayList<Review> searchHashSelect(Connection con, String searchHash) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> searchReviewList = null;
+		
+		String query = prop.getProperty("searchHash");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchHash);
+			
+			rset = pstmt.executeQuery();
+			
+			searchReviewList = new ArrayList<Review>();
+			while(rset.next()){
+				Review review = new Review();
+				
+				review.setNick(rset.getString("nick"));
+				review.setLikeCount(rset.getInt("likecount"));
+				review.setCategoryType(rset.getInt("categorytype"));
+				review.setRwContent(rset.getString("rwContent"));
+				review.setRwTitle(rset.getString("rwtitle"));
+				review.setModifyYn(rset.getString("modifyyn"));
+				review.setCoorLink(rset.getString("coorlink"));
+				review.setRwContentType(rset.getInt("rwcontenttype"));
+				review.setRwCount(rset.getInt("rwcount"));
+				review.setRwHash(rset.getString("rwhash"));
+				review.setRwComment(rset.getString("rwcomment"));
+				review.setRwType(rset.getInt("rwtype"));
+				review.setRwSupport(rset.getInt("rwsupport"));
+				review.setRwNo(rset.getInt("rwno"));
+				
+				searchReviewList.add(review);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return searchReviewList;
+	}
+
 }

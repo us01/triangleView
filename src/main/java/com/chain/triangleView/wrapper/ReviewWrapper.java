@@ -8,19 +8,17 @@ import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-public class LoginWrapper extends HttpServletRequestWrapper{
-	public LoginWrapper(HttpServletRequest request){
-		super(request);	
+public class ReviewWrapper extends HttpServletRequestWrapper{
+	
+	public ReviewWrapper(HttpServletRequest request) {
+		super(request);
 	}
 	
-	@Override
 	public String getParameter(String key){
-		String value = "";
+		String value="";
 		
-		if(key != null && key.equals("userPwd")){
-			value = getSha512(super.getParameter("userPwd"));
-		}else if(key != null && key.equals("userPwdCheck")){
-			value = getSha512(super.getParameter("userPwdCheck"));
+		if(key != null && key.equals("searchHash")){
+			value = getSha512(super.getParameter("searchHash"));
 		}else{
 			value = super.getParameter(key);
 		}
@@ -28,21 +26,22 @@ public class LoginWrapper extends HttpServletRequestWrapper{
 		return value;
 	}
 
-	private static String getSha512(String pwd) {
-		String encPwd = null;
+	private static String getSha512(String searchHash) {
+		String encSearchHash = null;
 		
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			byte[] bytes = pwd.getBytes(Charset.forName("UTF-8"));
+			byte[] bytes = searchHash.getBytes(Charset.forName("UTF-8"));
 			md.update(bytes);
 			
-			encPwd = Base64.getEncoder().encodeToString(md.digest());
+			encSearchHash = Base64.getEncoder().encodeToString(md.digest());
 		} catch (NoSuchAlgorithmException e) {
+			
 			e.printStackTrace();
 		}
 		
-		return encPwd;
+		
+		return encSearchHash;
 	}
-	
 	
 }

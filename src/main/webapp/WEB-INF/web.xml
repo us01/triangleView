@@ -4,6 +4,16 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>ReviewFilter</filter-name>
+  	<display-name>ReviewFilter</display-name>
+  	<description></description>
+  	<filter-class>com.chain.triangleView.filter.ReviewFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>ReviewFilter</filter-name>
+  	<url-pattern>*.sr</url-pattern>
+  </filter-mapping>
   <servlet>
   	<servlet-name>MainLogoutReviewSelect</servlet-name>
   	<display-name>MainLogoutReviewSelect</display-name>
@@ -28,6 +38,24 @@
   	<description></description>
   	<servlet-class>com.chain.triangleView.review.controller.loadOneReviewForm</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SearchReviewServlet</servlet-name>
+  	<display-name>SearchReviewServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.review.controller.SearchReviewServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>LoginMainServlet</servlet-name>
+  	<display-name>LoginMainServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.member.controller.LoginMainServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ReSearchReviewServlet</servlet-name>
+  	<display-name>ReSearchReviewServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.review.controller.ReSearchReviewServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>logoutMainReviewSelectService</servlet-name>
   	<url-pattern>/logoutMain.rl</url-pattern>
@@ -35,5 +63,17 @@
   <servlet-mapping>
   	<servlet-name>loadOneReviewForm</servlet-name>
   	<url-pattern>/loadOneReviewForm.rf</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SearchReviewServlet</servlet-name>
+  	<url-pattern>/searchReview.sr</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoginMainServlet</servlet-name>
+  	<url-pattern>/loginMain</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ReSearchReviewServlet</servlet-name>
+  	<url-pattern>/reSearchReview.sr</url-pattern>
   </servlet-mapping>
 </web-app>

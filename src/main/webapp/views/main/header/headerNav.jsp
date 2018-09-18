@@ -430,10 +430,6 @@
 	function myAdmin(){
 		location.href="/triangleView/views/admin/main/mainpage1.jsp";
 	}
-	
-	function searchReview(){
-		
-	}
 </script>
 </head>
 <body>
@@ -442,7 +438,7 @@
 			<ul>
 				<li>
 					<% if(loginUser != null) { %>
-						<a href="/triangleView/views/main/loginMain/loginMain.jsp">
+						<a href="<%= request.getContextPath() %>/loginMain">
 							<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
 						</a>
 					<% }else { %>
@@ -453,7 +449,7 @@
 				</li>
 				<li>
 					<div>
-						<input type="text"><img onclick="searchReview()" src="/triangleView/img/main/btn_search.png">
+						<input type="text" id="searchReviewInput"><img onclick="searchReview()" src="/triangleView/img/main/btn_search.png">
 					</div>
 				</li>
 				<li><div><img class="openDetail"></div>

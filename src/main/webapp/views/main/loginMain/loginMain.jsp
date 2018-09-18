@@ -5,7 +5,8 @@
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
+	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,9 +33,14 @@
 		padding-left:50px;
 		padding-right:50px;
 	}
+	.reviewListArea {
+		margin:0 auto;
+		display:inline-block;
+		width:68%;
+	}
 	.write img{
-		margin-top:10px;
-		margin-left:10px;
+		display:inline-block;
+		margin:0 auto;
 		width:50px;
 		height:50px;
 	}
@@ -75,26 +81,48 @@
 		document.getElementById('uploadViewAear').style.display = 'none';
 		document.getElementById('uploadViewAearArea').style.display = 'none';
 	}
+	
+	$(function(){
+		$("#searchReviewInput").keypress(function(key) {
+			if(key.which == 13){
+				var searchHash = $("#searchReviewInput").val();
+				
+				$.ajax({
+					url : '<%= request.getContextPath()%>/reSearchReview.sr',
+					data : {
+						searchHash:searchHash
+					},
+					type : 'post',
+					success : function(data) {
+						$(".reviewListArea").html(data);
+					}
+				});
+			}
+		});
+	})
 </script>
 </head>
 <body>
-	<% if(loginUser != null){ %>
-		<jsp:include page="../header/headerNav.jsp" flush="true" />
-		<div class="centents">
-			<jsp:include page="./leftContent.jsp" flush="true" />
-			<jsp:include page="./centerContent.jsp" flush="true">
-				<jsp:param name="reviewList" value="<%= reviewList %>"/>
-			</jsp:include>
-			<jsp:include page="./rightContent.jsp" flush="true" />
+	<jsp:include page="../header/headerNav.jsp" flush="true" />
+	<div class="centents">
+		<jsp:include page="./leftContent.jsp" flush="true" />
+		<div class="reviewListArea">
+			<% if(interestReviewList != null){ %>
+				<jsp:include page="./centerContent.jsp" flush="true">
+					<jsp:param name="interestReviewList" value="<%= interestReviewList %>"/>
+				</jsp:include>
+			<% }else { %>
+				<jsp:include page="../../searchReviewList/searchReviewList.jsp" flush="true">
+					<jsp:param name="searchReviewList" value="<%= searchReviewList %>"/>
+				</jsp:include>
+			<% } %>
 		</div>
-		<div class="write" onclick="uploadView()">
-			<img src="/triangleView/img/viewList/uploadVIew.png">
-		</div>
-		<div id="uploadViewAear" class="uploadViewAear"></div>
-		<div id="uploadViewAearArea" class="w3-modal" onclick="ploadViewAearAreaDisplayNone();"></div>
-	<% }else{
-		response.sendRedirect("/views/index.jsp");
-	} %>
-	
+		<jsp:include page="./rightContent.jsp" flush="true" />
+	</div>
+	<div class="write">
+		<img src="/triangleView/img/viewList/uploadVIew.png">
+	</div>
+	<div id="uploadViewAear" class="uploadViewAear"></div>
+	<div id="uploadViewAearArea" class="w3-modal" onclick="ploadViewAearAreaDisplayNone();"></div>
 </body>
 </html>

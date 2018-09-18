@@ -1,19 +1,18 @@
+<%@page import="com.chain.triangleView.review.review.vo.Review"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/triangleView/css/w3.css">
+<title></title>
 <style>
-	.centerContent {
-		margin:0 auto;
-		display:inline-block;
-		width:68%;
-	}
-	.canvasArea {
-		
-	}	
 	.viewForm{
 		width:210px;
 		height:287px;
@@ -28,6 +27,7 @@
 	.viewMainImage img{
 		width:210px;
 		height:210px;
+		cursor:pointer;
 	}
 	.formType{
 		top:0px;
@@ -43,7 +43,9 @@
 	.viewTitle p {
 		font-size:13px;
 		font-weight:bold;
-		width:210px;
+		overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
 		padding-left:5px;
 		margin-top:5px;
 		margin-bottom:5px;
@@ -76,6 +78,13 @@
 		font-weight:bold;
 		margin:0px;
 	}
+	.formArea {
+		z-index: 300;
+   		position: fixed;
+   		left: 50%;
+   		margin-left:-500px;
+    	top: 110px;
+	}
 	@media all and (max-width:768px){
 		.centerContent { 
 			width:100%; 
@@ -84,38 +93,66 @@
 	}
 </style>
 <script>
-	$(function(){
-		
-	});
+	function loadReivewForm(rwNo, rwContentType){
+		$.ajax({
+			url : "/triangleView/loadOneReviewForm.rf",
+			type : "GET",
+			data : {
+				'rwNo':rwNo,
+				'rwContentType':rwContentType
+			},
+			success : function(data) {
+				$(".formArea").html(data);
+				document.getElementById('formAreaArea').style.display = 'block';
+				document.getElementById('formArea').style.display = 'block';
+			}
+		});
+	}
+
+	function formDisplayNone() {
+		document.getElementById('formArea').style.display = 'none';
+		document.getElementById('formAreaArea').style.display = 'none';
+	}
 </script>
 </head>
 <body>
 	<div class="centerContent">
-		<div>
-			
+		<div class="reviewInfoArea">
+			<div class="graphArea">그래프</div>
+			<div class="cloudTageArea">구름</div>
 		</div>
-		<div class="viewForm">
-			<div class="viewMainImage">
-				<img src="/triangleView/img/test3.jpg">
+		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
+			<div class="viewForm">
+				<div class="viewMainImage">
+					<img src="/triangleView/img/test3.jpg" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
+				</div>
+				<div class="formType">
+					<% if(searchReviewList.get(i).getRwContentType() == 0){ %>
+						<img src="/triangleView/img/viewList/text.png">
+					<% }else if(searchReviewList.get(i).getRwContentType() == 1){ %>
+						<img src="/triangleView/img/viewList/card.png">
+					<% }else{ %>
+						<img src="/triangleView/img/viewList/video.png">
+					<% } %>
+				</div>
+				<div class="viewTitle">
+					<p><%= searchReviewList.get(i).getRwTitle() %></p>
+				</div>
+				<div class="viewSearchImage">
+					<img src="/triangleView/img/viewList/views.png">
+					<p><%= searchReviewList.get(i).getRwCount() %></p>
+				</div>
+				<div class="viewLikeImage">
+					<img src="/triangleView/img/viewList/like.png">
+					<p><%= searchReviewList.get(i).getLikeCount() %></p>
+				</div>
+				<div class="reviewWriter">
+					@ <p><%= searchReviewList.get(i).getNick() %></p>
+				</div>
 			</div>
-			<div class="formType">
-				<img src="/triangleView/img/viewList/video.png">
-			</div>
-			<div class="viewTitle">
-				<p>왜 잠이 갑자기 안오지</p>
-			</div>
-			<div class="viewSearchImage">
-				<img src="/triangleView/img/viewList/views.png">
-				<p>2,305</p>
-			</div>
-			<div class="viewLikeImage">
-				<img src="/triangleView/img/viewList/like.png">
-				<p>516</p>
-			</div>
-			<div class="reviewWriter">
-				@ <p> one_bin_293</p>
-			</div>
-		</div>
+		<% } %>
 	</div>
+	<div id="formArea" class="formArea"></div>
+	<div id="formAreaArea" class="w3-modal" onclick="formDisplayNone();"></div>
 </body>
 </html>
