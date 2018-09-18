@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.chain.triangleView.SNS.SNScheck"%>
+	<%
+	String snsRan= (String)request.getAttribute("ran");
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,17 +120,49 @@ button {
 		</p>
 		<div class="input-group" style="text-align: center;">
 			<input type="text" class="w3-input w3-change" id="username" placeholder="이름을 입력해 주세요" style="width:300px;">
-			<form action="<%= request.getContextPath()%>/snscheck.sns" method="post">
+			<%-- <form action="<%=request.getContextPath()%>/snscheck.sns" method="post"> --%>
 				<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="핸드폰번호를 입력해주세요">
-				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송" onclick="sendSNS()" ></input>
-			</form> 
-			<input type="text" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"> 
+				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송"  ></input>
+				<p id="p2" style="width:300px; height:50px; border:1px solid red"></p>
+		
+			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"> 
 			<span class="input-group-btn">
 			<input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" ></input>
+			<label id="pwdresult"></label>
 			</span>
+			<!-- </form> -->
 		</div>
 	</div>
+	
+	<script>
+	
+	$("#sendVertify").click(function(){
+		
+		var phone= $("#personalnum").val();
+		
+		$.ajax({
+			url:"snscheck.sns",
+			type:"get",
+			data:{phone:phone},
+			success:function(data){
+					 $("#p2").text(data);
+					var num = data;
+				$("#checkNum").click(function(){
+					if ($("#checkNum").val() != num) {
+					    $("#pwdresult").html("비밀번호가 일치하지 않습니다").css("color", "red");
+					} else {
+				        $("#pwdresult").html("비밀번호가 일치합니다").css("color", "green");
+					} 			
+				});
+			},
+			error:function(){
+						console.log("실패!");
+			} 
 
+		}); 
+
+	});
+	</script>
 	<br>
 
 	<div class="w3-container" style="text-align: center;">
