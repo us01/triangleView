@@ -56,7 +56,7 @@ public class insertMemberServlet extends HttpServlet {
          //루트체크
          String root = request.getSession().getServletContext().getRealPath("/");
          // System.out.println(root);
-
+         
          //저장경로설정
          String savePath = root + "thumbnail_upload/";
 

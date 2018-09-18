@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.vo.Form;
 import com.chain.triangleView.review.review.vo.Review;
 import com.chain.triangleView.review.review.vo.RwComment;
@@ -238,6 +239,64 @@ public class ReviewDao {
 		}
 		
 		return searchReviewList;
+	}
+	
+	public int write2Review(Connection con, Review rw, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWrite2Review");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setString(5, rw.getRwHash());
+			pstmt.setString(6, rw.getRwComment());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int write3Review(Connection con, Review rw, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWrite3Review");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setString(5, rw.getRwHash());
+			pstmt.setString(6, rw.getRwComment());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

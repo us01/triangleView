@@ -64,18 +64,19 @@
 	}
 </style>
 <script>
-	function uploadView(){
-		$(".uploadViewAear").css("margin-left", "-250px");
-		$.ajax({
-			url : "/views/views/member/test.jsp",
-			data : "html",
-			success : function(data) {
-				$(".uploadViewAear").html(data);
-				document.getElementById('uploadViewAear').style.display = 'block';
-				document.getElementById('uploadViewAearArea').style.display = 'block';
-			}
-		});
-	}
+function uploadView(){
+	
+	$(".uploadViewAear").css("margin-left", "-250px");
+	$.ajax({
+		url : "/triangleView/views/writeForm/checkWriteForm.jsp",
+		data : "html",
+		success : function(data) {
+			$(".uploadViewAear").html(data);
+			document.getElementById('uploadViewAear').style.display = 'block';
+			document.getElementById('uploadViewAearArea').style.display = 'block';
+		}
+	});
+}
 
 	function ploadViewAearAreaDisplayNone() {
 		document.getElementById('uploadViewAear').style.display = 'none';
@@ -120,7 +121,7 @@
 		<jsp:include page="./rightContent.jsp" flush="true" />
 	</div>
 	<div class="write">
-		<img src="/triangleView/img/viewList/uploadVIew.png">
+		<img src="/triangleView/img/viewList/uploadVIew.png" onclick="uploadView()">
 	</div>
 	<div id="uploadViewAear" class="uploadViewAear"></div>
 	<div id="uploadViewAearArea" class="w3-modal" onclick="ploadViewAearAreaDisplayNone();"></div>

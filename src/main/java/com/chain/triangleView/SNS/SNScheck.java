@@ -14,13 +14,14 @@ import java.net.URLEncoder;
 
 public class SNScheck {
 
-	public String sns_check(int value) {
+	public String sns_check(int ran, String phone) {
+
 		  String type = "sms";
           String login_url = "http://ec2-52-78-178-179.ap-northeast-2.compute.amazonaws.com/SMS/sms.php";
           if (type.equals("sms")) {
               try {
-                  String user_id = "01032523173";
-                  String pin = "7482";
+                  String user_id = phone;
+                  String pin = Integer.toString(ran);
                   String count = "0";
                   URL url = new URL(login_url);
                   HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

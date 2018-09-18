@@ -266,7 +266,7 @@
 </head>
 
 <body>
-	<form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertCompanyMember.bo" method="post" encType="multipart/form-data">
+	<form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertCompanyMember.me" method="post" encType="multipart/form-data">
 		<div id="container" class="w3-container">
 			<div class="page-header">
 				<h2>기업회원가입</h2>

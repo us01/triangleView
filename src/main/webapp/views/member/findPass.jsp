@@ -9,11 +9,11 @@
     <title>findPass</title>
 
 	<!-- w3 혁동 밤길조심해... -->
-	<link rel="stylesheet" href="/views/css/w3.css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/triangleView/css/w3.css" media="screen" title="no title" charset="utf-8">
     <!-- font awesome -->
-    <link rel="stylesheet" href="/views/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/triangleView/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
     <!-- Custom style -->
-    <link rel="stylesheet" href="/views/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/triangleView/css/style.css" media="screen" title="no title" charset="utf-8">
     
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -147,7 +147,7 @@ $("input[name='findOut']:radio").change(function() {
              <input type="text" class="w3-input w3-change" id="InputName" placeholder="이름" style="width:150px;"><br>
              <input type="tel" class="w3-input w3-change" id="phonenumber" placeholder="- 없이 입력해 주세요" style="width:300px;">
                       <span class="input-group-btn">
-                  <button class="btn btn-success">인증번호 전송</button>
+                  <button class="btn btn-success"  onclick="randomNum();">인증번호 전송</button>
                 </span><br>
              <input type="text" class="w3-input w3-change" id="InputEmail" style="width:300px;" placeholder="인증번호입력"></div>
 		
@@ -175,6 +175,12 @@ $("input[name='findOut']:radio").change(function() {
 			document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 		}
 
+
+		function randomNum(){
+			var ran = Math.floor(Math.random() * 90000) + 10000;
+			alert(ran);
+			
+		}
 	</script> 
 		<!-- <button type="submit" class="subButton" onclick="javascript:window.close()">취소 </button> -->
 	</div>
