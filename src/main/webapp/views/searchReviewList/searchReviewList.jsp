@@ -168,8 +168,8 @@
 				  var doc;
 				  canvas = document.getElementById("canvas");
 				  var x = (canvas.width)/2.2;
-				  var y = (canvas.height)/2.1;
-				  var r = 80;
+				  var y = (canvas.height)/2.0;
+				  var r = 75;
 				  
 				  ctx = canvas.getContext("2d");
 				  ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -190,7 +190,7 @@
 				    var flip = 0;
 				    var textOffset = 0;
 				    var precentage = (myData[i]/myTotal)*100;
-				    end = getPoint(x,y,r+20,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
+				    end = getPoint(x,y,r+10,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
 				    start = getPoint(x,y,r-30,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
 				    if(start[0] <= x)
 				    {
