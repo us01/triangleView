@@ -89,36 +89,38 @@ button {
 <script>
 /*             <!-- 핸드폰번호는 숫자만 입력받게함 --> */
 
-$(document).ready(function() {
-	$("#phonenumber").keyup(function(){$(this).val( $(this).val().replace(/[^0-9]/g,"") );} );
+	$(document).ready(function() {
+		$("#personalnum").keyup(function() {
+			$(this).val($(this).val().replace(/[^0-9]/g, ""));
+		});
 
 	});
 
-function doOpenCheck(chk) {
-var obj = document.getElementsByName("findOut");
-for (var i = 0; i < obj.length; i++) {
-	if (obj[i] != chk) {
-		obj[i].checked = false;
+	function doOpenCheck(chk) {
+		var obj = document.getElementsByName("findOut");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
 	}
-}
-}
 
-$(document).ready(function() {
+	$(document).ready(function() {
 
-/* 라디오 버튼 변경시 이벤트 */
-$("input[name='findOut']:radio").change(function() {
+		/* 라디오 버튼 변경시 이벤트 */
+		$("input[name='findOut']:radio").change(function() {
 
-	var findOut = this.value;
+			var findOut = this.value;
 
-	if (findOut == "1") {
-		$("#email").hide();
-		$("#phone").show();
-	} else if (findOut == "2") {
-		$("#email").show();
-		$("#phone").hide();
-	}
-});
-});
+			if (findOut == "1") {
+				$("#email").hide();
+				$("#phone").show();
+			} else if (findOut == "2") {
+				$("#email").show();
+				$("#phone").hide();
+			}
+		});
+	});
 </script>
 </head>
 <body>
@@ -138,53 +140,134 @@ $("input[name='findOut']:radio").change(function() {
 	</div>
 
 	<br>
-	
-	<div class="w3-container">
-		<label>인증방법을 선택해주세요</label>
-				<br>
-             <input name="findOut" type="radio" value="1" onclick="doOpenCheck(this);">등록한 핸드폰 번호로 인증 <br />
-             <div class="layer" id="phone">
-             <input type="text" class="w3-input w3-change" id="InputName" placeholder="이름" style="width:150px;"><br>
-             <input type="tel" class="w3-input w3-change" id="phonenumber" placeholder="- 없이 입력해 주세요" style="width:300px;">
-                      <span class="input-group-btn">
-                  <button class="btn btn-success"  onclick="randomNum();">인증번호 전송</button>
-                </span><br>
-             <input type="text" class="w3-input w3-change" id="InputEmail" style="width:300px;" placeholder="인증번호입력"></div>
-		
-		<input name="findOut" type="radio" value="2"
-			onclick="doOpenCheck(this);">등록한 이메일로 인증 <br />
+
+		<div class="w3-container">
+			<label>인증방법을 선택해주세요</label> <br> <input name="findOut"
+				type="radio" value="1" onclick="doOpenCheck(this);">등록한 핸드폰 번호로 인증 <br />
+			<div class="layer" id="phone">
+				<input type="text" class="w3-input w3-change" id="InputName" placeholder="이름" style="width: 150px;"><br> 
+					<input type="tel" class="w3-input w3-change" id="personalnum" name="personalnum" placeholder="- 없이 입력해 주세요" style="width: 300px;"> 
+					<button class="btn btn-success" id="sendVertify1">인증번호전송</button>
+					<p id="p2" style="width: 100px; height: 20px; /*display:none;  */"></p>
+					<br> 
+			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"  style="width: 300px;"> 
+				 <label id="pwdresult"></label><br>
+				<input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" ></input>
+			</div>
+
+			<input name="findOut" type="radio" value="2"
+				onclick="doOpenCheck(this);">등록한 이메일로 인증 <br />
 			<div class="layer" id="email">
-			<input type="text" class="w3-input w3-change" id="InputName" placeholder="이름" style="width: 150px;"><br> 
-			<input type="email" class="w3-input w3-change" id="InputEmail" placeholder="아이디(이메일형식)" style="width: 300px;"> 
-			<span class="input-group-btn">
-				<button class="btn btn-success">인증번호 전송</button>
-			</span><br> 
-			<input type="text" class="w3-input w3-change" id="InputEmail" placeholder="인증번호입력" style="width: 300px;">
+				<input type="text" class="w3-input w3-change" id="InputName" placeholder="이름" style="width: 150px;"><br> 
+				<input type="email" class="w3-input w3-change" id="InputEmail" placeholder="아이디(이메일형식)" style="width: 300px;"> 
+                <button class="btn btn-success"  id="sendVertify2">인증번호 전송</button>
+				<br> <input type="text" class="w3-input w3-change" id="InputEmail" placeholder="인증번호입력" style="width: 300px;">
 				<br>
-				</div>
+			</div>
 		</div>
 		<br>
-		
-	<div class="w3-container" style="text-align: center;">
-		<input type="button" class="subButton" id="findId" value="비밀번호찾기"></input>
-		<input type="button" class="subButton" onclick="end();" value="취소"></input>
 
-	<script>
-		function end() {
-			document.getElementById('insertMemberTypeArea').style.display = 'none';
-			document.getElementById('insertMemberTypeAearArea').style.display = 'none';
-		}
+			<p id="p3" style="width: 100px; height:20px; /* display:none; */"></p>
+		<div class="w3-container" style="text-align: center;">
+			<input type="button" class="subButton" id="findPass" value="비밀번호찾기" disabled="disabled"></input>
+			<input type="button" class="subButton" onclick="end();" value="취소"></input>
 
+			<script>
+				function end() {
+					document.getElementById('insertMemberTypeArea').style.display = 'none';
+					document.getElementById('insertMemberTypeAearArea').style.display = 'none';
+				}
+				//이메일인증
+				$("#sendVertify2").click(function(){
+					var id = $("#InputEmail").val();
+					
+					$.ajax({
+						url : "sendPass.no",
+						type : "post",
+						data : {
+							id : id
+						},
+						success : function(data) {
+							console.log("성고오오오오옹!");
+							$("#p2").text(data);
+							var num = data;
+							
+						},
+						error : function() {
+							console.log("실패ㅠㅠ");
+						}
 
-		function randomNum(){
-			var ran = Math.floor(Math.random() * 90000) + 10000;
-			alert(ran);
-			
-		}
-	</script> 
-		<!-- <button type="submit" class="subButton" onclick="javascript:window.close()">취소 </button> -->
+					});
+				});
+
+				$("#findPass").click(function(){
+					var phone = $("#personalnum").val();
+					<%-- location.href="<%=request.getContextPath()%>/findId.no?phone="+ phone; --%>
+					
+					$.ajax({
+						url : "findId.no",
+						type : "post",
+						data : {
+							phone : phone
+						},
+						success : function(data) {
+						/* 	$("#p3").text(data);
+							var num = data;
+							var resultText = "아이디 : " + num;
+							alert(resultText);
+							$("#p4").val(resultText).css("color", "red").css("font-size","20px"); */
+							 $("#p3").text(data).css("color", "red").css("font-size","20px"); 
+							
+						},
+						error : function() {
+							console.log("실패!");
+						}
+
+					});
+				});
+
+				$("#sendVertify1").click(function() {
+
+					var phone = $("#personalnum").val();
+
+					$.ajax({
+						url : "snscheck.sns",
+						type : "post",
+						data : {
+							phone : phone
+						},
+						success : function(data) {
+							$("#p2").text(data);
+							var num = data;
+						},
+						error : function() {
+							console.log("실패!");
+						}
+
+					});
+
+				});
+
+				$("#vertifyNum").click(function(event) {
+					event.preventDefault();
+					var num2 = $("#checkNum").val() * 1;
+					var num1 = $("#p2").text() * 1;
+
+					if ($("#p2").text() != num2) {
+
+						$("#pwdresult").text("인증번호가 일치하지 않습니다").css("color", "red");
+						$('#findPass').attr("disabled", true);
+					} else {
+						$("#pwdresult").text("인증번호가 일치합니다").css("color", "green");
+						$('#findPass').attr("disabled", false);
+
+					}
+
+				});
+			</script>
+			<!-- <button type="submit" class="subButton" onclick="javascript:window.close()">취소 </button> -->
+		</div>
 	</div>
-</div>
 
 
 </body>
