@@ -342,4 +342,57 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member findId(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		Member find = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("findId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, m.getPhone());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()){
+			find = new Member();
+
+			find.setUserId(rset.getString("userId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return find;
+	}
+
+	public int checkMember(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("userNickCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, m.getNick());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+
 }

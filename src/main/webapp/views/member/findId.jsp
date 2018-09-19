@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.chain.triangleView.SNS.SNScheck"%>
-	<%
+<%
 	String snsRan= (String)request.getAttribute("ran");
 	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,15 +23,17 @@
 <link rel="stylesheet" href="/triangleView/css/style.css" media="screen"
 	title="no title" charset="utf-8">
 
-<script
-   src="https://code.jquery.com/color/jquery.color-2.1.2.js"
-   integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
-   crossorigin="anonymous">
+<script src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
 </script>
 
 <!-- CSS -->
 <style>
 
+div{
+display: inline-block;
+}
 button {
 	width: 180px;
 	background-color: #f8585b;
@@ -85,12 +87,10 @@ button {
 	display: inline-block;
 	width: 300px;
 }
-
-
 </style>
 <script>
 	$(function(){
-		$("#phonenumber").keyup(function() {
+		$("#personalnum").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 		});
 	});
@@ -119,63 +119,110 @@ button {
 			<span class="w3-tag w3-red">등록한 핸드폰 번호로 인증</span>
 		</p>
 		<div class="input-group" style="text-align: center;">
-			<input type="text" class="w3-input w3-change" id="username" placeholder="이름을 입력해 주세요" style="width:300px;">
-			<%-- <form action="<%=request.getContextPath()%>/snscheck.sns" method="post"> --%>
-				<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="핸드폰번호를 입력해주세요">
-				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송"  ></input>
-				<p id="p2" style="width:300px; height:50px; border:1px solid red"></p>
 		
-			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"> 
-			<span class="input-group-btn">
-			<input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" ></input>
-			<label id="pwdresult"></label>
-			</span>
+			<input type="text" class="w3-input w3-change" id="username" placeholder="이름을 입력해 주세요" style="width: 300px;">
+			
+			<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="핸드폰번호를 입력해주세요"  style="width: 300px;"> 
+				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송"></input>
+			<p id="p2" style="width: 100px; height: 20px; /*display:none;  */ "></p>
+
+			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"  style="width: 300px;"> 
+				 <label id="pwdresult"></label><br>
+				<input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" ></input>
+
+		<p id="p3" style="width: 100px; height:20px; /* display:none; */"></p>
+		
+		<!-- <p id="p4" style="width: 100px; height:20px; /* display:none; */"></p> -->
+		
 			<!-- </form> -->
 		</div>
 	</div>
-	
-	<script>
-	
-	$("#sendVertify").click(function(){
-		
-		var phone= $("#personalnum").val();
-		
-		$.ajax({
-			url:"snscheck.sns",
-			type:"get",
-			data:{phone:phone},
-			success:function(data){
-					 $("#p2").text(data);
-					var num = data;
-				$("#checkNum").click(function(){
-					if ($("#checkNum").val() != num) {
-					    $("#pwdresult").html("비밀번호가 일치하지 않습니다").css("color", "red");
-					} else {
-				        $("#pwdresult").html("비밀번호가 일치합니다").css("color", "green");
-					} 			
-				});
-			},
-			error:function(){
-						console.log("실패!");
-			} 
-
-		}); 
-
-	});
-	</script>
 	<br>
 
-	<div class="w3-container" style="text-align: center;">
-		<input type="button" class="subButton" id="findId" value="아이디찾기"></input>
+	<div class="w3-container" style="text-align:center; display: block;">
+		<input type="button" class="subButton" id="findId" value="아이디찾기" disabled="disabled"></input>
 		<input type="button" class="subButton" onclick="end();" value="취소"></input>
 	</div>
+	
+	<div class="w3-container" style="text-align: center;">
+		<p></p>
+	</div>
+	<script>
+	<%-- location.href='<%=request.getContextPath()%>/findId.no?num='val() --%>
+			
+	$("#findId").click(function(){
+			var phone = $("#personalnum").val();
+			<%-- location.href="<%=request.getContextPath()%>/findId.no?phone="+ phone; --%>
+			
+			$.ajax({
+				url : "findId.no",
+				type : "post",
+				data : {
+					phone : phone
+				},
+				success : function(data) {
+				/* 	$("#p3").text(data);
+					var num = data;
+					var resultText = "아이디 : " + num;
+					alert(resultText);
+					$("#p4").val(resultText).css("color", "red").css("font-size","20px"); */
+					 $("#p3").text(data).css("color", "red").css("font-size","20px"); 
+					
+				},
+				error : function() {
+					console.log("실패!");
+				}
+
+			});
+		});
+
+		$("#sendVertify").click(function() {
+
+			var phone = $("#personalnum").val();
+
+			$.ajax({
+				url : "snscheck.sns",
+				type : "post",
+				data : {
+					phone : phone
+				},
+				success : function(data) {
+					$("#p2").text(data);
+					var num = data;
+				},
+				error : function() {
+					console.log("실패!");
+				}
+
+			});
+
+		});
+
+		$("#vertifyNum").click(function(event) {
+			event.preventDefault();
+			var num2 = $("#checkNum").val() * 1;
+			var num1 = $("#p2").text() * 1;
+
+			if ($("#p2").text() != num2) {
+
+				$("#pwdresult").text("인증번호가 일치하지 않습니다").css("color", "red");
+				$('#findId').attr("disabled", true);
+			} else {
+				$("#pwdresult").text("인증번호가 일치합니다").css("color", "green");
+				$('#findId').attr("disabled", false);
+
+			}
+
+		});
+	</script>
+
 
 	<script>
 		function end() {
 			document.getElementById('insertMemberTypeArea').style.display = 'none';
 			document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 		}
-	</script> 
+	</script>
 
 
 
