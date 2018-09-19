@@ -87,11 +87,13 @@ function uploadView(){
 		$("#searchReviewInput").keypress(function(key) {
 			if(key.which == 13){
 				var searchHash = $("#searchReviewInput").val();
+				var searchData = $("#searchReviewInput").val();
 				
 				$.ajax({
 					url : '<%= request.getContextPath()%>/reSearchReview.sr',
 					data : {
-						searchHash:searchHash
+						searchHash:searchHash,
+						searchData:searchData
 					},
 					type : 'post',
 					success : function(data) {
