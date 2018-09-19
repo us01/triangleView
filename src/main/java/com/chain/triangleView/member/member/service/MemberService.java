@@ -134,6 +134,25 @@ public class MemberService {
 		return result;
 	}
 
+	public Member findId(Member m) {
+		Connection con = getConnection();
+		
+		Member find = new MemberDao().findId(con,m);
+		close(con);
+		
+		return find;
+	}
+
+	public int checkMember(Member m) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().checkMember(con, m);
+		close(con);
+		
+		
+		return result;
+	}
+
 
 
 

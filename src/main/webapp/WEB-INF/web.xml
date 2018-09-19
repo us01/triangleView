@@ -87,10 +87,35 @@
   	<servlet-class>com.chain.triangleView.review.controller.insertWrite3Servlet</servlet-class>
   </servlet>
   <servlet>
+
   	<servlet-name>CrollingAndNLPServlet</servlet-name>
   	<display-name>CrollingAndNLPServlet</display-name>
   	<description></description>
   	<servlet-class>com.chain.triangleView.review.controller.CrollingAndNLPServlet</servlet-class>
+
+  	<servlet-name>findIdServlet</servlet-name>
+  	<display-name>findIdServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.member.controller.findIdServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>sendVerifyServlet</servlet-name>
+  	<display-name>sendVerifyServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.email.controller.sendVerifyServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>nickCheckServlet</servlet-name>
+  	<display-name>nickCheckServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.member.controller.nickCheckServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>sendPassServlet</servlet-name>
+  	<display-name>sendPassServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.chain.triangleView.email.controller.sendPassServlet</servlet-class>
+
   </servlet>
   <servlet-mapping>
   	<servlet-name>logoutMainReviewSelectService</servlet-name>
@@ -127,7 +152,19 @@
   <servlet-mapping>
   	<servlet-name>CrollingAndNLPServlet</servlet-name>
   	<url-pattern>/crolling</url-pattern>
+  	<servlet-name>findIdServlet</servlet-name>
+  	<url-pattern>/findId.no</url-pattern>
   </servlet-mapping>
-
-
+  <servlet-mapping>
+  	<servlet-name>sendVerifyServlet</servlet-name>
+  	<url-pattern>/sendVerify.no</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>nickCheckServlet</servlet-name>
+  	<url-pattern>/nickCheck.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>sendPassServlet</servlet-name>
+  	<url-pattern>/sendPass.no</url-pattern>
+  </servlet-mapping>
 </web-app>

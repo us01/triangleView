@@ -226,25 +226,23 @@
 		
 		$("#nickCheck").click(function(){
 			var nick = $("#nick").val();
-			
-			//ajax 호출하는 메소드
 			$.ajax({
-				//요청하는 서블릿
-				url:"/views/nickCheck.do",
-				//서블릿으로 넘길값(객체형식)
+
+				url:"nickCheck.do",
 				data:{nick:nick},
-				//get/post
-				type:"get",
+				type:"post",
 				success:function(data){
-					console.log("서버전송성공!!");
-					if(data =="1"){
-						alert("중복되는 닉네임입니다.");
-						$('#newMember').attr("disabled", true);
+					var num = data;
+					if(num == 0){
+						
+						$("#nickResult").text("사용가능한 닉네임입니다.").css("color", "green");
+						$('#newMember').attr("disabled", false);
 					}else{
-						alert("사용가능한 닉네임입니다.");
+						
+						$("#nickResult").text("중복되는 닉네임입니다.").css("color", "red");
+						$('#newMember').attr("disabled", true);
 					}
 				},
-				//에러일 경우 status라는 상태가 넘어감(상태,메세지 형태)
 				error:function(){
 					console.log("서버 전송 실패");
 				}
@@ -279,33 +277,29 @@
                   placeholder="아이디(이메일형식)"> <span class="input-group-btn">
 			<input type="button" class="btn-success" id="sendVertify" value="인증번호전송"></input>
                </span>
+               
+                <p id="p2" style="width: 100px; height: 20px;">
+                
             </div>
          </div>
 
          <div class="w3-container" id="mail2">
             <p><span class="w3-tag w3-red">인증번호입력</span></p>
             <div class="input-group" style="text-align: center;">
-               <input type="text" class="w3-input w3-change" placeholder="인증번호">
-               <span class="input-group-btn">
+               <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호">
 		<input type="button" class="btn-success" id="vertifyNum" value="인증번호입력"></input>
-               </span>
+		<br><label id="checkVerify"></label>
+              
             </div>
          </div>
-
-<!--          <div class="w3-container">
-            <p><span class="w3-tag w3-red">이름</span></p>
-            <div style="text-align: center;">
-               <input type="text" class="w3-input w3-change" id="userName"  name="userName" placeholder="이름을 입력해 주세요">
-            </div>
-         </div> -->
 
          <div class="w3-container" id="nickname">
             <p><span class="w3-tag w3-red">닉네임</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="nick" name="nick" 
-                  placeholder="닉네임을 입력해 주세요"> <span class="input-group-btn">
+                  placeholder="닉네임을 입력해 주세요"> 
 			<input type="button" class="btn-success" id="nickCheck" value="중복검사"></input>
-               </span>
+               <br><label id="nickResult"></label>
             </div>
          </div>
 
@@ -409,14 +403,55 @@
          </div>
 
          <div class="w3-container" style="text-align: center;">
-            <input type="submit" class="subButton" id="newMember" value="일반회원가입"></input>
+            <input type="submit" class="subButton" id="newMember" value="일반회원가입" disabled="disabled"></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
          </div>
+        
 			<script>
 				function end() {
 					document.getElementById('insertMemberTypeArea').style.display = 'none';
 					document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 				}
+				
+				$("#sendVertify").click(function(){
+					var id = $("#userId").val();
+					
+					$.ajax({
+						url : "sendVerify.no",
+						type : "post",
+						data : {
+							id : id
+						},
+						success : function(data) {
+							console.log("성고오오오오옹!");
+							$("#p2").text(data);
+							var num = data;
+							
+						},
+						error : function() {
+							console.log("실패ㅠㅠ");
+						}
+
+					});
+				});
+				
+				//인증번호 확인
+				$("#vertifyNum").click(function(event) {
+					event.preventDefault();
+					var num2 = $("#checkNum").val() * 1;
+					var num1 = $("#p2").text() * 1;
+		
+
+					if ($("#p2").text() != num2) {
+						$("#checkVerify").text("인증번호가 일치하지 않습니다").css("color", "red");
+						$('#newMember').attr("disabled", true);
+					} else {
+						$("#checkVerify").text("인증번호가 일치합니다").css("color", "green");
+						$('#newMember').attr("disabled", false);
+					}
+
+				});
+
 			</script>
 
 		</div>
