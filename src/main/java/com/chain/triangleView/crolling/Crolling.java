@@ -13,47 +13,43 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class Crolling {
 
-   public void crolling_twitter(String str) {
-      List<Status> tweets = new ArrayList<Status>();
-      ConfigurationBuilder cb = new ConfigurationBuilder();
-      cb.setOAuthConsumerKey("N1xG5BztGMWnx25x6R6nZF2HY");
-      cb.setOAuthConsumerSecret("z6Mzy2D9r62r6puqAjhBWxhZNQHjHb0PNsUNUE8Zul9otZXke3");
-      cb.setOAuthAccessToken("2975562769-YCZebNCoTyxWTHoxxlYh2pXbWDOiLsu8zV7DFU1");
-      cb.setOAuthAccessTokenSecret("yGCuxO4W114wynPjkwwKoJwJtC9C43nbQfYQUbzpFudvy");
+	public ArrayList<Status> crolling_twitter(String str) {
+		ArrayList<Status> tweets = new ArrayList<Status>();
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setOAuthConsumerKey("N1xG5BztGMWnx25x6R6nZF2HY");
+		cb.setOAuthConsumerSecret("z6Mzy2D9r62r6puqAjhBWxhZNQHjHb0PNsUNUE8Zul9otZXke3");
+		cb.setOAuthAccessToken("2975562769-YCZebNCoTyxWTHoxxlYh2pXbWDOiLsu8zV7DFU1");
+		cb.setOAuthAccessTokenSecret("yGCuxO4W114wynPjkwwKoJwJtC9C43nbQfYQUbzpFudvy");
 
-      Twitter twitter = new TwitterFactory(cb.build()).getInstance();
-      int wantedTweets = 10;
-      int remainingTweets = wantedTweets;
-      Query query = new Query(str);
-       try
-      { 
+		Twitter twitter = new TwitterFactory(cb.build()).getInstance();
+		int wantedTweets = 10;
+		int remainingTweets = wantedTweets;
+		Query query = new Query(str);
 
-        while(remainingTweets > 0)
-        {
-          remainingTweets = wantedTweets - tweets.size();
-          if(remainingTweets > 100)
-          {
-            query.count(100);
-          }
-          else
-          {
-           query.count(remainingTweets); 
-          }
-          QueryResult result = twitter.search(query);
-          tweets.addAll(result.getTweets());
-          System.out.println("result.getTweets() " + tweets);
-          Status s = tweets.get(tweets.size()-1);
-          long firstQueryID = s.getId();
-          query.setMaxId(firstQueryID);
-          remainingTweets = wantedTweets - tweets.size();
-        }
+		try{ 
 
-        System.out.println("tweets.size() "+tweets.size() );
-      }
-      catch(TwitterException te)
-      {
-        System.out.println("Failed to search tweets: " + te.getMessage());
-        System.exit(-1);
-      }
-   }
+			while(remainingTweets > 0){
+
+				remainingTweets = wantedTweets - tweets.size();
+				if(remainingTweets > 100){
+					query.count(100);
+				}
+				else{
+					query.count(remainingTweets); 
+				}
+
+				QueryResult result = twitter.search(query);
+				tweets.addAll(result.getTweets());
+				Status s = tweets.get(tweets.size()-1);
+				long firstQueryID = s.getId();
+				query.setMaxId(firstQueryID);
+				remainingTweets = wantedTweets - tweets.size();
+			}
+		}
+		catch(TwitterException te){
+
+			System.exit(-1);
+		}
+		return tweets;
+	}
 }

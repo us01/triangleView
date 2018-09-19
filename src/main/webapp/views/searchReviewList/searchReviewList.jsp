@@ -4,6 +4,12 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
+	String searchReviewData = "default";
+
+	if(request.getAttribute("searchReviewData") != null){
+		searchReviewData = (String)request.getAttribute("searchReviewData");
+		System.out.println("1. 검색어 초기화 됐냐 ==========================" + searchReviewData);
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -133,79 +139,99 @@
 	}
 	
 	$(function(){
-		var myColor = ["#39ca74","#e54d42","#f0c330"];
-		var myData = [70,10,20];
-		var myLabel = ["긍정","부정","보통"];
 		
-		function getTotal()	{
-		  var myTotal = 0;
-		  for (var j = 0; j < myData.length; j++) {
-		    myTotal += (typeof myData[j] == 'number') ? myData[j] : 0;
-		  }
-		  return myTotal;
-		}
-		
-		function plotData() {
-		  var canvas;
-		  var ctx;
-		  var lastend = 0;
-		  var myTotal = getTotal();
-		  var doc;
-		  canvas = document.getElementById("canvas");
-		  var x = (canvas.width)/2.0;
-		  var y = (canvas.height)/2.1;
-		  var r = 80;
-		  
-		  ctx = canvas.getContext("2d");
-		  ctx.clearRect(0, 0, canvas.width, canvas.height);
-		
-		  for (var i = 0; i < myData.length; i++) {
-		    ctx.fillStyle = myColor[i];
-		    ctx.beginPath();
-		    ctx.moveTo(x,y);
-		    ctx.arc(x,y,r,lastend,lastend+(Math.PI*2*(myData[i]/myTotal)),false);
-		    ctx.lineTo(x,y);
-		    ctx.fill();
-		    
-		    // Now the pointers
-		    ctx.beginPath();
-		    var start = [];
-		    var end = [];
-		    var last = 0;
-		    var flip = 0;
-		    var textOffset = 0;
-		    var precentage = (myData[i]/myTotal)*100;
-		    end = getPoint(x,y,r+20,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
-		    start = getPoint(x,y,r-30,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
-		    if(start[0] <= x)
-		    {
-		      flip = -1;
-		      textOffset = -80;
-		    }
-		    else
-		    {
-		      flip = 1;
-		      textOffset = 10;
-		    }
-		    ctx.moveTo(start[0],start[1]);
-		    ctx.lineTo(end[0],end[1]);
-		    ctx.lineTo(end[0]+80*flip,end[1]); //글자 아래 라인 길이
-		    ctx.strokeStyle = "#E5E5E5";
-		    ctx.lineWidth = 2; //글자 아래 라인 두께
-		    ctx.stroke();
-		    // The labels
-		    ctx.font="12px 맑은고딕";
-		    ctx.fillText(myLabel[i]+" "+precentage.toFixed(2)+"%",end[0]+textOffset,end[1]-4); 
-		    // Increment Loop
-		    lastend += Math.PI*2*(myData[i]/myTotal);
-		  }
-		}
-		// Find that magical point
-		function getPoint(c1,c2,radius,angle) {
-		  return [c1+Math.cos(angle)*radius,c2+Math.sin(angle)*radius];
-		}
-		// The drawing
-		plotData();
+		var searchReviewData = '<%=searchReviewData%>';
+		console.log('<%=searchReviewData%>');
+		$.ajax({
+			url : "<%=request.getContextPath()%>/crolling",
+			type : "GET",
+			data : {searchReviewData:searchReviewData},
+			success : function(data) {
+					
+				var myColor = ["#39ca74","#e54d42","#f0c330"];
+				var myData = [data["good"], data["soso"], data["bad"]];
+				var myLabel = ["긍정","부정","보통"];
+				
+				function getTotal()	{
+				  var myTotal = 0;
+				  for (var j = 0; j < myData.length; j++) {
+				    myTotal += (typeof myData[j] == 'number') ? myData[j] : 0;
+				  }
+				  return myTotal;
+				}
+				
+				function plotData() {
+				  var canvas;
+				  var ctx;
+				  var lastend = 0;
+				  var myTotal = getTotal();
+				  var doc;
+				  canvas = document.getElementById("canvas");
+				  var x = (canvas.width)/2.2;
+				  var y = (canvas.height)/2.1;
+				  var r = 80;
+				  
+				  ctx = canvas.getContext("2d");
+				  ctx.clearRect(0, 0, canvas.width, canvas.height);
+				
+				  for (var i = 0; i < myData.length; i++) {
+				    ctx.fillStyle = myColor[i];
+				    ctx.beginPath();
+				    ctx.moveTo(x,y);
+				    ctx.arc(x,y,r,lastend,lastend+(Math.PI*2*(myData[i]/myTotal)),false);
+				    ctx.lineTo(x,y);
+				    ctx.fill();
+				    
+				    // Now the pointers
+				    ctx.beginPath();
+				    var start = [];
+				    var end = [];
+				    var last = 0;
+				    var flip = 0;
+				    var textOffset = 0;
+				    var precentage = (myData[i]/myTotal)*100;
+				    end = getPoint(x,y,r+20,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
+				    start = getPoint(x,y,r-30,(lastend+(Math.PI*2*(myData[i]/myTotal))/2));
+				    if(start[0] <= x)
+				    {
+				      flip = -1;
+				      textOffset = -80;
+				    }
+				    else
+				    {
+				      flip = 1;
+				      textOffset = 10;
+				    }
+				    ctx.moveTo(start[0],start[1]);
+				    ctx.lineTo(end[0],end[1]);
+				    ctx.lineTo(end[0]+80*flip,end[1]); //글자 아래 라인 길이
+				    ctx.strokeStyle = "#E5E5E5";
+				    ctx.lineWidth = 2; //글자 아래 라인 두께
+				    ctx.stroke();
+				    // The labels
+				    ctx.font="12px 맑은고딕";
+				    ctx.fillText(myLabel[i]+" "+precentage.toFixed(2)+"%",end[0]+textOffset,end[1]-4); 
+				    // Increment Loop
+				    lastend += Math.PI*2*(myData[i]/myTotal);
+				  }
+				}
+				// Find that magical point
+				function getPoint(c1,c2,radius,angle) {
+				  return [c1+Math.cos(angle)*radius,c2+Math.sin(angle)*radius];
+				}
+				// The drawing
+				plotData();
+			},
+			beforeSend: function () {
+				$("#canvas").css({"display":"none"});
+				$("#loading").css({"display":"block"});
+				
+            },
+            complete: function () {
+            	$("#canvas").css({"display":"block"});
+				$("#loading").css({"display":"none"});
+            }
+		});
 	});
 </script>
 </head>
@@ -214,7 +240,8 @@
 		<div class="reviewInfoArea">
 			<div class="graphArea">
 				<div class="canvasArea">
-				  <canvas id="canvas" width="340" height="250"></canvas>
+				  <img id="loading" src="/triangleView/img/main/data.gif" width="250" height="250">
+				  <canvas id="canvas" width="300" height="240" display="none"></canvas>
 				</div>
 			</div>
 			<div class="cloudTageArea"></div>
