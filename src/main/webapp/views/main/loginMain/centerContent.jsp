@@ -68,10 +68,10 @@
 		color:darkgray;
 	}
 	.reviewWriter {
-		text-align:right;
+		float:right;
 		font-size:11px;
 		font-weight:bold;
-		padding-top:31px;
+		cursor:pointer;
 	}
 	.reviewWriter p{
 		display:inline;
@@ -121,7 +121,7 @@
 		var goMe = '<%= loginUser.getNick() %>';
 		
 		if(goMe != goUser){
-			location.href='<%= request.getContextPath()%>/userHome';
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser;
 		}else{
 			location.href='<%= request.getContextPath()%>/myHome';
 		}
@@ -156,7 +156,7 @@
 					<p><%= interestReviewList.get(i).getLikeCount() %></p>
 				</div>
 				<div class="reviewWriter">
-					@ <p onclick="goHome(this)" id="<%= interestReviewList.get(i).getNick() %>"><%= interestReviewList.get(i).getNick() %></p>
+					@ <p onclick="goHome(this)" id="<%= interestReviewList.get(i).getUserId() %>"><%= interestReviewList.get(i).getNick() %></p>
 				</div>
 			</div>
 		<% } %>

@@ -49,6 +49,9 @@ public class Crolling {
 		catch(TwitterException te){
 
 			System.exit(-1);
+		}catch(ArrayIndexOutOfBoundsException e) {
+			
+			tweets = null;
 		}
 		return tweets;
 	}

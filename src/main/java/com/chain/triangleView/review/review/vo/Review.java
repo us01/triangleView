@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Review {
 	private String nick;
+	private String userId;
 	private int todayRwCount;
 	private int likeCount;
 	private int categoryType;
@@ -27,13 +28,13 @@ public class Review {
 		super();
 	}
 
-	
-
-	public Review(String nick, int todayRwCount, int likeCount, int categoryType, String rwContent, String rwTitle,
-			String modifyYn, Date modifyDate, Date writerDate, String coorLink, int rwContentType, int rwCount,
-			String rwHash, String rwComment, int rwType, int coorCode, int rwSupport, int rwNo, double rwGrade) {
+	public Review(String nick, String userId, int todayRwCount, int likeCount, int categoryType, String rwContent,
+			String rwTitle, String modifyYn, Date modifyDate, Date writerDate, String coorLink, int rwContentType,
+			int rwCount, String rwHash, String rwComment, int rwType, int coorCode, int rwSupport, int rwNo,
+			double rwGrade) {
 		super();
 		this.nick = nick;
+		this.userId = userId;
 		this.todayRwCount = todayRwCount;
 		this.likeCount = likeCount;
 		this.categoryType = categoryType;
@@ -54,14 +55,20 @@ public class Review {
 		this.rwGrade = rwGrade;
 	}
 
-
-
 	public String getNick() {
 		return nick;
 	}
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getTodayRwCount() {
@@ -200,30 +207,22 @@ public class Review {
 		this.rwNo = rwNo;
 	}
 
-
-
 	public double getRwGrade() {
 		return rwGrade;
 	}
-
-
 
 	public void setRwGrade(double rwGrade) {
 		this.rwGrade = rwGrade;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Review [nick=" + nick + ", todayRwCount=" + todayRwCount + ", likeCount=" + likeCount
-				+ ", categoryType=" + categoryType + ", rwContent=" + rwContent + ", rwTitle=" + rwTitle + ", modifyYn="
-				+ modifyYn + ", modifyDate=" + modifyDate + ", writerDate=" + writerDate + ", coorLink=" + coorLink
-				+ ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwHash=" + rwHash + ", rwComment="
-				+ rwComment + ", rwType=" + rwType + ", coorCode=" + coorCode + ", rwSupport=" + rwSupport + ", rwNo="
-				+ rwNo + ", rwGrade=" + rwGrade + "]";
+		return "Review [nick=" + nick + ", userId=" + userId + ", todayRwCount=" + todayRwCount + ", likeCount="
+				+ likeCount + ", categoryType=" + categoryType + ", rwContent=" + rwContent + ", rwTitle=" + rwTitle
+				+ ", modifyYn=" + modifyYn + ", modifyDate=" + modifyDate + ", writerDate=" + writerDate + ", coorLink="
+				+ coorLink + ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwHash=" + rwHash
+				+ ", rwComment=" + rwComment + ", rwType=" + rwType + ", coorCode=" + coorCode + ", rwSupport="
+				+ rwSupport + ", rwNo=" + rwNo + ", rwGrade=" + rwGrade + "]";
 	}
-
-	
-
+  
 }

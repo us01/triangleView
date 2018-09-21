@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.notice.notice.service.NoticeService;
+import com.chain.triangleView.notice.notice.vo.notice.Notice;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 
@@ -28,14 +30,25 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 	
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
+		ArrayList<Notice> noticeList = null;
 		
 		if(loginUser != null){
 			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			request.setAttribute("interestReviewList", interestReviewList);
-			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
+			noticeList = new NoticeService().selectAllNotice();
+			
+			if(noticeList != null) {
+
+				request.setAttribute("selectAllNotice", noticeList);
+				request.setAttribute("interestReviewList", interestReviewList);
+				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);		
+			}else {
+				
+				request.setAttribute("interestReviewList", interestReviewList);
+				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);				
+			}
 		}else{
 			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
