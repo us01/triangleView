@@ -420,7 +420,7 @@
 		document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 	}
 	function myHome(){
-		location.href="/triangleView/views/myPage/myHome.jsp";
+		location.href='<%= request.getContextPath()%>/myHome';
 	}
 	
 	function myComp(){

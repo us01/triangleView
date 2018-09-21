@@ -1,8 +1,10 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -125,6 +127,7 @@
 		font-size:12px;
 		font-weight:bold;
 		margin:0px;
+		cursor:pointer;
 	}
 	
 	.reviewerRecruitmentListArea {
@@ -285,6 +288,42 @@
 		}
 	}
 </style>
+<script>
+	function goHome(word){
+		var goUser = $(word).attr("id");
+		var goMe = '';
+		<% if(loginUser != null){ %>
+			goMe = '<%= loginUser.getUserId() %>';
+		<% } %>
+		
+		if(goMe != goUser){
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser;
+		}else{
+			location.href='<%= request.getContextPath()%>/myHome';
+		}
+	}
+	
+	function loadReivewForm(rwNo, rwContentType){
+		$.ajax({
+			url : "/triangleView/loadOneReviewForm.rf",
+			type : "GET",
+			data : {
+				'rwNo':rwNo,
+				'rwContentType':rwContentType
+			},
+			success : function(data) {
+				$(".formArea").html(data);
+				document.getElementById('formAreaArea').style.display = 'block';
+				document.getElementById('formArea').style.display = 'block';
+			}
+		});
+	}
+
+	function formDisplayNone() {
+		document.getElementById('formArea').style.display = 'none';
+		document.getElementById('formAreaArea').style.display = 'none';
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="./mainCategory.jsp"></jsp:include>
@@ -318,7 +357,7 @@
 								<img src="/triangleView/img/viewList/like.png">
 								<p><%= reviewList.get(i).getLikeCount() %></p>
 							</div>
-							<div class="reviewWriter">
+							<div class="reviewWriter" onclick="goHome(this)" id="<%= reviewList.get(i).getUserId() %>">
 								@ <p><%= reviewList.get(i).getNick() %></p>
 							</div>
 						</div>
@@ -362,27 +401,5 @@
 	</div>
 	<div id="formArea" class="formArea"></div>
 	<div id="formAreaArea" class="w3-modal" onclick="formDisplayNone();"></div>
-	<script>
-		function loadReivewForm(rwNo, rwContentType){
-			$.ajax({
-				url : "/triangleView/loadOneReviewForm.rf",
-				type : "GET",
-				data : {
-					'rwNo':rwNo,
-					'rwContentType':rwContentType
-				},
-				success : function(data) {
-					$(".formArea").html(data);
-					document.getElementById('formAreaArea').style.display = 'block';
-					document.getElementById('formArea').style.display = 'block';
-				}
-			});
-		}
-	
-		function formDisplayNone() {
-			document.getElementById('formArea').style.display = 'none';
-			document.getElementById('formAreaArea').style.display = 'none';
-		}
-	</script>
 </body>
 </html>

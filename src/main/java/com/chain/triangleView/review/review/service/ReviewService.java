@@ -109,5 +109,31 @@ public class ReviewService {
 		
 		return result;
 	}
+
+	public ArrayList<Review> userHomeReviewSelect(String userId) {
+		Connection con = getConnection();
+		
+		ArrayList<Review> userReviewList = new ReviewDao().userHomeReviewSelect(con, userId);
+		
+		close(con);
+		
+		return userReviewList;
+	}
+
+	public int addComment(int rwNo, int commentNo, int userNo, String commentContent) {
+		Connection con = getConnection();
+			
+		int result = new ReviewDao().addComment(con, rwNo, commentNo, userNo, commentContent);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 	
 }	

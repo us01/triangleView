@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class RwComment implements Serializable{
+	private int rwNo;
 	private String commentContent;
+	private int commentNo;
 	private Boolean parentCommentNo;
 	private String rwDate;
 	private int userNo;
@@ -14,13 +16,24 @@ public class RwComment implements Serializable{
 		super();
 	}
 
-	public RwComment(String commentContent, Boolean parentCommentNo, String rwDate, int userNo, String nick) {
+	public RwComment(int rwNo, String commentContent, int commentNo, Boolean parentCommentNo, String rwDate, int userNo,
+			String nick) {
 		super();
+		this.rwNo = rwNo;
 		this.commentContent = commentContent;
+		this.commentNo = commentNo;
 		this.parentCommentNo = parentCommentNo;
 		this.rwDate = rwDate;
 		this.userNo = userNo;
 		this.nick = nick;
+	}
+
+	public int getRwNo() {
+		return rwNo;
+	}
+
+	public void setRwNo(int rwNo) {
+		this.rwNo = rwNo;
 	}
 
 	public String getCommentContent() {
@@ -29,6 +42,14 @@ public class RwComment implements Serializable{
 
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
+	}
+
+	public int getCommentNo() {
+		return commentNo;
+	}
+
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
 	}
 
 	public Boolean getParentCommentNo() {
@@ -65,8 +86,9 @@ public class RwComment implements Serializable{
 
 	@Override
 	public String toString() {
-		return "RwComment [commentContent=" + commentContent + ", parentCommentNo=" + parentCommentNo + ", rwDate="
-				+ rwDate + ", userNo=" + userNo + ", nick=" + nick + "]";
+		return "RwComment [rwNo=" + rwNo + ", commentContent=" + commentContent + ", commentNo=" + commentNo
+				+ ", parentCommentNo=" + parentCommentNo + ", rwDate=" + rwDate + ", userNo=" + userNo + ", nick="
+				+ nick + "]";
 	}
 	
 }
