@@ -1,7 +1,8 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String msg = (String)request.getAttribute("msg");
+	HashMap<String, Object> userHome = (HashMap<String, Object>)request.getAttribute("userHome");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,25 +28,16 @@
 		}
 	}
 </style>
-<script>
-	$(function(){
-		var msg = '<%= msg %>';
-		
-		if(msg != 'null'){
-			alert(msg);
-		}
-	})
-</script>
 </head>
 <body>
 	<%@ include file="../main/header/headerNav.jsp" %>
-	<% if(loginUser != null){ %>
-		<div class="myHomeArea">
-			<jsp:include page="myHomeHeader.jsp" flush="true" />
-			<jsp:include page="myHomeList.jsp" flush="true" />
-		</div>
-	<% }else{
-		response.sendRedirect("/triangleView/index.jsp");}
-	%>
+	<div class="myHomeArea">
+		<jsp:include page="myHomeHeader.jsp" flush="true">
+			<jsp:param name="userHome" value="<%= userHome %>"/>
+		</jsp:include>
+		<jsp:include page="myHomeList.jsp" flush="true">
+			<jsp:param name="userHome" value="<%= userHome %>"/>
+		</jsp:include>
+	</div>
 </body>
 </html>

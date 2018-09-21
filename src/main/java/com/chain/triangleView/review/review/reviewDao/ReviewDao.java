@@ -20,6 +20,7 @@ import static com.chain.triangleView.common.JDBCTemplate.*;
 
 public class ReviewDao {
 	private Properties prop = new Properties();
+	
 	public ReviewDao(){
 		String fileName = ReviewDao.class.getResource("/resources/review/review-query.properties").getPath();
 		
@@ -60,6 +61,7 @@ public class ReviewDao {
 				review.setRwHash(rset.getString("rwhash"));
 				review.setRwComment(rset.getString("rwcomment"));
 				review.setRwType(rset.getInt("rwtype"));
+				review.setUserId(rset.getString("userid"));
 				review.setRwSupport(rset.getInt("rwsupport"));
 				review.setRwNo(rset.getInt("rwno"));
 				
@@ -104,6 +106,7 @@ public class ReviewDao {
 				form.setWriteDate(rset.getString("rwwritedate"));
 				form.setRwTitle(rset.getString("rwtitle"));
 				form.setRwContent(rset.getString("rwcontent"));
+				form.setRwNo(rset.getInt("rwno"));
 			}
 			
 		} catch (SQLException e) {
@@ -142,6 +145,8 @@ public class ReviewDao {
 				comment.setRwDate(rset.getString("rwdate"));
 				comment.setUserNo(rset.getInt("userNo"));
 				comment.setNick(rset.getString("nick"));
+				comment.setRwNo(rset.getInt("rwno"));
+				comment.setCommentNo(rset.getInt("commentno"));
 				
 				rwComment.add(comment);
 			}
@@ -170,6 +175,7 @@ public class ReviewDao {
 				Review review = new Review();
 				
 				review.setNick(rset.getString("nick"));
+				review.setUserId(rset.getString("userid"));
 				review.setLikeCount(rset.getInt("likecount"));
 				review.setCategoryType(rset.getInt("categorytype"));
 				review.setRwContent(rset.getString("rwContent"));
@@ -225,6 +231,7 @@ public class ReviewDao {
 				review.setRwHash(rset.getString("rwhash"));
 				review.setRwComment(rset.getString("rwcomment"));
 				review.setRwType(rset.getInt("rwtype"));
+				review.setUserId(rset.getString("userid"));
 				review.setRwSupport(rset.getInt("rwsupport"));
 				review.setRwNo(rset.getInt("rwno"));
 				
@@ -290,9 +297,91 @@ public class ReviewDao {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Review> userHomeReviewSelect(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> userReviewList = null;
+		
+		String query = prop.getProperty("userHomeReviewSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			userReviewList = new ArrayList<Review>();
+			
+			while(rset.next()){
+				Review review = new Review();
+				
+				review.setNick(rset.getString("nick"));
+				review.setLikeCount(rset.getInt("likecount"));
+				review.setCategoryType(rset.getInt("categorytype"));
+				review.setRwContent(rset.getString("rwContent"));
+				review.setRwTitle(rset.getString("rwtitle"));
+				review.setModifyYn(rset.getString("modifyyn"));
+				review.setCoorLink(rset.getString("coorlink"));
+				review.setRwContentType(rset.getInt("rwcontenttype"));
+				review.setRwCount(rset.getInt("rwcount"));
+				review.setRwHash(rset.getString("rwhash"));
+				review.setRwComment(rset.getString("rwcomment"));
+				review.setRwType(rset.getInt("rwtype"));
+				review.setRwSupport(rset.getInt("rwsupport"));
+				review.setRwNo(rset.getInt("rwno"));
+				
+				userReviewList.add(review);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userReviewList;
+	}
+
+	public int addComment(Connection con, int rwNo, int commentNo, int userNo, String commentContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("addComment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rwNo);
+			System.out.println("rwNo1 : " + rwNo);
+			pstmt.setInt(2, rwNo);
+			System.out.println("rwNo2 : " + rwNo);
+			pstmt.setString(3, commentContent);
+			System.out.println("commentContent : " + commentContent);
+			if(commentNo == -1){
+				System.out.println("if commentNo : " + 0);
+				pstmt.setInt(4, 0);
+			}else{
+				pstmt.setInt(4, commentNo);
+				System.out.println("else commentNo : " + commentNo);
+			}
+			System.out.println("userNo : " + userNo);
+			pstmt.setInt(5, userNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			close(pstmt);
 		}
 		

@@ -16,10 +16,9 @@ public class MemberService {
 
 	public Member loginCheck(String userId, String userPwd) {
 		Connection con = getConnection();
-		System.out.println("서비스 전 : " + userId);
-		System.out.println("userPwd : " + userPwd);
+		
 		Member member = new MemberDao().loginCheck(con, userId, userPwd);
-		System.out.println("서비스 후 : "  +member.getUserId());
+		
 		close(con);
 		
 		return member;

@@ -31,7 +31,6 @@ public class SearchReviewServlet extends HttpServlet {
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
 
 		if(searchReviewList != null){
-
 			request.setAttribute("searchReviewList", searchReviewList);
 			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{

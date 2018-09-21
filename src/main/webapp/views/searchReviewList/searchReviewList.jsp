@@ -1,8 +1,10 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
 	String searchReviewData = "default";
 
@@ -83,6 +85,7 @@
 		font-size:12px;
 		font-weight:bold;
 		margin:0px;
+		cursor:pointer;
 	}
 	.formArea {
 		z-index: 300;
@@ -233,6 +236,20 @@
             }
 		});
 	});
+	
+	function goHome(word){
+		var goUser = $(word).attr("id");
+		var goMe = '';
+		<% if(loginUser != null){ %>
+			goMe = '<%= loginUser.getUserId() %>';
+		<% } %>
+		
+		if(goMe != goUser){
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser;
+		}else{
+			location.href='<%= request.getContextPath()%>/myHome';
+		}
+	}
 </script>
 </head>
 <body>
@@ -272,7 +289,7 @@
 					<p><%= searchReviewList.get(i).getLikeCount() %></p>
 				</div>
 				<div class="reviewWriter">
-					@ <p><%= searchReviewList.get(i).getNick() %></p>
+					@ <p onclick="goHome(this)" id="<%= searchReviewList.get(i).getUserId() %>"><%= searchReviewList.get(i).getNick() %></p>
 				</div>
 			</div>
 		<% } %>
