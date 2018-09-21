@@ -68,7 +68,8 @@
 		$("#searchReviewInput").keypress(function(key) {
 			if(key.which == 13){
 				var searchHash = $("#searchReviewInput").val();
-				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash;
+				var searchData = $("#searchReviewInput").val();
+				location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
 			}
 			
 		});

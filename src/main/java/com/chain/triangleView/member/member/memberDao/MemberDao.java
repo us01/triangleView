@@ -260,7 +260,6 @@ public class MemberDao {
 	public int insertInterestCategory(Connection con, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		System.out.println(m.getUserNo());
 		String query = prop.getProperty("insertInterestCategory");
 
 		try {

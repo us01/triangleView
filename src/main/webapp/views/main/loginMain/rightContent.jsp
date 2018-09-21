@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.chain.triangleView.notice.notice.vo.notice.Notice, java.util.*, java.text.SimpleDateFormat"%>
+ <%
+ 	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("selectAllNotice");
+ %>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,7 +71,7 @@
 		text-align:center;
 		vertical-align: bottom;
 	}
-	.rolling_panel {
+	.rolling_panel{
 		display:inline-block;
 		position: relative;
 		width: 137px;
@@ -125,6 +129,45 @@
 	@media all and (max-width:768px) {
 		.rightContent { display:none; }
 	}
+	
+	.icon{
+		
+		width : 17px !important;
+		height : 17px !important;
+		float : left !important;
+	}
+	
+	.content{
+
+		margin-left : 2px;
+		margin-right : 20px;
+		
+	}
+	.noticeBottom {
+		margin-left: auto;
+	    margin-right: auto;
+	    text-align: center;
+	    height : 20px;
+		font-size:12px;
+	}
+	.noticeBottom td{
+		line-height: 0;
+	}
+	.noticeDate{
+		display:inline-block;
+		background: #f7323f;
+	    border-radius: 8px;
+	    width: 45px;
+	    height: 17px;
+	    line-height: initial;
+	    color:white;
+	    font-weight : bold;
+	}
+	
+	.notice:hover{
+		cursor:pointer;
+	}
+
 </style>
 <script>
 	$(function(){
@@ -179,16 +222,30 @@
 					 <p class="companyTitle">기업공고</p>
 					 <div class="rolling_panel">
 						<ul>
-							<li>
-								<img src="/triangleView/img/test4.PNG">
-								<p class="reviewTitle">#인간뇌에 AI탑재 기능 선보일 분</p>
-								<p class="member_id">@ brain_is_die</p>
-							</li>
-							<li>
-								<img src="/triangleView/img/test5.jpg">
-								<p class="reviewTitle">#자동차로 하늘을 날 분들</p>
-								<p class="member_id">@ you_are_die</p>
-							</li>
+							<%for(int i=0; i<noticeList.size(); i++){ %>
+								<li class="notice">
+									<img src="/triangleView/img/test4.PNG">
+									<p class="reviewTitle"><%= noticeList.get(i).getNoticeTitle() %></p>
+									<table class="noticeBottom">
+										<tr>
+											<td style=""><img class="icon" src="/triangleView/img/reviewForm/location2.png"></td>
+											<td><span class="content"><%= noticeList.get(i).getProductArea()%></span></td>
+											<%
+											SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+											Date currentTime = new Date ();
+												
+											long diff = noticeList.get(i).getNoticeEndDate().getTime() - currentTime.getTime();
+											long diffDays = diff / (24 * 60 * 60 * 1000);
+											    
+											if(diffDays > 0){%>
+											    <td><div class="noticeDate">D-<%= diffDays %></div></td>
+											<%}else {%>
+												 <td><div class="noticeDate">D-DAY</div></td>
+											<%} %>
+										</tr>
+									</table>
+								</li>
+							<%} %>
 						</ul>
 					</div>
 				</div>

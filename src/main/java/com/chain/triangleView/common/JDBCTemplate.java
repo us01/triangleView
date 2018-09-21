@@ -14,7 +14,6 @@ public class JDBCTemplate {
 	public static Connection getConnection(){
 		Connection con = null;
 		Properties prop = new Properties();
-		System.out.println(JDBCTemplate.class);
 		String fileName = JDBCTemplate.class.getResource("/resources/driver.properties").getPath();
 
 		try {

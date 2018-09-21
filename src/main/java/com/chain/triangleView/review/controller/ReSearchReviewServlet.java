@@ -33,7 +33,6 @@ public class ReSearchReviewServlet extends HttpServlet {
 
 			request.setAttribute("searchReviewList", searchReviewList);
 			request.setAttribute("searchReviewData", searchData);
-//			request.setAttribute("feel", feel);
 			request.getRequestDispatcher("/views/searchReviewList/searchReviewList.jsp").forward(request, response);
 		}else{
 			request.setAttribute("msg", "검색한 리뷰 읽어오기 실패");

@@ -7,10 +7,8 @@ public class NLPfiltering {
 
 	public static Sentiment get_sentiment(String text){
 
-		System.out.println("1. ========================= 문장 감성 분석 결과 =========================");
 		Sentiment sentiment = NLAnalyze.getInstance().analyzeSentiment(text);
-		System.out.printf("Sentiment: %s, %s%n", sentiment.getScore(), sentiment.getMagnitude());
-		
+
 		return sentiment;
 	}
 
