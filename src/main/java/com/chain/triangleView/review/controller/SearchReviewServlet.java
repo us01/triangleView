@@ -28,16 +28,13 @@ public class SearchReviewServlet extends HttpServlet {
 		ArrayList<Notice> noticeList = null;
 
 		if(searchReviewList != null){
-
 			noticeList = new NoticeService().selectAllNotice();
 
 			if(noticeList != null) {
-
 				request.setAttribute("selectAllNotice", noticeList);
 				request.setAttribute("searchReviewList", searchReviewList);
 				request.setAttribute("searchReviewData", searchData);
 			}else {
-				
 				request.setAttribute("searchReviewList", searchReviewList);
 				request.setAttribute("searchReviewData", searchData);
 			}

@@ -127,6 +127,29 @@
 		<display-name>SelectNoticeServlet</display-name>
 		<description></description>
 		<servlet-class>com.chain.triangleView.notice.controller.SelectNoticeServlet</servlet-class>
+		<servlet-name>UserHomeReviewSelectServlet</servlet-name>
+		<display-name>UserHomeReviewSelectServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.review.controller.UserHomeReviewSelectServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MyHomeServlet</servlet-name>
+		<display-name>MyHomeServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.userHome.contoller.MyHomeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserHomeServlet</servlet-name>
+		<display-name>UserHomeServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.userHome.contoller.UserHomeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddCommentServlet</servlet-name>
+		<display-name>AddCommentServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.review.controller.AddCommentServlet</servlet-class>
+
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
@@ -187,5 +210,19 @@
 	<servlet-mapping>
 		<servlet-name>SelectNoticeServlet</servlet-name>
 		<url-pattern>/selectNotice.nt</url-pattern>
+		<servlet-name>UserHomeReviewSelectServlet</servlet-name>
+		<url-pattern>/userHomeReview</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MyHomeServlet</servlet-name>
+		<url-pattern>/myHome</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserHomeServlet</servlet-name>
+		<url-pattern>/userHome</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddCommentServlet</servlet-name>
+		<url-pattern>/addComment</url-pattern>
 	</servlet-mapping>
 	</web-app>

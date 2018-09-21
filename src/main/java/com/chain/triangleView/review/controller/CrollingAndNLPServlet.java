@@ -94,7 +94,8 @@ public class CrollingAndNLPServlet extends HttpServlet {
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(feels, response.getWriter());		
+
+		new Gson().toJson(feels, response.getWriter());			
 	}
 
 	/**

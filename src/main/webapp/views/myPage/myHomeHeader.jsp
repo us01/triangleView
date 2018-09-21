@@ -1,8 +1,12 @@
 <%@page import="com.chain.triangleView.member.member.vo.Member"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.chain.triangleView.userHome.userHome.vo.HomeMember"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	HashMap<String, Object> userHome = (HashMap<String, Object>)request.getAttribute("userHome");
+	HomeMember member = (HomeMember)userHome.get("member");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -131,19 +135,18 @@
 	}
 </style>
 <script>
-	$(function(){
-		$(".myInfoModifyBtn").click(function(){
-			$.ajax({
-				url:"../setting/setting.jsp",
-				data:"html",
-				success:function(data){	
-					$(".settingArea").html(data);
-					document.getElementById('settingBoardArea').style.display='block';
-					document.getElementById('settingArea').style.display='block';
-				}
-			});
+	
+	function myInfoModify(){
+		$.ajax({
+			url:"/triangleView/views/setting/setting.jsp",
+			data:"html",
+			success:function(data){	
+				$(".settingArea").html(data);
+				document.getElementById('settingBoardArea').style.display='block';
+				document.getElementById('settingArea').style.display='block';
+			}
 		});
-	})
+	}
 	
 	function displayNone(){
 		document.getElementById('settingArea').style.display='none';
@@ -158,20 +161,26 @@
 		</div>
 		<ul class="MyHomeProfileinformation">
 			<li>
-				<h6 class="MyHomenickNameArea"><%= loginUser.getNick() %></h6>
-				<button class="myInfoModifyBtn">프로필 편집</button>
+				<h6 class="MyHomenickNameArea"><%= member.getNick() %></h6>
+				<% if(loginUser != null){ %>
+					<% if(loginUser.getUserId().equals(member.getUserId())){ %>
+						<button class="myInfoModifyBtn" onclick="myInfoModify()">프로필 편집</button>
+					<% }else{ %>
+						<button class="myInfoModifyBtn" onclick="follow()">팔로우</button>
+					<% } %>
+				<% } %>
 			</li>
 			<li>
 				<h6>게시뷰 </h6>
-				<p class="MyHomeMyReview"> 27</p>
+				<p class="MyHomeMyReview"><%= member.getReviewCount() %></p>
 				<h6>팔로우 </h6>
-				<p class="MyHomefollow"> 102</p>
+				<p class="MyHomefollow"><%= member.getFollowCount() %></p>
 				<h6>팔로워 </h6>
-				<p class="MyHomefollower"> 291</p>
+				<p class="MyHomefollower"><%= member.getFollowingCount() %></p>
 			</li>
 			<li>
 				<p class="MyHomeIntroduction">
-					<%= loginUser.getIntro() %>
+					<%= member.getIntro() %>
 				</p>
 			</li>
 		</ul>

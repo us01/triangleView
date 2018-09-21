@@ -1,6 +1,5 @@
 package com.chain.triangleView.member.member.memberDao;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,9 +12,6 @@ import java.util.Properties;
 
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
-
 
 import static com.chain.triangleView.common.JDBCTemplate.*;
 
@@ -42,7 +38,10 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userId);
+			pstmt.setString(4, userId);
+			pstmt.setString(5, userPwd);
 
 			rset = pstmt.executeQuery();
 
@@ -57,13 +56,15 @@ public class MemberDao {
 				loginUser.setGender(rset.getString("gender"));
 				loginUser.setIntro(rset.getString("intro"));
 				loginUser.setNick(rset.getString("nick"));
+				loginUser.setReviewCount(rset.getInt("rwcount"));
+				loginUser.setFollowCount(rset.getInt("followcount"));
+				loginUser.setFollowingCount(rset.getInt("followingcount"));
 				loginUser.setEnrollDate(rset.getDate("enrollDate"));
 				loginUser.setWithdraw(rset.getString("withDraw"));
 				loginUser.setWithdrawDate(rset.getDate("withDrawDate"));
 				loginUser.setUserType(rset.getInt("userType"));
 				loginUser.setPersonName(rset.getString("personName"));
 				loginUser.setBusinessNo(rset.getInt("businessNo"));
-
 				loginUser.setCopName(rset.getString("copName"));
 				loginUser.setUserLevel(rset.getInt("userLevel"));
 				loginUser.setAddress(rset.getString("address"));

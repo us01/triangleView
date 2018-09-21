@@ -125,11 +125,11 @@
 				</li>
 				<li>
 					<h6>팔로우</h6>
-					<p class="follow">102</p>
+					<p class="follow"><%= loginUser.getFollowCount() %></p>
 				</li>
 				<li>
 					<h6>팔로워</h6>
-					<p class="follower">291</p>
+					<p class="follower"><%= loginUser.getFollowingCount() %></p>
 				</li>
 				<li>
 					<h6>관심주제</h6>
