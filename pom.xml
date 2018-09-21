@@ -51,6 +51,11 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.5</version>
 		</dependency>
+	<dependency>
+		<groupId>org.apache.tomcat</groupId>
+		<artifactId>tomcat-catalina</artifactId>
+		<version>8.5.32</version>
+	</dependency>
 	</dependencies>
 	<build>
 		<finalName>triangleView</finalName>

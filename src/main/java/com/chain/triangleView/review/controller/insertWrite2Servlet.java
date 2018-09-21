@@ -35,7 +35,8 @@ public class insertWrite2Servlet extends HttpServlet {
 		String rwComment = request.getParameter("introduce");
 		Member loginUser = (Member)(request.getSession().getAttribute("loginUser"));
 		int userNo = loginUser.getUserNo();
-		
+		double rwGrade2 = Double.parseDouble(request.getParameter("rwGrade"));
+		double rwGrade = rwGrade2 / 2;
 		
 		
 		Review rw = new Review();
@@ -44,6 +45,7 @@ public class insertWrite2Servlet extends HttpServlet {
 		rw.setRwContent(rwContent);
 		rw.setRwHash(rwHash);
 		rw.setRwComment(rwComment);
+		rw.setRwGrade(rwGrade);
 		
 		Member m = new Member();
 		m.setUserNo(userNo);

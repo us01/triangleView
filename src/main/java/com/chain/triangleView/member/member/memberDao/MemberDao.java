@@ -395,4 +395,31 @@ public class MemberDao {
 		return result;
 	}
 
+	public int findPass(Connection con, Member m, String resultPass) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		
+		String query = prop.getProperty("findPass");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, resultPass);
+			pstmt.setString(2, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+
+		}
+		
+		return result;
+	}
+
 }

@@ -256,6 +256,7 @@ public class ReviewDao {
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setString(5, rw.getRwHash());
 			pstmt.setString(6, rw.getRwComment());
+			pstmt.setDouble(7, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			
@@ -285,6 +286,7 @@ public class ReviewDao {
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setString(5, rw.getRwHash());
 			pstmt.setString(6, rw.getRwComment());
+			pstmt.setDouble(7, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			

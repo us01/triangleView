@@ -30,10 +30,14 @@
 
 <!-- CSS -->
 <style>
-
-div{
-display: inline-block;
+body {
+	font-family: '맑은고딕';
 }
+
+div {
+	display: inline-block;
+}
+
 button {
 	width: 180px;
 	background-color: #f8585b;
@@ -51,7 +55,7 @@ button {
 
 .btn-success {
 	width: 120px;
-	background-color: #3178b1;
+	background-color: #f8585b;
 	border: none;
 	color: #FDEBEC;
 	padding: 6px;
@@ -87,6 +91,20 @@ button {
 	display: inline-block;
 	width: 300px;
 }
+
+.howToUse {
+	margin-left: 10px;
+	text-align: center;
+}
+
+#personalnum{
+	background-image: url(/triangleView/img/member/phone.png);
+    background-position: 0px 0px;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    height: 25px;
+
+}
 </style>
 <script>
 	$(function(){
@@ -94,63 +112,55 @@ button {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 		});
 	});
-	
-	function doOpenCheck(chk) {
-		var obj = document.getElementsByName("findOut");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-
-
 </script>
 </head>
 
 <body>
-	<div class="page-header" style="margin-left: 15px;">
-		<h3>아이디찾기</h3>
+	<div class="page-header" style="text-align:center; display: block;">
+		<h2><img src="/triangleView/img/member/idFind.png" style="width:70px;">아이디 찾기</h2>
 	</div>
-
+	
+	<div class="howToUse">
+		<p>회원가입 시 등록한 전화번호를 입력하시면<br>
+아이디를 확인 할 수 있는 인증번호를 전송해드립니다.</p>
+	</div>
 
 	<div class="w3-container" id="phoneNum">
 		<p>
 			<span class="w3-tag w3-red">등록한 핸드폰 번호로 인증</span>
 		</p>
-		<div class="input-group" style="text-align: center;">
+		<div class="input-group" style="text-align: -webkit-center;">
 		
-			<input type="text" class="w3-input w3-change" id="username" placeholder="이름을 입력해 주세요" style="width: 300px;">
-			
-			<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="핸드폰번호를 입력해주세요"  style="width: 300px;"> 
-				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송"></input>
-			<p id="p2" style="width: 100px; height: 20px; /*display:none;  */ "></p>
-
-			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" placeholder="인증번호를 입력해주세요"  style="width: 300px;"> 
-				 <label id="pwdresult"></label><br>
-				<input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" ></input>
-
-		<p id="p3" style="width: 100px; height:20px; /* display:none; */"></p>
-		
-		<!-- <p id="p4" style="width: 100px; height:20px; /* display:none; */"></p> -->
-		
-			<!-- </form> -->
+			<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="     전화번호를 입력해주세요" 
+			 style="width: 300px; margin-left: 15px;"onFocus="this.style.backgroundImage='url(none)';"> 
+				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송" onclick="change();"></input>
+			<p id="p2" style="width: 100px; height: 20px; /* display:none; */"></p>
+		</div>
+		<br>
+			<script>
+				function change(){
+					
+					$("#checkNum").css("display","block");
+					$("#vertifyNum").css("display","block").css("align","center");
+				}
+			</script>
+		<div class="input-group" style="text-align: -webkit-center;">
+			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
+			placeholder="인증번호를 입력해주세요" style="width: 300px; margin-left: 15px; display: none;">
+			 <label id="pwdresult"></label><br> 
+			 <input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" style="display: none"><br>
 		</div>
 	</div>
-	<br>
-
-	<div class="w3-container" style="text-align:center; display: block;">
-		<input type="button" class="subButton" id="findId" value="아이디찾기" disabled="disabled"></input>
-		<input type="button" class="subButton" onclick="end();" value="취소"></input>
-	</div>
 	
-	<div class="w3-container" style="text-align: center;">
-		<p></p>
+	<br>
+	<div id="field3" style="text-align:center; display:none;">
+		<p id="p3" style="width: 350px; height:20px; display:none;"></p>
 	</div>
+
 	<script>
 	<%-- location.href='<%=request.getContextPath()%>/findId.no?num='val() --%>
 			
-	$("#findId").click(function(){
+	$("#vertifyNum").click(function(){
 			var phone = $("#personalnum").val();
 			<%-- location.href="<%=request.getContextPath()%>/findId.no?phone="+ phone; --%>
 			
@@ -166,7 +176,7 @@ button {
 					var resultText = "아이디 : " + num;
 					alert(resultText);
 					$("#p4").val(resultText).css("color", "red").css("font-size","20px"); */
-					 $("#p3").text(data).css("color", "red").css("font-size","20px"); 
+					 $("#p3").text("아이디 : " + data).css("color", "red").css("font-size","20px").css("text-align","center"); 
 					
 				},
 				error : function() {
@@ -204,13 +214,17 @@ button {
 			var num1 = $("#p2").text() * 1;
 
 			if ($("#p2").text() != num2) {
-
 				$("#pwdresult").text("인증번호가 일치하지 않습니다").css("color", "red");
-				$('#findId').attr("disabled", true);
+/* 				$('#findId').attr("disabled", true);
+				$("#findId").css("display","none"); */
+				$("#cancel").css("display","none");
 			} else {
 				$("#pwdresult").text("인증번호가 일치합니다").css("color", "green");
-				$('#findId').attr("disabled", false);
-
+	/* 			$('#findId').attr("disabled", false);
+				$("#findId").css("display","block"); */
+				$("#cancel").css("display","block");	
+				$("#field3").css("display","block");
+				$("#p3").css("display","block");
 			}
 
 		});

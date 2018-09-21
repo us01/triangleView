@@ -2,7 +2,11 @@ package com.chain.triangleView.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -23,7 +27,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class insertCompanyMemberServlet
  */
-@WebServlet("/insertCompanyMember.bo")
+@WebServlet("/insertCompanyMember.me")
 public class insertCompanyMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -95,12 +99,25 @@ public class insertCompanyMemberServlet extends HttpServlet {
 					
 					String intro = multiRequest.getParameter("intro");
 				
+			// sha512로변환한 비밀번호
+			String resultPass = "";
+			MessageDigest digest;
+			try {
+				digest = MessageDigest.getInstance("SHA-512");
+				byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+				digest.reset();
+				digest.update(bytes);
+				resultPass = Base64.getEncoder().encodeToString(digest.digest());
+			} catch (NoSuchAlgorithmException e) {
+
+				e.printStackTrace();
+			}
+
 					// 객체에 값 추가
 					Member m = new Member();
 					m.setUserId(userId);
 					m.setNick(nick);
-					m.setUserPwd(userPwd);
-					//m.setAge(age);
+					m.setUserPwd(resultPass);
 					m.setGender(gender);
 					m.setPostNo(postNo);
 					m.setAddress(address);

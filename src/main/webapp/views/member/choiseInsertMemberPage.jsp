@@ -6,45 +6,51 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.choiseInsertMemberArea {
-		width:200px;
-		height:115px;
-		border-radius:5px;
-		position:fixed;
-		background:white;
-		margin:0 auto;
-		padding:10px;
-	}
-	.choiseInsertMemberArea p {
-		text-align:center;
-		font-size:13px;
-	}
-	.divisionLineLeftTop {
-		background-color:#efefef;
-		height:1px;
-		width:60px;
-		display:inline-block;
-		margin-top:10px;
-		float:left;
-	}
-	.divisionLineRightTop {
-		background-color:#efefef;
-		height:1px;
-		width:60px;
-		display:inline-block;
-		margin-top:10px;
-		margin-bottom:20px;
-		float:right;
-	}
-	.divisionTitle {
-		display:inline-block;
-		font-size:13px;
-		width: 80px;
-    	text-align: center;
-	}
-	.submitBtn {
-		width: 199px;
-		background-color: #f8585b;
+.choiseInsertMemberArea {
+	width: 530px;
+	height: 280px;
+	border-radius: 5px;
+	position: fixed;
+	background: white;
+	margin: 0 auto;
+	padding: 10px;
+	left:375px;
+}
+
+.choiseInsertMemberArea p {
+	text-align: center;
+	font-size: 13px;
+}
+
+.divisionLineLeftTop {
+	background-color: #efefef;
+	height: 1px;
+	width: 180px;
+	display: inline-block;
+	margin-top: 10px;
+	float: left;
+}
+
+.divisionLineRightTop {
+	background-color: #efefef;
+	height: 1px;
+	width: 180px;
+	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	float: right;
+}
+
+.divisionTitle {
+	display: inline-block;
+	font-size: 13px;
+	width: 170px;
+	text-align: center;
+}
+
+.submitBtn {
+	/* width: 199px;
+		
 		border: none;
 		color: #FDEBEC;
 		padding: 6px;
@@ -54,36 +60,66 @@
 		margin-top: 4px;
 		margin-bottom: 4px;
 		cursor: pointer;
-		border-radius:5px;
-	}
+		border-radius:5px; */
+	
+}
+
+.insertMember {
+	background: url(/triangleView/img/member/personMember.png) 0 0 no-repeat;
+	background-size: 250px;
+	width: 260px;
+	height: 260px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 10px;
+	border: 1px solid white;
+	top: 30px;
+}
+
+.insertCompany {
+	background: url(/triangleView/img/member/companyMember.png) 0 0 no-repeat;
+	background-size: 250px;
+	width: 260px;
+	height: 260px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	border: 1px solid white;
+	left: 280px;
+    top: 30px;
+}
 </style>
 <script>
-	function insertGeneralMemberPageMove(){
+	function insertGeneralMemberPageMove() {
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
 		$(".insertMemberTypeArea").css("margin-left", "-275px");
-		$.ajax({
-			url : "/triangleView/views/member/insertGeneralMemberPage.jsp",
-			data : "html",
-			success : function(data) {
-				$(".insertMemberTypeArea").html(data);
-				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
-				document.getElementById('insertMemberTypeArea').style.display = 'block';
-			}
-		});
+		$
+				.ajax({
+					url : "/triangleView/views/member/insertGeneralMemberPage.jsp",
+					data : "html",
+					success : function(data) {
+						$(".insertMemberTypeArea").html(data);
+						document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+						document.getElementById('insertMemberTypeArea').style.display = 'block';
+					}
+				});
 	}
-	
-	function insertCompanyMemberPageMove(){
+
+	function insertCompanyMemberPageMove() {
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
 		$(".insertMemberTypeArea").css("margin-left", "-275px");
-		$.ajax({
-			url : "/triangleView/views/member/insertCompanyMemberPage.jsp",
-			data : "html",
-			success : function(data) {
-				$(".insertMemberTypeArea").html(data);
-				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
-				document.getElementById('insertMemberTypeArea').style.display = 'block';
-			}
-		});
+		$
+				.ajax({
+					url : "/triangleView/views/member/insertCompanyMemberPage.jsp",
+					data : "html",
+					success : function(data) {
+						$(".insertMemberTypeArea").html(data);
+						document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+						document.getElementById('insertMemberTypeArea').style.display = 'block';
+					}
+				});
 	}
 </script>
 </head>
@@ -92,8 +128,9 @@
 		<div class="divisionLineLeftTop"></div>
 		<div class="divisionTitle">가입 종류</div>
 		<div class="divisionLineRightTop"></div>
-		<input class="submitBtn" type="button" value="일반회원" onclick="insertGeneralMemberPageMove()">
-		<input class="submitBtn" type="button" value="기업회원" onclick="insertCompanyMemberPageMove()">
+		<input class="submitBtn insertMember" name = insertMember type="button" 
+		 value="" onclick="insertGeneralMemberPageMove()">
+		<input class="submitBtn insertCompany" name = insertCompany type="button" value="" onclick="insertCompanyMemberPageMove()">
 	</div>
 </body>
 </html>

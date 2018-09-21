@@ -116,6 +116,12 @@
 	     <description></description>
 	     <servlet-class>com.chain.triangleView.review.controller.CrollingAndNLPServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>sendNewPassServlet</servlet-name>
+		<display-name>sendNewPassServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.email.controller.sendNewPassServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
 		<url-pattern>/logoutMain.rl</url-pattern>
@@ -167,5 +173,9 @@
 	<servlet-mapping>
 		<servlet-name>CrollingAndNLPServlet</servlet-name>
 		<url-pattern>/crolling</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>sendNewPassServlet</servlet-name>
+		<url-pattern>/sendNewPass.no</url-pattern>
 	</servlet-mapping>
 	</web-app>

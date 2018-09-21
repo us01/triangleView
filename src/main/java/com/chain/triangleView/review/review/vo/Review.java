@@ -21,14 +21,17 @@ public class Review {
 	private int coorCode;
 	private int rwSupport;
 	private int rwNo;
+	private double rwGrade;
 	
 	public Review() {
 		super();
 	}
 
+	
+
 	public Review(String nick, int todayRwCount, int likeCount, int categoryType, String rwContent, String rwTitle,
 			String modifyYn, Date modifyDate, Date writerDate, String coorLink, int rwContentType, int rwCount,
-			String rwHash, String rwComment, int rwType, int coorCode, int rwSupport, int rwNo) {
+			String rwHash, String rwComment, int rwType, int coorCode, int rwSupport, int rwNo, double rwGrade) {
 		super();
 		this.nick = nick;
 		this.todayRwCount = todayRwCount;
@@ -48,7 +51,10 @@ public class Review {
 		this.coorCode = coorCode;
 		this.rwSupport = rwSupport;
 		this.rwNo = rwNo;
+		this.rwGrade = rwGrade;
 	}
+
+
 
 	public String getNick() {
 		return nick;
@@ -194,6 +200,20 @@ public class Review {
 		this.rwNo = rwNo;
 	}
 
+
+
+	public double getRwGrade() {
+		return rwGrade;
+	}
+
+
+
+	public void setRwGrade(double rwGrade) {
+		this.rwGrade = rwGrade;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Review [nick=" + nick + ", todayRwCount=" + todayRwCount + ", likeCount=" + likeCount
@@ -201,7 +221,9 @@ public class Review {
 				+ modifyYn + ", modifyDate=" + modifyDate + ", writerDate=" + writerDate + ", coorLink=" + coorLink
 				+ ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwHash=" + rwHash + ", rwComment="
 				+ rwComment + ", rwType=" + rwType + ", coorCode=" + coorCode + ", rwSupport=" + rwSupport + ", rwNo="
-				+ rwNo + "]";
+				+ rwNo + ", rwGrade=" + rwGrade + "]";
 	}
+
+	
 
 }

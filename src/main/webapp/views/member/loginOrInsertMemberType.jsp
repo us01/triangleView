@@ -152,6 +152,7 @@
 		$(".insertMemberTypeArea").css("margin-left", "-175px");
 		$(".insertMemberTypeArea").css("background-color", "white" );
 		$(".insertMemberTypeArea").css("width", "380px" );
+		
 		$.ajax({
 			url : "/triangleView/views/member/findId.jsp",
 			data : "html",
