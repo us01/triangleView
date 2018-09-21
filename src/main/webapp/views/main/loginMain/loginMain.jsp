@@ -1,12 +1,14 @@
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chain.triangleView.member.member.vo.Member"%>
+<%@page import="com.chain.triangleView.member.member.vo.Member, com.chain.triangleView.notice.notice.vo.notice.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
+	String searchData = "default";
+	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("selectAllNotice");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -84,11 +86,11 @@ function uploadView(){
 	}
 	
 	$(function(){
+		
 		$("#searchReviewInput").keypress(function(key) {
 			if(key.which == 13){
 				var searchHash = $("#searchReviewInput").val();
 				var searchData = $("#searchReviewInput").val();
-				
 				$.ajax({
 					url : '<%= request.getContextPath()%>/reSearchReview.sr',
 					data : {
@@ -120,7 +122,9 @@ function uploadView(){
 				</jsp:include>
 			<% } %>
 		</div>
-		<jsp:include page="./rightContent.jsp" flush="true" />
+		<jsp:include page="./rightContent.jsp" flush="true">
+			<jsp:param name="noticeAllList" value="<%= noticeList %>"/>
+		</jsp:include>
 	</div>
 	<div class="write">
 		<img src="/triangleView/img/viewList/uploadVIew.png" onclick="uploadView()">
