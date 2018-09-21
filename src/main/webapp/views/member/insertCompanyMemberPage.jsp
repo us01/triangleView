@@ -90,6 +90,50 @@
 		background: white;
 		width: 550px;
 	}
+	
+	#imgInput {
+	width: 150px;
+	height: 100px;
+	display: visible;
+	margin-top: 54px;
+}
+
+.ico_test1 {
+	background: url(/triangleView/img/member/profile.png) 0 20 no-repeat;
+	background-size: 100px;
+	width: 74px;
+	height: 90px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 230px;
+	border: 1px solid;
+}
+
+#icon_test1 {
+	border: 1px solid white;
+	width: 151px;
+	height: 151px;
+	margin-top: 115px;
+}
+
+#sendVertify{
+	margin-left: 350px;
+    margin-top: -25px;
+}
+
+#vertifyNum{
+	display: block;
+    margin-top: -25px;
+    margin-left: 360px;
+}
+
+#nickCheck{
+	margin-left: 360px;
+    margin-top: -30px;
+    display: block;
+}
+
 </style>
 <script>
 
@@ -129,7 +173,7 @@
 	});
 
 	$(document).ready(function() {
-		$("#businessnum").keyup(function() {
+		$("#phone").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
 		});
 
@@ -230,11 +274,8 @@
 	});
 
 $(function(){
-		
 		$("#nickCheck").click(function(){
 			var nick = $("#nick").val();
-			
-			
 			$.ajax({
 
 				url:"nickCheck.do",
@@ -243,7 +284,6 @@ $(function(){
 				success:function(data){
 					var num = data;
 					if(num == 0){
-						
 						$("#nickResult").text("사용가능한 닉네임입니다.").css("color", "green");
 						$('#newMember').attr("disabled", false);
 					}else{
@@ -267,23 +307,24 @@ $(function(){
 	<form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertCompanyMember.me" method="post" encType="multipart/form-data">
 		<div id="container" class="w3-container">
 			<div class="page-header">
-				<h2>기업회원가입</h2>
+				<h2 style="text-align:center;"><img src="/triangleView/img/member/company.png" style="width:80px;">기업회원가입</h2>
 			</div>
 
-			<div class="w3-card image" style="align: center;">
-				<p>
-					<span class="w3-tag w3-red">회원이미지</span> <input type='file'
-						id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" /> <img
-						id="image_section" src="/triangleView/img/icon1.png" width="150px"
-						height="150px" alt="이미지 파일이 아닙니다." class="w3-circle" />
-				</p>
-			</div>
-
+			 <div class="w3-card image" style="align: center;">
+            <p style="text-align: -webkit-left;">
+               <span class="w3-tag w3-red"  style="margin-left:15px;">회원이미지</span> 
+               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 110px;"/> 
+               <label for="imgInput" class="ico_test1" id="icon_test1">
+               <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle" />
+               </label>
+           	 </p>
+         	</div>
+         
          <div class="w3-container w3-form" id="mail1">
             <p><span class="w3-tag w3-red">아이디(이메일)</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="email" class="w3-input w3-change" id="userId" name="userId"
-                  placeholder="아이디(이메일형식)"> <span class="input-group-btn">
+                  placeholder="아이디(이메일형식)" style="width:300px;"> <span class="input-group-btn">
 			<input type="button" class="btn-success" id="sendVertify" value="인증번호전송"></input>
                </span>
                
@@ -295,7 +336,7 @@ $(function(){
 	 <div class="w3-container" id="mail2">
             <p><span class="w3-tag w3-red">인증번호입력</span></p>
             <div class="input-group" style="text-align: center;">
-               <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호">
+               <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호" style="width:300px;">
 		<input type="button" class="btn-success" id="vertifyNum" value="인증번호입력"></input>
 		<br><label id="checkVerify"></label>
             </div>
@@ -307,7 +348,7 @@ $(function(){
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="copName" name="copName"
-						placeholder="기업이름을 입력해 주세요">
+						placeholder="기업이름을 입력해 주세요" style="width:300px;">
 				</div>
 			</div>
 
@@ -317,7 +358,7 @@ $(function(){
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="personName" name="personName"
-						placeholder="담당자이름을 입력해 주세요">
+						placeholder="담당자이름을 입력해 주세요" style="width:300px;">
 				</div>
 			</div>
 			
@@ -325,7 +366,7 @@ $(function(){
             <p><span class="w3-tag w3-red">닉네임</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="nick" name="nick" 
-                  placeholder="닉네임을 입력해 주세요"> 
+                  placeholder="닉네임을 입력해 주세요" style="width:300px;"> 
 			<input type="button" class="btn-success" id="nickCheck" value="중복검사"></input>
               <br><label id="nickResult"></label>
             </div>
@@ -334,7 +375,8 @@ $(function(){
          <div class="w3-container">
             <p><span class="w3-tag w3-red">비밀번호</span></p>
             <div style="text-align: center;">
-               <input type="password" class="w3-input w3-change" id="userPwd" name="userPwd" placeholder="비밀번호">
+               <input type="password" class="w3-input w3-change" 
+               id="userPwd" name="userPwd" placeholder="비밀번호" style="width:300px;">
             </div>
          </div>
 
@@ -342,20 +384,10 @@ $(function(){
             <p><span class="w3-tag w3-red">비밀번호확인</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" name="userPwdCheck"
-                  id="userPwdCheck" placeholder="비밀번호 확인">
+                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:300px;">
                <br><label id="pwdresult"></label>
             </div>
          </div>
-
-<!-- 			<div class="w3-container">
-				<p>
-					<span class="w3-tag w3-red">담당자메일</span>
-				</p>
-				<div style="text-align: center;">
-					<input type="email" class="w3-input w3-change" id="personalname"
-						placeholder="이메일을 입력해주세요">
-				</div>
-			</div> -->
 
 			<div class="w3-container">
 				<p>
@@ -363,7 +395,7 @@ $(function(){
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="businessNo" name="businessNo"
-						placeholder="사업자등록번호를 입력해주세요">
+						placeholder="사업자등록번호를 입력해주세요" style="width:300px;">
 				</div>
 			</div>
 
@@ -373,7 +405,7 @@ $(function(){
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="phone" name="phone"
-						placeholder="담당자전화번호를 입력해주세요">
+						placeholder="담당자전화번호를 입력해주세요" style="width:300px;">
 				</div>
 			</div>
 
@@ -385,7 +417,8 @@ $(function(){
                value="우편번호 찾기" class="btn-success">
             
             <br> 
-            <input type="text" id="sample4_postcode" placeholder="우편번호" class="w3-input w3-change" name="sample4_postcode">
+            <input type="text" id="sample4_postcode" placeholder="우편번호"
+             class="w3-input w3-change" name="sample4_postcode" style="width:300px;">
             <br> 
             <input type="text" id="sample4_roadAddress" placeholder="도로명주소" class="w3-input w3-change" name="sample4_roadAddress"> 
             <input type="text" id="sample4_jibunAddress" placeholder="지번주소" class="w3-input w3-change" name="sample4_jibunAddress"> 
@@ -401,11 +434,11 @@ $(function(){
             <input type="checkbox" class="w3-check" name="category" value="1">자유
             <input type="checkbox" class="w3-check" name="category" value="2">IT/가전
             <input type="checkbox" class="w3-check" name="category" value="3">음악
-            <input type="checkbox" class="w3-check" name="category" value="4">뷰티
-            <br> 
+            <input type="checkbox" class="w3-check" name="category" value="4">뷰티 
             <input type="checkbox" class="w3-check" name="category" value="5">스포츠
+            <br>
             <input type="checkbox" class="w3-check" name="category" value="6">금융 
-            <input type="checkbox" class="w3-check" name="category" value="7">게임
+            <input type="checkbox" class="w3-check" name="category" value="7">게임&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="checkbox" class="w3-check" name="category" value="8">취미 
             <input type="checkbox" class="w3-check" name="category" value="9">인생 
             
@@ -416,22 +449,11 @@ $(function(){
 					<span class="w3-tag w3-red">회사소개</span>
 				</p>
 				<textarea id="intro" rows="5" style="width: 490px; resize: none;" name="intro" ></textarea>
-				<span id="text_counter"></span>
-			</div>
-
-			<div class="w3-container">
-				<p>
-					<span class="w3-tag w3-red">약관동의</span>
-				</p>
-				<div data-toggle="buttons">
-					<label class="btn btn-primary active"> <input id="agree"
-						type="checkbox" class="w3-check"> <!-- autocomplete="off" checked -->
-					</label><a href="#">이용약관</a>에 동의합니다.
-				</div>
+				<!-- <span id="text_counter"></span> -->
 			</div>
 
 			<div class="w3-container" style="text-align: center;">
-			 <input type="submit" class="subButton" id="newMember" value="기업회원가입" disabled="disabled"></input>
+			 <input type="submit" class="subButton" id="newMember" value="기업회원가입" disabled="disabled" ></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
 			</div>
 			<script>

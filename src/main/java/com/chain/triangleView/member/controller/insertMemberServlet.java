@@ -2,7 +2,12 @@ package com.chain.triangleView.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -26,7 +31,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class insertMemberServlet
  */
-@WebServlet("/insertMember.bo")
+@WebServlet("/insertMember.me")
 public class insertMemberServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
@@ -44,6 +49,13 @@ public class insertMemberServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
+	   if(request.getParameter("userId") == null || request.getParameter("userPWd") == null
+			   || request.getParameter("nick") == null || request.getParameter("phone") == null
+			   || request.getParameter("sample4_postcode") == null || request.getParameter("sample4_roadAddress") == null)
+	   {
+		   request.setAttribute("msg", "회원가입 실패!");
+		   request.getRequestDispatcher("index.jsp").forward(request, response);
+	   }
       // 이미지파일전송
       if (ServletFileUpload.isMultipartContent(request)) {
          int maxSize = 1024 * 1024 * 20; // 20mb가 됨
@@ -89,30 +101,27 @@ public class insertMemberServlet extends HttpServlet {
 
          //받아온 카테고리 value값을 스플릿하기
          String cateNum[] = categories.split(",");
-/*         int num = cateNum.length;
-         //카테고리 숫자를 각 카테고리 String으로 변환
-         String categories2[] = new String[num];
-         for(int i =0; i<cateNum.length; i++){
-            switch(Integer.parseInt(cateNum[i])){
-               case 1 : categories2[i] = "자유"; break; 
-               case 2 : categories2[i] = "IT/가전"; break; 
-               case 3 : categories2[i] = "음악"; break; 
-               case 4 : categories2[i] = "뷰티"; break; 
-               case 5 : categories2[i] = "스포츠"; break; 
-               case 6 : categories2[i] = "금융"; break; 
-               case 7 : categories2[i] = "게임"; break; 
-               case 8 : categories2[i] = "취미"; break; 
-               case 9 : categories2[i] = "인생"; break; 
-            }
-         }*/
-         
          String intro = multiRequest.getParameter("intro");
       
+         //sha512로변환한 비밀번호
+         String resultPass = "";
+         MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-512");
+			byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+			digest.reset();
+			digest.update(bytes);
+			resultPass = Base64.getEncoder().encodeToString(digest.digest());
+		} catch (NoSuchAlgorithmException e) {
+			
+			e.printStackTrace();
+		}
+		
          // 객체에 값 추가
          Member m = new Member();
          m.setUserId(userId);
          m.setNick(nick);
-         m.setUserPwd(userPwd);
+         m.setUserPwd(resultPass);
          m.setAge(age);
          m.setGender(gender);
          m.setPostNo(postNo);
@@ -173,7 +182,8 @@ public class insertMemberServlet extends HttpServlet {
             
             
             if (result > 0 && result2 > 0) {
-               System.out.println("굿");
+            	request.setAttribute("msg", "회원 가입에 성공하셨습니다! 환영합니다.");
+            	request.getRequestDispatcher("index.jsp").forward(request, response);
 
             } else {
                System.out.println("다시");

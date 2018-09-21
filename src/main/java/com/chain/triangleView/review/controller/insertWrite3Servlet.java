@@ -50,14 +50,15 @@ public class insertWrite3Servlet extends HttpServlet {
 		String rwComment = request.getParameter("introduce");
 		Member loginUser = (Member)(request.getSession().getAttribute("loginUser"));
 		int userNo = loginUser.getUserNo();
-		
+		double rwGrade2 = Double.parseDouble(request.getParameter("rwGrade"));
+		double rwGrade = rwGrade2 / 2;
 		
 		Review rw = new Review();
 		rw.setRwTitle(rwTitle);
 		rw.setCategoryType(categoryType);
 		rw.setRwHash(rwHash);
 		rw.setRwComment(rwComment);
-		
+		rw.setRwGrade(rwGrade);
 		rw.setRwContent(dataRoot);
 		
 		Member m = new Member();

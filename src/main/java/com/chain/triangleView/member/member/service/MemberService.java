@@ -152,6 +152,16 @@ public class MemberService {
 		return result;
 	}
 
+	public int findPass(Member m, String resultPass) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		result = new MemberDao().findPass(con,m,resultPass);
+		close(con);
+		
+		return result;
+	}
+
 
 
 

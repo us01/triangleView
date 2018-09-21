@@ -116,6 +116,12 @@
 	     <description></description>
 	     <servlet-class>com.chain.triangleView.review.controller.CrollingAndNLPServlet</servlet-class>
 	</servlet>
+  <servlet>
+      <servlet-name>sendNewPassServlet</servlet-name>
+		  <display-name>sendNewPassServlet</display-name>
+		  <description></description>
+		  <servlet-class>com.chain.triangleView.email.controller.sendNewPassServlet</servlet-class>
+  </servlet>
 	<servlet>
 		<servlet-name>selectNoticeServlet</servlet-name>
 		<display-name>selectNoticeServlet</display-name>
@@ -149,7 +155,6 @@
 		<display-name>AddCommentServlet</display-name>
 		<description></description>
 		<servlet-class>com.chain.triangleView.review.controller.AddCommentServlet</servlet-class>
-
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
@@ -203,6 +208,10 @@
 		<servlet-name>CrollingAndNLPServlet</servlet-name>
 		<url-pattern>/crolling</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+     	<servlet-name>sendNewPassServlet</servlet-name>
+		  <url-pattern>/sendNewPass.no</url-pattern>
+  </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>selectNoticeServlet</servlet-name>
 		<url-pattern>/selectNoticeServlet</url-pattern>
