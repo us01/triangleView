@@ -71,32 +71,35 @@ public class insertCompanyMemberServlet extends HttpServlet {
 					String nick = multiRequest.getParameter("nick");
 					String userPwd = multiRequest.getParameter("userPwd");
 					//int age = Integer.parseInt(multiRequest.getParameter("age"));
-					String gender = multiRequest.getParameter("gender");
-					int postNo = Integer.parseInt(multiRequest.getParameter("sample4_postcode"));
+					//String gender = multiRequest.getParameter("gender");
+			        String postChange = multiRequest.getParameter("sample4_postcode");
+			        int postNo = 0;
+			        if(postChange.equals("") || postChange.equals(null)){
+			        	 System.out.println("널값이다");
+			        }else{
+			        	 postNo = Integer.parseInt(postChange);
+			        }
 					String address1 = multiRequest.getParameter("sample4_roadAddress");
 					String address2 = multiRequest.getParameter("sample4_jibunAddress");
 					String phone = multiRequest.getParameter("phone");
 					
 					String personName = multiRequest.getParameter("personName");
 					String copName = multiRequest.getParameter("copName");
-					int businessNo = Integer.parseInt(multiRequest.getParameter("businessNo"));
+					String businessNoStr = multiRequest.getParameter("businessNo");
+					
+					int businessNo =0;
+					if(businessNoStr.equals("") || businessNoStr.equals(null)){
+			        	 System.out.println("널값이다");
+			        }else{
+			        	businessNo = Integer.parseInt(businessNoStr);
+			        }
 					
 					// 최종 주소(DB에 저장할)
 					String address = address1 + " " + address2;
-					String[] category = multiRequest.getParameterValues("category");
-					String categories = "";
-					//카테고리 value값을 받아옴
-					for(int i =0; i < category.length; i++){
-						if(i ==0){
-							categories += category[i];
-						}else{
-							categories += "," + category[i];
-						}
-					}
+					 if(address.equals(" ")){
+			        	 address = null;
+			         }
 
-					//받아온 카테고리 value값을 스플릿하기
-					String cateNum[] = categories.split(",");
-					
 					String intro = multiRequest.getParameter("intro");
 				
 			// sha512로변환한 비밀번호
@@ -118,7 +121,7 @@ public class insertCompanyMemberServlet extends HttpServlet {
 					m.setUserId(userId);
 					m.setNick(nick);
 					m.setUserPwd(resultPass);
-					m.setGender(gender);
+					//m.setGender(gender);
 					m.setPostNo(postNo);
 					m.setAddress(address);
 					m.setBusinessNo(businessNo);
@@ -152,15 +155,21 @@ public class insertCompanyMemberServlet extends HttpServlet {
 							at.setOriginName(originFiles.get(i));
 							at.setChangeName(saveFiles.get(i));
 							
-							//파일길이 구하기위한 오브젝트생성
-							fileObj = multiRequest.getFile(name);
-							at.setFileSize(String.valueOf(fileObj.length()));
-							
-							//파일 확장자 구하기위해 생성
-							fileExtend = originFiles.get(i);
-							at.setFileType(fileExtend.substring(at.getOriginName().lastIndexOf(".")+1));
-							
-							fileList.add(at);
+							 fileObj = multiRequest.getFile(name);
+				               if(fileObj!=null){
+				            	  
+				            	   //파일길이 구하기위한 오브젝트생성
+				            	   at.setFileSize(String.valueOf(fileObj.length()));
+				            	   fileExtend = originFiles.get(i);
+				            	   //파일 확장자 구하기위해 생성
+				            	   at.setFileType(fileExtend.substring(at.getOriginName().lastIndexOf(".")+1));
+				            	   
+				            	   fileList.add(at);
+				               }else{
+				            	   at.setFileSize("0");
+				            	   at.setFileType(null);
+				               }
+				               	
 
 						}
 						
@@ -169,15 +178,31 @@ public class insertCompanyMemberServlet extends HttpServlet {
 						//유저 번호를 DB에서 받아옴
 						Member userNoCheck = new MemberService().userNoCheck(m);
 						
-						//체크한 번호를 객체에 담아줌
-						userNoCheck.setCateNum(cateNum);
+						String[] category = multiRequest.getParameterValues("category");
+						String categories = "";
+			
+						if(category != null){
+							//카테고리 value값을 받아옴
+							for(int i =0; i < category.length; i++){
+								if(i ==0){
+									categories += category[i];
+								}else{
+									categories += "," + category[i];
+								}
+							}
+							//받아온 카테고리 value값을 스플릿하기
+							String cateNum[] = categories.split(",");
+							//체크한 번호를 객체에 담아줌
+							if(cateNum != null){
+								userNoCheck.setCateNum(cateNum);	
+								int result2 = new MemberService().insertCategory1(userNoCheck);
+							}
+						}
+
 						
-					
-						int result2 = new MemberService().insertCategory1(userNoCheck);
-				
-						
-						if (result > 0 && result2 > 0) {
-							System.out.println("굿");
+						if (result > 0) {
+							request.setAttribute("msg", "회원 가입에 성공하셨습니다! 환영합니다.");
+			            	request.getRequestDispatcher("index.jsp").forward(request, response);
 
 						} else {
 							System.out.println("다시");

@@ -55,7 +55,7 @@ button {
 
 .btn-success {
 	width: 120px;
-	background-color: #f8585b;
+	background-color: #F7323F;
 	border: none;
 	color: #FDEBEC;
 	padding: 6px;
@@ -70,7 +70,7 @@ button {
 
 .subButton {
 	width: 120px;
-	background-color: #f8585b;
+	background-color: #F7323F;
 	border: none;
 	color: #FDEBEC;
 	padding: 6px;
@@ -99,11 +99,46 @@ button {
 
 #personalnum{
 	background-image: url(/triangleView/img/member/phone.png);
-    background-position: 0px 0px;
+    background-position: 0px 5px;
     background-size: 30px;
     background-repeat: no-repeat;
     height: 25px;
 
+}
+
+#sendVertify{
+	width: 318px;
+    height: 30px;
+    margin-left: 15px;
+    border-radius:0px;
+}
+
+#checkNum:focus {
+    outline: none;
+}
+
+#personalnum:focus{
+	outline: none;
+}
+
+#checkNum{
+    width: 300px;
+    margin-left: 15px;
+    border: 1px solid red;
+}
+
+#howTo{
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+#vertifyNum{
+    display: block;
+    position: absolute;
+    left: 300px;
+    top: 255px;
+    width: 70px;
+    height: 40px;
 }
 </style>
 <script>
@@ -117,22 +152,22 @@ button {
 
 <body>
 	<div class="page-header" style="text-align:center; display: block;">
-		<h2><img src="/triangleView/img/member/idFind.png" style="width:70px;">아이디 찾기</h2>
+		<h2><img src="/triangleView/img/member/idFind.png" style="width:50px; margin-top:-15px;">아이디 찾기</h2>
 	</div>
 	
 	<div class="howToUse">
-		<p>회원가입 시 등록한 전화번호를 입력하시면<br>
+		<p id="howTo">회원가입 시 등록한 전화번호를 입력하시면<br>
 아이디를 확인 할 수 있는 인증번호를 전송해드립니다.</p>
 	</div>
 
 	<div class="w3-container" id="phoneNum">
-		<p>
+		<!-- <p>
 			<span class="w3-tag w3-red">등록한 핸드폰 번호로 인증</span>
-		</p>
+		</p> -->
 		<div class="input-group" style="text-align: -webkit-center;">
 		
-			<input type="text" class="w3-input w3-change" id="personalnum" name="phone" placeholder="     전화번호를 입력해주세요" 
-			 style="width: 300px; margin-left: 15px;"onFocus="this.style.backgroundImage='url(none)';"> 
+			<input type="text" class="w3-input" id="personalnum" name="phone" placeholder="     전화번호를 입력해주세요" 
+			 style="width: 300px; margin-left: 15px; border: 1px solid red;"onFocus="this.style.backgroundImage='url(none)';"> 
 				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송" onclick="change();"></input>
 			<p id="p2" style="width: 100px; height: 20px; /* display:none; */"></p>
 		</div>
@@ -146,9 +181,9 @@ button {
 			</script>
 		<div class="input-group" style="text-align: -webkit-center;">
 			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
-			placeholder="인증번호를 입력해주세요" style="width: 300px; margin-left: 15px; display: none;">
+			placeholder="인증번호를 입력해주세요" style="width: 240px; margin-left: 15px; display: none;">
 			 <label id="pwdresult"></label><br> 
-			 <input type="button" class="btn-success" id="vertifyNum" value="인증번호 입력" style="display: none"><br>
+			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none"><br>
 		</div>
 	</div>
 	

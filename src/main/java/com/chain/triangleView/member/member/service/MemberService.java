@@ -37,7 +37,7 @@ public class MemberService {
 	public int insertMember(Member m, ArrayList<Attachment> fileList) {
 			Connection con = getConnection();
 			int result = 0;
-			int result1 = new MemberDao().insertMember(con,m,fileList);
+			int result1 = new MemberDao().insertMember(con,m);
 			
 			//멤버 번호를 받아오자
 			if(result1 >0){
@@ -48,9 +48,12 @@ public class MemberService {
 			}
 			
 			//첨부파일테이블에 넣기
-			int result2 = new MemberDao().insertAttachment(con,fileList,m);
+			if(fileList != null){
+				
+				int result2 = new MemberDao().insertAttachment(con,fileList,m);
+			}
 			
-			if(result1 > 0 && result2 > 0){
+			if(result1 > 0){
 				commit(con);
 				result = 1;
 			}else{
@@ -68,7 +71,7 @@ public class MemberService {
 	public int insertCompanyMember(Member m, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result = 0;
-		int result1 = new MemberDao().insertCompanyMember(con,m,fileList);
+		int result1 = new MemberDao().insertCompanyMember(con,m);
 		
 		//멤버 번호를 받아오자
 		if(result1 >0){
@@ -76,23 +79,19 @@ public class MemberService {
 			for(int i =0; i < fileList.size(); i++){
 				fileList.get(i).setUserId(member.getUserNo());
 			}
-			/*	int fid = new MemberDao().selectCurrval(con);
-			for(int i =0; i < fileList.size(); i++){
-				fileList.get(i).setUserId(fid);
-			}*/
+		}
+		//첨부파일테이블에 넣기
+		if (fileList != null) {
+			
+			int result2 = new MemberDao().insertAttachment(con, fileList, m);
 		}
 		
-		//첨부파일테이블에 넣기
-		int result2 = new MemberDao().insertAttachment(con,fileList,m);
-		
-		if(result1 > 0 && result2 > 0){
+		if(result1 > 0){
 			commit(con);
 			result = 1;
 		}else{
 			rollback(con);
 		}
-		
-		
 
 		close(con);
 
@@ -162,6 +161,17 @@ public class MemberService {
 		return result;
 	}
 
+
+	public int checkId(String id) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		result = new MemberDao().checkId(con,id);
+    close(con);
+		
+		return result;
+	}
+
 	public int userFollowFalse(int meNo, int userNo) {
 		Connection con = getConnection();
 			
@@ -172,11 +182,6 @@ public class MemberService {
 		}else{
 			rollback(con);
 		}
-		
-		close(con);
-		
-		return result;
-	}
 	
 	public int userFollowTrue(int meNo, int userNo) {
 		Connection con = getConnection();

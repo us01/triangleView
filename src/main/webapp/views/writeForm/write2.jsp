@@ -176,6 +176,10 @@ section {
 	<div class="container">
 		<h4>글쓰기 게시판</h4>
 		<hr>
+			<div>
+				<input type="checkbox" class="w3-check" name="companySpon" value="1">기업후원리뷰
+			</div>
+
 		<h5>제목</h5>
 		<div class="input-group">
 			<input type="text" class="form-control" id="title" name="title"

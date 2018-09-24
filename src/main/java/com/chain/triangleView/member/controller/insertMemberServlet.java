@@ -49,13 +49,7 @@ public class insertMemberServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-	   if(request.getParameter("userId") == null || request.getParameter("userPWd") == null
-			   || request.getParameter("nick") == null || request.getParameter("phone") == null
-			   || request.getParameter("sample4_postcode") == null || request.getParameter("sample4_roadAddress") == null)
-	   {
-		   request.setAttribute("msg", "회원가입 실패!");
-		   request.getRequestDispatcher("index.jsp").forward(request, response);
-	   }
+
       // 이미지파일전송
       if (ServletFileUpload.isMultipartContent(request)) {
          int maxSize = 1024 * 1024 * 20; // 20mb가 됨
@@ -80,29 +74,35 @@ public class insertMemberServlet extends HttpServlet {
          String userId = multiRequest.getParameter("userId");
          String nick = multiRequest.getParameter("nick");
          String userPwd = multiRequest.getParameter("userPwd");
-         int age = Integer.parseInt(multiRequest.getParameter("age"));
+         String ageString = multiRequest.getParameter("age");
+         int age=0;
+         if(ageString.equals("") || ageString.equals(null)){
+        	 System.out.println("널이다");
+         }else{
+        	 age = Integer.parseInt(ageString); 
+         }
          String gender = multiRequest.getParameter("gender");
-         int postNo = Integer.parseInt(multiRequest.getParameter("sample4_postcode"));
+         String postChange = multiRequest.getParameter("sample4_postcode");
+         int postNo = 0;
+         if(postChange.equals("") || postChange.equals(null)){
+        	 System.out.println("널값이다");
+         }else{
+        	 postNo = Integer.parseInt(postChange);
+         }
+         
          String address1 = multiRequest.getParameter("sample4_roadAddress");
          String address2 = multiRequest.getParameter("sample4_jibunAddress");
          String phone = multiRequest.getParameter("phone");
          // 최종 주소(DB에 저장할)
          String address = address1 + " " + address2;
-         String[] category = multiRequest.getParameterValues("category");
-         String categories = "";
-         //카테고리 value값을 받아옴
-         for(int i =0; i < category.length; i++){
-            if(i ==0){
-               categories += category[i];
-            }else{
-               categories += "," + category[i];
-            }
+         if(address.equals(" ")){
+        	 address = null;
          }
 
-         //받아온 카테고리 value값을 스플릿하기
-         String cateNum[] = categories.split(",");
          String intro = multiRequest.getParameter("intro");
       
+         
+         
          //sha512로변환한 비밀번호
          String resultPass = "";
          MessageDigest digest;
@@ -154,16 +154,23 @@ public class insertMemberServlet extends HttpServlet {
                at.setFilePath(savePath);
                at.setOriginName(originFiles.get(i));
                at.setChangeName(saveFiles.get(i));
-               
-               //파일길이 구하기위한 오브젝트생성
+              
                fileObj = multiRequest.getFile(name);
-               at.setFileSize(String.valueOf(fileObj.length()));
+               if(fileObj!=null){
+            	  
+            	   //파일길이 구하기위한 오브젝트생성
+            	   at.setFileSize(String.valueOf(fileObj.length()));
+            	   fileExtend = originFiles.get(i);
+            	   //파일 확장자 구하기위해 생성
+            	   at.setFileType(fileExtend.substring(at.getOriginName().lastIndexOf(".")+1));
+            	   
+            	   fileList.add(at);
+               }else{
+            	   at.setFileSize("0");
+            	   at.setFileType(null);
+               }
+               	
                
-               //파일 확장자 구하기위해 생성
-               fileExtend = originFiles.get(i);
-               at.setFileType(fileExtend.substring(at.getOriginName().lastIndexOf(".")+1));
-               
-               fileList.add(at);
 
             }
             
@@ -172,16 +179,29 @@ public class insertMemberServlet extends HttpServlet {
             //유저 번호를 DB에서 받아옴
             Member userNoCheck = new MemberService().userNoCheck(m);
             
-            //System.out.println(userNoCheck.getUserNo());
+			String[] category = multiRequest.getParameterValues("category");
+			String categories = "";
+
+			if(category != null){
+				//카테고리 value값을 받아옴
+				for(int i =0; i < category.length; i++){
+					if(i ==0){
+						categories += category[i];
+					}else{
+						categories += "," + category[i];
+					}
+				}
+				//받아온 카테고리 value값을 스플릿하기
+				String cateNum[] = categories.split(",");
+				//체크한 번호를 객체에 담아줌
+				if(cateNum != null){
+					userNoCheck.setCateNum(cateNum);	
+					int result2 = new MemberService().insertCategory1(userNoCheck);
+				}
+			}
             
-            //체크한 번호를 객체에 담아줌
-            userNoCheck.setCateNum(cateNum);
-            //userNoCheck.setCategory(categories2);
-         
-            int result2 = new MemberService().insertCategory1(userNoCheck);
             
-            
-            if (result > 0 && result2 > 0) {
+            if (result > 0) {
             	request.setAttribute("msg", "회원 가입에 성공하셨습니다! 환영합니다.");
             	request.getRequestDispatcher("index.jsp").forward(request, response);
 

@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.review.review.vo.Form;
 import com.chain.triangleView.review.review.vo.Review;
@@ -379,6 +380,64 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int write1Review(Connection con, Review rw, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWrite1Review");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setString(5, rw.getRwHash());
+			pstmt.setString(6, rw.getRwComment());
+			pstmt.setDouble(7, rw.getRwGrade());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertWrite1Attachment");
+
+		try {
+			for(int i = 0; i < fileList.size(); i++){
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2,fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFileSize());
+				pstmt.setString(4, fileList.get(i).getFileType());
+				pstmt.setInt(5, m.getUserNo());
+
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
 		return result;
 	}
 
