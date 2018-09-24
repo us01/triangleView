@@ -1,6 +1,6 @@
 <%@page import="com.chain.triangleView.review.review.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chain.triangleView.member.member.vo.Member, com.chain.triangleView.notice.notice.vo.notice.Notice"%>
+<%@page import="com.chain.triangleView.member.member.vo.Member, com.chain.triangleView.notice.notice.vo.notice.Notice, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -8,7 +8,7 @@
 	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
 	String searchData = "default";
-	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("selectAllNotice");
+	ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

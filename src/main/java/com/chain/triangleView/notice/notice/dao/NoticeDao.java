@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import static com.chain.triangleView.common.JDBCTemplate.*;
 
@@ -28,30 +29,32 @@ public class NoticeDao {
 		}
 	}
 	
-	public ArrayList<Notice> selectAllNotice(Connection con) {
+	public ArrayList<HashMap<String, Object>> selectAllNotice(Connection con) {
 		
 		Statement stmt = null;
 		ResultSet rset = null;
-		ArrayList<Notice> noticeList = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
 		String query = prop.getProperty("selectAllNotice");
 		
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
-			
-			noticeList = new ArrayList<Notice>();
+
+			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
-				Notice notice = new Notice();
+			
+				hmap = new HashMap<String, Object>();	
+				hmap.put("noticecode", rset.getInt("noticecode"));
+				hmap.put("noticetitle", rset.getString("noticetitle"));
+				hmap.put("categorycode", rset.getInt("categorycode"));
+				hmap.put("productarea", rset.getString("productarea"));
+				hmap.put("noticeenddate", rset.getString("noticeenddate"));
+				hmap.put("filename", rset.getString("filename"));
+				hmap.put("filePath", "notice_upload");
 				
-				notice.setNoticeCode(rset.getInt("noticecode"));
-				notice.setNoticeTitle(rset.getString("noticetitle"));
-				notice.setCategoryCode(rset.getInt("categorycode"));
-				notice.setProductArea(rset.getString("productarea"));
-				notice.setNoticeEndDate(rset.getDate("noticeenddate"));
-				
-				noticeList.add(notice);
-				
+				list.add(hmap);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +64,7 @@ public class NoticeDao {
 			close(rset);
 			close(stmt);
 		}
-		return noticeList;
+		return list;
 	}
 
 }

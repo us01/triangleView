@@ -94,19 +94,40 @@
 		font-size:9px;
 	}
 	.logoutleftArea {
-		margin-top:266px;
-		margin-bottom:266px;
+		margin-top:216px;
+		margin-bottom:240px;
 		font-size:12px;
+		color : white;
 	}
 	@media all and (max-width:768px) {
 		.leftContent {
 			display: none;
 		}
 	}
+	
+	.logoutInBtn{
+	
+		border-radius : 5px;
+		background: white;
+    	color: #f7323f;
+		width : 100px;
+		height : 35px;
+		margin-top : 15px;
+		margin-left : auto;
+		margin-right : auto;
+		text-align : center;
+		line-height : 35px;
+	}
+	
+	.logoutInBtn:hover{
+		
+		cursor : pointer;
+		
+	}
 </style>
 </head>
 <body>
-	<div class="leftContent">
+	<div class="leftContent" id="leftContentDiv">
 		<% if(loginUser != null){ %>
 			<ul class="leftProfile">
 				<li>
@@ -147,8 +168,33 @@
 				</li>
 			</ul>
 		<% }else{ %>
-			<p class="logoutleftArea">로그인 안했네???</p>
+			<script>
+				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack2.png)');
+			</script>
+			<div class="logoutleftArea">
+				<p style="margin-botton : 10px;"><b>회원 전용 <br/><br/>
+					서비스입니다. <br/><br/>
+					로그인 후 이용해 <br/><br/>
+					주세요!</b></p>
+				<div class="logoutInBtn" onclick="insertMemberTypeDisplayBlock()"><b>로그인</b></div>
+				<div class="logoutInBtn" onclick="choiseInsertMemberPageMove()"><b>회원가입</b></div>
+			</div>
 		<% } %>
 	</div>
+	<script>
+		function choiseInsertMemberPageMove(){
+			document.getElementById('insertMemberTypeArea').style.display = 'none';
+			$(".insertMemberTypeArea").css("margin-left", "-250px");
+			$.ajax({
+				url : "/triangleView/views/member/choiseInsertMemberPage.jsp",
+				data : "html",
+				success : function(data) {
+					$(".insertMemberTypeArea").html(data);
+					document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+					document.getElementById('insertMemberTypeArea').style.display = 'block';
+				}
+			});
+		}
+	</script>
 </body>
 </html>
