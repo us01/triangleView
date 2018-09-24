@@ -9,13 +9,14 @@ public class HomeMember {
 	private int followingCount; //팔로워 수
 	private int userType; //유저타입(일반/기업)   
 	private String intro;   //자기소개
+	private int followTF; //내 페이지가 아닐 경우 방문 페이지 유저의 팔로우 유무
 	
 	public HomeMember() {
 		super();
 	}
 
 	public HomeMember(int userNo, String userId, String nick, int reviewCount, int followCount, int followingCount,
-			int userType, String intro) {
+			int userType, String intro, int followTF) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -25,6 +26,7 @@ public class HomeMember {
 		this.followingCount = followingCount;
 		this.userType = userType;
 		this.intro = intro;
+		this.followTF = followTF;
 	}
 
 	public int getUserNo() {
@@ -91,11 +93,19 @@ public class HomeMember {
 		this.intro = intro;
 	}
 
+	public int getFollowTF() {
+		return followTF;
+	}
+
+	public void setFollowTF(int followTF) {
+		this.followTF = followTF;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [userNo=" + userNo + ", userId=" + userId + ", nick=" + nick + ", reviewCount=" + reviewCount
+		return "HomeMember [userNo=" + userNo + ", userId=" + userId + ", nick=" + nick + ", reviewCount=" + reviewCount
 				+ ", followCount=" + followCount + ", followingCount=" + followingCount + ", userType=" + userType
-				+ ", intro=" + intro + "]";
+				+ ", intro=" + intro + ", followTF=" + followTF + "]";
 	}
 
 }

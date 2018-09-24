@@ -162,9 +162,55 @@ public class MemberService {
 		return result;
 	}
 
-
-
-
+	public int userFollowFalse(int meNo, int userNo) {
+		Connection con = getConnection();
+			
+		int result = new MemberDao().userFollowFalse(con, meNo, userNo);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 	
+	public int userFollowTrue(int meNo, int userNo) {
+		Connection con = getConnection();
+			
+		int result = new MemberDao().userFollowTrue(con, meNo, userNo);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
 
+	public ArrayList<Member> followUserList(int userNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> userList = new MemberDao().followUserList(con, userNo);
+		
+		close(con);
+		
+		return userList;
+	}
+	
+	public ArrayList<Member> followingUserList(int userNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> userList = new MemberDao().followingUserList(con, userNo);
+		
+		close(con);
+		
+		return userList;
+	}
 }

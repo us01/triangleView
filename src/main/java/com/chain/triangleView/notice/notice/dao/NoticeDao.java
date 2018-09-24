@@ -29,8 +29,8 @@ public class NoticeDao {
 		}
 	}
 	
+
 	public ArrayList<HashMap<String, Object>> selectAllNotice(Connection con) {
-		
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<HashMap<String,Object>> list = null;
@@ -44,7 +44,6 @@ public class NoticeDao {
 			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()) {
-			
 				hmap = new HashMap<String, Object>();	
 				hmap.put("noticecode", rset.getInt("noticecode"));
 				hmap.put("noticetitle", rset.getString("noticetitle"));
@@ -57,13 +56,12 @@ public class NoticeDao {
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			
 			close(rset);
 			close(stmt);
 		}
+    
 		return list;
 	}
 

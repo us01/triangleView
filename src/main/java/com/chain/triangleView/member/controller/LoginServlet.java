@@ -41,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 			noticeList = new NoticeService().selectAllNotice();
 			
 			if(noticeList != null) {
-
 				request.setAttribute("selectAllNotice", noticeList);
 				request.setAttribute("interestReviewList", interestReviewList);
 				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);		

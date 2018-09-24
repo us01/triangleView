@@ -8,6 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/triangleView/css/w3.css">
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
 <title>Insert title here</title>
 <style>
 	.leftContent {
@@ -99,6 +106,13 @@
 		font-size:12px;
 		color : white;
 	}
+	.followUserArea {
+		z-index: 300;
+   		position: absolute;
+   		left: 50%;
+   		margin-left:-150px;
+    	top: 150px;
+	}
 	@media all and (max-width:768px) {
 		.leftContent {
 			display: none;
@@ -125,6 +139,40 @@
 		
 	}
 </style>
+<script>
+	function followListBlock(userNo){
+		$.ajax({
+			url : '<%= request.getContextPath()%>/followUserList',
+			data : {
+				userNo : userNo
+			},
+			success : function(data) {
+				$('.followUserArea').html(data);
+				document.getElementById('followUserAreaArea').style.display = 'block';
+				document.getElementById('followUserArea').style.display = 'block';
+			}
+		});
+	}
+	
+	function followingListBlock(userNo){
+		$.ajax({
+			url : '<%= request.getContextPath()%>/followingUserList',
+			data : {
+				userNo : userNo
+			},
+			success : function(data) {
+				$('.followUserArea').html(data);
+				document.getElementById('followUserAreaArea').style.display = 'block';
+				document.getElementById('followUserArea').style.display = 'block';
+			}
+		});
+	}
+	
+	function followgListBlock() {
+		document.getElementById('followUserArea').style.display = 'none';
+		document.getElementById('followUserAreaArea').style.display = 'none';
+	}
+</script>
 </head>
 <body>
 	<div class="leftContent" id="leftContentDiv">
@@ -145,12 +193,12 @@
 					<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
 				</li>
 				<li>
-					<h6>팔로우</h6>
-					<p class="follow"><%= loginUser.getFollowCount() %></p>
+					<h6 onclick="followListBlock(<%= loginUser.getUserNo()%> )">팔로잉</h6>
+					<p class="follow" onclick="followListBlock( <%= loginUser.getUserNo()%> )"><%= loginUser.getFollowingCount() %></p>
 				</li>
 				<li>
-					<h6>팔로워</h6>
-					<p class="follower"><%= loginUser.getFollowingCount() %></p>
+					<h6 onclick="followingListBlock(<%= loginUser.getUserNo() %>)">팔로워</h6>
+					<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= loginUser.getFollowCount() %></p>
 				</li>
 				<li>
 					<h6>관심주제</h6>
@@ -181,6 +229,8 @@
 			</div>
 		<% } %>
 	</div>
+	<div id="followUserArea" class="followUserArea"></div>
+	<div id="followUserAreaArea" class="w3-modal" onclick="followgListBlock()"></div>
 	<script>
 		function choiseInsertMemberPageMove(){
 			document.getElementById('insertMemberTypeArea').style.display = 'none';

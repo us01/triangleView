@@ -22,9 +22,6 @@ public class loadOneReviewForm extends HttpServlet {
 		int rwNo = Integer.parseInt(request.getParameter("rwNo"));
 		int rwContentType = Integer.parseInt(request.getParameter("rwContentType"));
 		
-		System.out.println("rwNo : " + rwNo);
-		System.out.println("rwContentType : " + rwContentType);
-		
 		HashMap<String, Object> reviewForm = new ReviewService().loadOneRevie(rwNo);
 		
 		if(reviewForm != null){

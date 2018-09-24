@@ -118,10 +118,13 @@
 	
 	function goHome(word){
 		var goUser = $(word).attr("id");
-		var goMe = '<%= loginUser.getNick() %>';
+		var goMe = '';
+		<% if(loginUser != null){ %>
+			goMe = '<%= loginUser.getUserId() %>';
+		<% } %>
 		
 		if(goMe != goUser){
-			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser;
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser + '&goMe=' + goMe;
 		}else{
 			location.href='<%= request.getContextPath()%>/myHome';
 		}

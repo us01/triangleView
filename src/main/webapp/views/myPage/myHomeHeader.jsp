@@ -24,6 +24,7 @@
 	.myHomeHeaderArea {
 		margin:0 auto;
 		margin-top:70px;
+		margin-bottom:50px;
 		display:inline-block;
 		width:100%;
 	}
@@ -33,7 +34,8 @@
 		background: #C5CCE9;
 		border-radius: 50%;
 		margin-left:120px;
-		margin-bottom:50px;
+		margin-top:40px;
+		margin-bottom:10px;
 		display:inline-block;
 		overflow:hidden;
 	}
@@ -56,13 +58,41 @@
 		vertical-align:middle;
 		position:relative;
 	}
-	.myHomeHeaderArea .MyHomeProfileinformation li button{
+	.myInfoModifyBtn {
 		position:absolute;
 		right:5px;
 		width: 87px;
 		background-color: #f8585b;
 		border: none;
 		color: #FDEBEC;
+		padding: 7px 0;
+		text-align: center;
+		text-decoration: none;
+		font-size: 14px;
+		cursor: pointer;
+		border-radius:5px;
+	}
+	.followTrueBtn {
+		position:absolute;
+		right:5px;
+		width: 87px;
+		background-color: #f8585b;
+		border: none;
+		color: #FDEBEC;
+		padding: 7px 0;
+		text-align: center;
+		text-decoration: none;
+		font-size: 14px;
+		cursor: pointer;
+		border-radius:5px;
+	}
+	.followFalseBtn {
+		position:absolute;
+		right:5px;
+		width: 87px;
+		background-color: lightgray;
+		border: none;
+		color: white;
 		padding: 7px 0;
 		text-align: center;
 		text-decoration: none;
@@ -107,6 +137,13 @@
    		margin-left:-125px;
     	top: 200px;
 	}
+	.followUserArea {
+		z-index: 300;
+   		position: absolute;
+   		left: 50%;
+   		margin-left:-150px;
+    	top: 150px;
+	}
 	@media all and (max-width:769px) {
 		.myHomeHeaderArea {
 			text-align:center;
@@ -135,6 +172,49 @@
 	}
 </style>
 <script>
+	function followFalse(meNo, userNo){
+		$.ajax({
+			url:'<%= request.getContextPath() %>/followFalse',
+			type:'get',
+			data:{
+				meNo:meNo,
+				userNo:userNo
+			},
+			success:function(data){
+				if(data == '팔로우'){
+					$('.followTrueBtn').remove();
+					
+					$button = '<button class="followFalseBtn" onclick="followTrue(' + meNo + ', ' + userNo + ')">팔로우 취소</button>';
+					
+					$('.MyHomeProfileinformation li:first-child').append($button);
+				}else if(data == '팔로우 실패'){
+					alert('팔로우 실패, 고객센터로 문의 주세요');
+				}
+			}
+		});
+	}
+	
+	function followTrue(meNo, userNo){
+		$.ajax({
+			url:'<%= request.getContextPath() %>/followTrue',
+			type:'get',
+			data:{
+				meNo:meNo,
+				userNo:userNo
+			},
+			success:function(data){
+				if(data == '팔로우 취소'){
+					$('.followFalseBtn').remove();
+					
+					$button = '<button class="followTrueBtn" onclick="followFalse(' + meNo + ', ' + userNo + ')">팔로우</button>';
+					
+					$('.MyHomeProfileinformation li:first-child').append($button);
+				}else if(data == '팔로우 취소 실패'){
+					alert('팔로우 실패, 고객센터로 문의 주세요');
+				}
+			}
+		});
+	}
 	
 	function myInfoModify(){
 		$.ajax({
@@ -152,6 +232,39 @@
 		document.getElementById('settingArea').style.display='none';
 		document.getElementById('settingBoardArea').style.display='none';
 	}
+	
+	function followListBlock(userNo){
+		$.ajax({
+			url : '<%= request.getContextPath()%>/followUserList',
+			data : {
+				userNo : userNo
+			},
+			success : function(data) {
+				$('.followUserArea').html(data);
+				document.getElementById('followUserAreaArea').style.display = 'block';
+				document.getElementById('followUserArea').style.display = 'block';
+			}
+		});
+	}
+	
+	function followingListBlock(userNo){
+		$.ajax({
+			url : '<%= request.getContextPath()%>/followingUserList',
+			data : {
+				userNo : userNo
+			},
+			success : function(data) {
+				$('.followUserArea').html(data);
+				document.getElementById('followUserAreaArea').style.display = 'block';
+				document.getElementById('followUserArea').style.display = 'block';
+			}
+		});
+	}
+	
+	function followgListBlock() {
+		document.getElementById('followUserArea').style.display = 'none';
+		document.getElementById('followUserAreaArea').style.display = 'none';
+	}
 </script>
 </head>
 <body>
@@ -165,18 +278,22 @@
 				<% if(loginUser != null){ %>
 					<% if(loginUser.getUserId().equals(member.getUserId())){ %>
 						<button class="myInfoModifyBtn" onclick="myInfoModify()">프로필 편집</button>
-					<% }else{ %>
-						<button class="myInfoModifyBtn" onclick="follow()">팔로우</button>
+					<% } else{ %>
+						<% if(member.getFollowTF() == 1){ %>
+							<button class="followTrueBtn" onclick="followFalse(<%= loginUser.getUserNo() %>, <%= member.getUserNo() %>)">팔로우</button>
+						<% }else{ %>
+							<button class="followFalseBtn" onclick="followTrue(<%= loginUser.getUserNo() %>, <%= member.getUserNo() %>)">팔로잉 취소</button>
+						<% } %>
 					<% } %>
 				<% } %>
 			</li>
 			<li>
 				<h6>게시뷰 </h6>
 				<p class="MyHomeMyReview"><%= member.getReviewCount() %></p>
-				<h6>팔로우 </h6>
-				<p class="MyHomefollow"><%= member.getFollowCount() %></p>
-				<h6>팔로워 </h6>
-				<p class="MyHomefollower"><%= member.getFollowingCount() %></p>
+				<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로우</h6>
+				<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> )"><%= member.getFollowingCount() %></p>
+				<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
+				<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>)"><%= member.getFollowCount() %></p>
 			</li>
 			<li>
 				<p class="MyHomeIntroduction">
@@ -185,7 +302,8 @@
 			</li>
 		</ul>
 	</div>
-	
+	<div id="followUserArea" class="followUserArea"></div>
+	<div id="followUserAreaArea" class="w3-modal" onclick="followgListBlock()"></div>
 	<div id="settingArea" class="settingArea"></div>
 	<div id="settingBoardArea" class="w3-modal" onclick="displayNone();"></div>
 </body>

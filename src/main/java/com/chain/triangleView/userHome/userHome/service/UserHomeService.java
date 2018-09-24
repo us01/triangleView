@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class UserHomeService {
 
-	public HomeMember UserMemberSelect(String userId) {
+	public HomeMember UserMemberSelect(String userId, String meId) {
 		Connection con = getConnection();
 		
-		HomeMember member = new UserHomeDao().UserMemberSelect(con, userId);
+		HomeMember member = new UserHomeDao().UserMemberSelect(con, userId, meId);
 		
 		close(con);
 		
