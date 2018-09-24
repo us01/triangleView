@@ -151,6 +151,8 @@
 		<display-name>insertWrite1Servlet</display-name>
 		<description></description>
 		<servlet-class>com.chain.triangleView.review.controller.insertWrite1Servlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>UserFollowFalse</servlet-name>
 		<display-name>UserFollowFalse</display-name>
 		<description></description>
@@ -173,6 +175,8 @@
 		<display-name>FollowingUserListServlet</display-name>
 		<description></description>
 		<servlet-class>com.chain.triangleView.member.controller.FollowingUserListServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>CloudTagServlet</servlet-name>
 		<display-name>CloudTagServlet</display-name>
 		<description></description>
@@ -253,6 +257,8 @@
 	<servlet-mapping>
 		<servlet-name>insertWrite1Servlet</servlet-name>
 		<url-pattern>/insertWrite1.bo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>UserFollowFalse</servlet-name>
 		<url-pattern>/followFalse</url-pattern>
 	</servlet-mapping>
@@ -267,6 +273,8 @@
 	<servlet-mapping>
 		<servlet-name>FollowingUserListServlet</servlet-name>
 		<url-pattern>/followingUserList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>CloudTagServlet</servlet-name>
 		<url-pattern>/cloudTag.sr</url-pattern>
 	</servlet-mapping>

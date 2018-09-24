@@ -182,6 +182,11 @@ public class MemberService {
 		}else{
 			rollback(con);
 		}
+		
+		close(con);
+		
+		return result;
+	}	
 	
 	public int userFollowTrue(int meNo, int userNo) {
 		Connection con = getConnection();
