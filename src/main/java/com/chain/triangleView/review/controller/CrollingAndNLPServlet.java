@@ -64,8 +64,6 @@ public class CrollingAndNLPServlet extends HttpServlet {
 					if((Integer) request.getSession().getAttribute("searchCount") != searchCount) {
 
 						searchStop = 1;
-
-
 					}else {
 						if(status.getText() != null) {
 							Sentiment sn = NLPfiltering.get_sentiment(status.getText());		

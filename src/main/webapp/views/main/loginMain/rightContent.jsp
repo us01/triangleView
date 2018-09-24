@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.chain.triangleView.notice.notice.vo.notice.Notice, java.util.*, java.text.SimpleDateFormat"%>
  <%
- 	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("selectAllNotice");
+  ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
  %>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +14,7 @@
 	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
 	crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="jqcloud-1.0.4.js"></script>
 <title>Insert title here</title>
 <style>
 	.rightContent {
@@ -222,19 +223,23 @@
 					 <p class="companyTitle">기업공고</p>
 					 <div class="rolling_panel">
 						<ul>
-							<%for(int i=0; i<noticeList.size(); i++){ %>
+							<%for(int i=0; i<noticeList.size(); i++){ 
+							
+								HashMap<String, Object> hmap = noticeList.get(i);
+							%>
 								<li class="notice">
-									<img src="/triangleView/img/test4.PNG">
-									<p class="reviewTitle"><%= noticeList.get(i).getNoticeTitle() %></p>
+									<img src="/triangleView/notice_upload/<%=hmap.get("filename")%>">
+									<p class="reviewTitle"><%= hmap.get("noticetitle") %></p>
 									<table class="noticeBottom">
 										<tr>
 											<td style=""><img class="icon" src="/triangleView/img/reviewForm/location2.png"></td>
-											<td><span class="content"><%= noticeList.get(i).getProductArea()%></span></td>
+											<td><span class="content"><%= hmap.get("productarea") %></span></td>
 											<%
-											SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+										
 											Date currentTime = new Date ();
-												
-											long diff = noticeList.get(i).getNoticeEndDate().getTime() - currentTime.getTime();
+											String endString = (String)hmap.get("noticeenddate");
+											Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endString);
+											long diff = endTime.getTime() - currentTime.getTime();
 											long diffDays = diff / (24 * 60 * 60 * 1000);
 											    
 											if(diffDays > 0){%>

@@ -2,6 +2,7 @@ package com.chain.triangleView.review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ public class SearchReviewServlet extends HttpServlet {
 		String searchData = request.getParameter("searchData");
 
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
-		ArrayList<Notice> noticeList = null;
+		ArrayList<HashMap<String, Object>> noticeList = null;
 
 		if(searchReviewList != null){
 			noticeList = new NoticeService().selectAllNotice();
