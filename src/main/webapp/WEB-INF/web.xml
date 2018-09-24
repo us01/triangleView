@@ -129,16 +129,6 @@
 		<servlet-class>com.chain.triangleView.notice.controller.selectNoticeServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>SelectNoticeServlet</servlet-name>
-		<display-name>SelectNoticeServlet</display-name>
-		<description></description>
-		<servlet-class>com.chain.triangleView.notice.controller.SelectNoticeServlet</servlet-class>
-		<servlet-name>UserHomeReviewSelectServlet</servlet-name>
-		<display-name>UserHomeReviewSelectServlet</display-name>
-		<description></description>
-		<servlet-class>com.chain.triangleView.review.controller.UserHomeReviewSelectServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>MyHomeServlet</servlet-name>
 		<display-name>MyHomeServlet</display-name>
 		<description></description>
@@ -161,6 +151,32 @@
 		<display-name>insertWrite1Servlet</display-name>
 		<description></description>
 		<servlet-class>com.chain.triangleView.review.controller.insertWrite1Servlet</servlet-class>
+		<servlet-name>UserFollowFalse</servlet-name>
+		<display-name>UserFollowFalse</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.UserFollowFalse</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserFollowTrue</servlet-name>
+		<display-name>UserFollowTrue</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.UserFollowTrue</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FollowUserListServlet</servlet-name>
+		<display-name>FollowUserListServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.FollowUserListServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FollowingUserListServlet</servlet-name>
+		<display-name>FollowingUserListServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.FollowingUserListServlet</servlet-class>
+		<servlet-name>CloudTagServlet</servlet-name>
+		<display-name>CloudTagServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.review.controller.CloudTagServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
@@ -223,12 +239,6 @@
 		<url-pattern>/selectNoticeServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>SelectNoticeServlet</servlet-name>
-		<url-pattern>/selectNotice.nt</url-pattern>
-		<servlet-name>UserHomeReviewSelectServlet</servlet-name>
-		<url-pattern>/userHomeReview</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>MyHomeServlet</servlet-name>
 		<url-pattern>/myHome</url-pattern>
 	</servlet-mapping>
@@ -243,5 +253,21 @@
 	<servlet-mapping>
 		<servlet-name>insertWrite1Servlet</servlet-name>
 		<url-pattern>/insertWrite1.bo</url-pattern>
+		<servlet-name>UserFollowFalse</servlet-name>
+		<url-pattern>/followFalse</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserFollowTrue</servlet-name>
+		<url-pattern>/followTrue</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FollowUserListServlet</servlet-name>
+		<url-pattern>/followUserList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FollowingUserListServlet</servlet-name>
+		<url-pattern>/followingUserList</url-pattern>
+		<servlet-name>CloudTagServlet</servlet-name>
+		<url-pattern>/cloudTag.sr</url-pattern>
 	</servlet-mapping>
 	</web-app>

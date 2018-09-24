@@ -31,27 +31,29 @@ public class UserHomeDao {
 		}
 	}
 	
-	public HomeMember UserMemberSelect(Connection con, String userId) {
+	public HomeMember UserMemberSelect(Connection con, String userId, String meId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HomeMember member = null;
-		
 		String query = prop.getProperty("UserMemberSelect");
-		System.out.println("userHome userId: " + userId);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userId);
 			pstmt.setString(3, userId);
-			pstmt.setString(4, userId);
+			pstmt.setString(4, meId);
+			pstmt.setString(5, userId);
+			pstmt.setString(6, userId);
 			
 			rset = pstmt.executeQuery();
 			
 			member = new HomeMember();
-			
+			 
 			if(rset.next()){
 				member.setReviewCount(rset.getInt("reviewcount"));
 				member.setFollowCount(rset.getInt("followCount"));
+				member.setFollowTF(rset.getInt("followtf"));
 				member.setFollowingCount(rset.getInt("followingCount"));
 				member.setIntro(rset.getString("intro"));
 				member.setNick(rset.getString("nick"));
@@ -67,7 +69,6 @@ public class UserHomeDao {
 			close(pstmt);
 		}
 		
-		System.out.println("userDao"+member.toString());
 		return member;
 	}
 

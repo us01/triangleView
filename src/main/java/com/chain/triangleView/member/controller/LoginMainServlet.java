@@ -2,16 +2,15 @@ package com.chain.triangleView.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.notice.notice.service.NoticeService;
-import com.chain.triangleView.notice.notice.vo.notice.Notice;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 
@@ -26,7 +25,8 @@ public class LoginMainServlet extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(userNo);
-		ArrayList<Notice> noticeList = null;
+		ArrayList<HashMap<String, Object>> noticeList = null;
+		 
 		noticeList = new NoticeService().selectAllNotice();
 		
 		if(interestReviewList != null){

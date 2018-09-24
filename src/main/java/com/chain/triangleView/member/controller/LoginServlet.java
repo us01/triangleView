@@ -2,6 +2,7 @@ package com.chain.triangleView.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 	
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
-		ArrayList<Notice> noticeList = null;
+		 ArrayList<HashMap<String, Object>> noticeList = null;
 		
 		if(loginUser != null){
 			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
@@ -40,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 			noticeList = new NoticeService().selectAllNotice();
 			
 			if(noticeList != null) {
-
 				request.setAttribute("selectAllNotice", noticeList);
 				request.setAttribute("interestReviewList", interestReviewList);
 				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);		

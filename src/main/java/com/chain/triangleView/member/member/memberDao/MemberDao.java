@@ -46,7 +46,6 @@ public class MemberDao {
 
 			rset = pstmt.executeQuery();
 
-			System.out.println(rset);
 			if(rset.next()){
 				loginUser = new Member();
 
@@ -72,8 +71,6 @@ public class MemberDao {
 				loginUser.setPoint(rset.getInt("point"));
 				loginUser.setPostNo(rset.getInt("postNo"));
 				loginUser.setPhone(rset.getString("phone"));
-
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,7 +79,6 @@ public class MemberDao {
 			close(rset);
 		}
 
-		System.out.println("Dao : " + loginUser);
 		return loginUser;
 	}
 
@@ -178,7 +174,6 @@ public class MemberDao {
 
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPwd());
-
 			pstmt.setString(3, m.getIntro());
 			pstmt.setString(4, m.getNick());
 			pstmt.setString(5, m.getPersonName());
@@ -413,7 +408,6 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			close(pstmt);
@@ -448,6 +442,116 @@ public class MemberDao {
 		return result;
 	}
 
+	public int userFollowFalse(Connection con, int meNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("userFollowFalse");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, meNo);
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	public int userFollowTrue(Connection con, int meNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("userFollowTrue");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, meNo);
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Member> followUserList(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> userList = null;
+		
+		String query = prop.getProperty("followUserList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			userList = new ArrayList<Member>();
+			
+			while(rset.next()){
+				Member m = new Member();
+				
+				m.setNick(rset.getString("nick"));
+				m.setIntro(rset.getString("intro"));
+				m.setUserNo(rset.getInt("userno"));
+				
+				userList.add(m);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userList;
+	}
+	
+	public ArrayList<Member> followingUserList(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> userList = null;
+		
+		String query = prop.getProperty("followingUserList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			userList = new ArrayList<Member>();
+			
+			while(rset.next()){
+				Member m = new Member();
+				
+				m.setNick(rset.getString("nick"));
+				m.setIntro(rset.getString("intro"));
+				m.setUserNo(rset.getInt("userno"));
+				
+				userList.add(m);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userList;
+	}
 
 }

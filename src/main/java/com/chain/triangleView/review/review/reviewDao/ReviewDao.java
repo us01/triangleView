@@ -76,8 +76,6 @@ public class ReviewDao {
 			close(stmt);
 		}
 		
-		System.out.println("reviewList.size() : " + reviewList.size());
-		
 		return reviewList;
 	}
 
@@ -364,19 +362,13 @@ public class ReviewDao {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setInt(1, rwNo);
-			System.out.println("rwNo1 : " + rwNo);
 			pstmt.setInt(2, rwNo);
-			System.out.println("rwNo2 : " + rwNo);
 			pstmt.setString(3, commentContent);
-			System.out.println("commentContent : " + commentContent);
 			if(commentNo == -1){
-				System.out.println("if commentNo : " + 0);
 				pstmt.setInt(4, 0);
 			}else{
 				pstmt.setInt(4, commentNo);
-				System.out.println("else commentNo : " + commentNo);
 			}
-			System.out.println("userNo : " + userNo);
 			pstmt.setInt(5, userNo);
 			
 			
