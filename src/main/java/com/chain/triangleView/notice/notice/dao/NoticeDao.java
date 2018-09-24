@@ -29,7 +29,6 @@ public class NoticeDao {
 	}
 	
 	public ArrayList<Notice> selectAllNotice(Connection con) {
-		
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Notice> noticeList = null;
@@ -51,16 +50,14 @@ public class NoticeDao {
 				notice.setNoticeEndDate(rset.getDate("noticeenddate"));
 				
 				noticeList.add(notice);
-				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			
 			close(rset);
 			close(stmt);
 		}
+		
 		return noticeList;
 	}
 

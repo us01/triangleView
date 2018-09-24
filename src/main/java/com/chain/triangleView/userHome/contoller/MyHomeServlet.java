@@ -24,7 +24,7 @@ public class MyHomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HashMap<String, Object> userHome = new HashMap<String, Object>();
 		
-		HomeMember member = new UserHomeService().UserMemberSelect(((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
+		HomeMember member = new UserHomeService().UserMemberSelect(((Member)(request.getSession().getAttribute("loginUser"))).getUserId(), ((Member)(request.getSession().getAttribute("loginUser"))).getUserId());
 		
 		if(member != null){
 			userHome.put("member", member);

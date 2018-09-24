@@ -396,58 +396,58 @@
 				</div>
 				<!--코멘트  -->
 				<% if(rwComment != null){ %>
-					<% for(int i = 0; i < rwComment.size(); i++){ %>
-						<% if(!rwComment.get(i).getParentCommentNo()){ %>
-							<div class="addParentComment">
-								<div class="parentComment-insertArea">
-									<div class="parentCommentProfileImageArea">
-										<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
-									</div>
-									<div class="parentCommentArea">
-										<span class="parentComment">
-										<a class="parentComment_Id">@ <%= rwComment.get(i).getNick() %></a>
-											<%= rwComment.get(i).getCommentContent() %>
-										</span>
-									</div>
-								</div>
-								<% if(loginUser != null){ %>
-									<span class="parentComment_apply" onclick="addCommentAreaDisplay(<%= rwComment.get(i).getCommentNo() %>)">답글 달기</span>
-									<span class="parentComment_apply"><%= rwComment.get(i).getRwDate() %></span>
-								<% }else{ %>
-									<span class="parentComment_apply" style="padding-left:188px;"><%= rwComment.get(i).getRwDate() %></span>
-								<% } %>
-								<div class="addchlidCommentArea addchlidCommentArea<%= rwComment.get(i).getCommentNo() %> " id="addchlidCommentArea<%= rwComment.get(i).getCommentNo() %>">
-									<div class="childCommentInsert">
-										<div class="childCommentInsertProfileImageArea">
+					<div class="contentinfo-comment">
+						<% for(int i = 0; i < rwComment.size(); i++){ %>
+							<% if(!rwComment.get(i).getParentCommentNo()){ %>
+								<div class="addParentComment">
+									<div class="parentComment-insertArea">
+										<div class="parentCommentProfileImageArea">
 											<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
 										</div>
-										<div class="childCommentInsertInputArea">
-											<input id='childComment<%= i %>' type="text">
-											<div onclick="addComment(<%= rwComment.get(i).getRwNo() %>, <%= rwComment.get(i).getCommentNo()%>, <%= i %>)">등록</div>
+										<div class="parentCommentArea">
+											<span class="parentComment">
+											<a class="parentComment_Id">@ <%= rwComment.get(i).getNick() %></a>
+												<%= rwComment.get(i).getCommentContent() %>
+											</span>
+										</div>
+									</div>
+									<% if(loginUser != null){ %>
+										<span class="parentComment_apply" onclick="addCommentAreaDisplay(<%= rwComment.get(i).getCommentNo() %>)">답글 달기</span>
+										<span class="parentComment_apply"><%= rwComment.get(i).getRwDate() %></span>
+									<% }else{ %>
+										<span class="parentComment_apply" style="padding-left:188px;"><%= rwComment.get(i).getRwDate() %></span>
+									<% } %>
+									<div class="addchlidCommentArea addchlidCommentArea<%= rwComment.get(i).getCommentNo() %> " id="addchlidCommentArea<%= rwComment.get(i).getCommentNo() %>">
+										<div class="childCommentInsert">
+											<div class="childCommentInsertProfileImageArea">
+												<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+											</div>
+											<div class="childCommentInsertInputArea">
+												<input id='childComment<%= i %>' type="text">
+												<div onclick="addComment(<%= rwComment.get(i).getRwNo() %>, <%= rwComment.get(i).getCommentNo()%>, <%= i %>)">등록</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						<% }else{ %>
-							<div class="addChildComment">
-								<div class="childComment-insertArea">
-									<div class="childCommentProfileImageArea">
-										<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+							<% }else{ %>
+								<div class="addChildComment">
+									<div class="childComment-insertArea">
+										<div class="childCommentProfileImageArea">
+											<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+										</div>
+										<div class="childCommentArea">
+											<span class="childComment">
+											<a class="childComment_Id">@ <%= rwComment.get(i).getNick() %></a>
+												<%= rwComment.get(i).getCommentContent() %>
+											</span>
+										</div>
 									</div>
-									<div class="childCommentArea">
-										<span class="childComment">
-										<a class="childComment_Id">@ <%= rwComment.get(i).getNick() %></a>
-											<%= rwComment.get(i).getCommentContent() %>
-										</span>
-									</div>
+									<span class="childComment_apply"><%= rwComment.get(i).getRwDate() %></span>
 								</div>
-								<span class="childComment_apply"><%= rwComment.get(i).getRwDate() %></span>
-							</div>
+							<% } %>
 						<% } %>
-					<% } %>
+					</div>
 				<% } %>
-				<div class="contentinfo-comment">
-				</div>
 				<!--코멘트  -->
 				<% if(loginUser != null){ %>
 					<div>

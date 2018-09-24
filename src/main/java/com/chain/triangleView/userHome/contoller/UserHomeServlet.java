@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.userHome.userHome.service.UserHomeService;
 import com.chain.triangleView.userHome.userHome.vo.HomeMember;
 import com.chain.triangleView.userHome.userHome.vo.HomeReview;
@@ -23,10 +22,11 @@ public class UserHomeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("goUser");
+		String meId = request.getParameter("goMe"); // 로그인을 하지 않을 경우 meId의 경우 null아닌 ""값으로 넘어옴
 		
 		HashMap<String, Object> userHome = new HashMap<String, Object>();
 		
-		HomeMember member = new UserHomeService().UserMemberSelect(userId);
+		HomeMember member = new UserHomeService().UserMemberSelect(userId, meId);
 		
 		if(member != null){
 			userHome.put("member", member);

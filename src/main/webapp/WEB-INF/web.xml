@@ -156,6 +156,30 @@
 		<description></description>
 		<servlet-class>com.chain.triangleView.review.controller.AddCommentServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>UserFollowFalse</servlet-name>
+		<display-name>UserFollowFalse</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.UserFollowFalse</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserFollowTrue</servlet-name>
+		<display-name>UserFollowTrue</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.UserFollowTrue</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FollowUserListServlet</servlet-name>
+		<display-name>FollowUserListServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.FollowUserListServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FollowingUserListServlet</servlet-name>
+		<display-name>FollowingUserListServlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.member.controller.FollowingUserListServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
 		<url-pattern>/logoutMain.rl</url-pattern>
@@ -233,5 +257,21 @@
 	<servlet-mapping>
 		<servlet-name>AddCommentServlet</servlet-name>
 		<url-pattern>/addComment</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserFollowFalse</servlet-name>
+		<url-pattern>/followFalse</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserFollowTrue</servlet-name>
+		<url-pattern>/followTrue</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FollowUserListServlet</servlet-name>
+		<url-pattern>/followUserList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FollowingUserListServlet</servlet-name>
+		<url-pattern>/followingUserList</url-pattern>
 	</servlet-mapping>
 	</web-app>

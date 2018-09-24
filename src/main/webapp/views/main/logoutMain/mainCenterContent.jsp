@@ -297,7 +297,7 @@
 		<% } %>
 		
 		if(goMe != goUser){
-			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser;
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser + '&goMe=' + goMe;
 		}else{
 			location.href='<%= request.getContextPath()%>/myHome';
 		}
