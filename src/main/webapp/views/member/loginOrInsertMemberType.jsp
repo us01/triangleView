@@ -133,7 +133,7 @@
 <script>
 	function choiseInsertMemberPageMove(){
 		document.getElementById('insertMemberTypeArea').style.display = 'none';
-		$(".insertMemberTypeArea").css("margin-left", "-100px");
+		$(".insertMemberTypeArea").css("margin-left", "-250px");
 		$.ajax({
 			url : "/triangleView/views/member/choiseInsertMemberPage.jsp",
 			data : "html",

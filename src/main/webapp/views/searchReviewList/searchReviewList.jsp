@@ -17,7 +17,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
+<script src="/triangleView/js/jqcloud-1.0.4.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
+<link rel="stylesheet" href="/triangleView/css/jqcloud.css" />
 <title></title>
 <style>
 	.viewForm{
@@ -117,6 +119,11 @@
 			display:inline-table;
 		}
 	}
+
+	#cloudCanvas{
+		width : 339px;
+		height : 240px;
+	}
 </style>
 <script>
 	function loadReivewForm(rwNo, rwContentType){
@@ -141,11 +148,68 @@
 	}
 	
 	$(function(){
+		
 		$("#canvas").css({"display":"none"});
 		
 		var isStop = false;
 		var searchReviewData = '<%=searchReviewData%>';
 		var isNoData = true;
+		var isNoData2 = false;
+		
+		// 태그 구름 AJAX
+		$.ajax({
+			url : "<%=request.getContextPath()%>/cloudTag.sr",
+			type : "GET",
+			data : {searchHash: "<%= searchReviewData%>"},
+			success : function(data) {
+				
+
+				if(jQuery.isEmptyObject(data)){
+					
+					isNoData2 = true;
+				}else{
+					
+				
+			 	 	var word_array = [
+	         						 {text: "", weight: 1}
+	      							  ];
+			  
+				  	for(var key in data) {
+			  		
+ 			  			word_array.push({text: key, weight : data[key]});
+			  	   }
+			  	
+	    			$("#cloudCanvas").jQCloud(word_array);
+				}
+			
+			},
+			beforeSend: function () {
+				
+				$("#cloudCanvas").css({"display":"none"});
+				$("#loading2").css({"display":"block"});
+            },
+            complete: function () {
+            	
+            	if(!isStop){
+					if(isNoData2){
+            			
+            			console.log("노데이터");
+            			$("#loading2").attr("src", "/triangleView/img/main/nodata.png");
+            			$("#cloudCanvas").css({"display":"none"});
+        				$("#loading2").css({"display":"block"});
+            			
+            		}else{
+            			
+            			$("#loading2").attr("src", "/triangleView/img/main/loading3.gif");
+            			$("#cloudCanvas").css({"display":"block"});
+        				$("#loading2").css({"display":"none"});
+            		}
+            	}
+            }
+	    });
+	    
+		
+		// 감정분석 AJAX
 		
 		$.ajax({
 			url : "<%=request.getContextPath()%>/crolling",
@@ -251,7 +315,7 @@
             			
             		}else{
             			
-            			$("#loading").attr("src", "/triangleView/img/main/data.gif");
+            			$("#loading").attr("src", "/triangleView/img/main/loading3.gif");
             			$("#canvas").css({"display":"block"});
 						$("#loading").css({"display":"none"});
             		}
@@ -280,12 +344,21 @@
 	<div class="centerContent">
 		<div class="reviewInfoArea">
 			<div class="graphArea">
+				<h5 style="color:#f7323f; text-align: center; padding-left:15px; font-family: '맑은고딕';"><b>SNS 감정분석</b></h5>
+				<hr style="margin-top: 5px; margin-bottom: 0px;">
 				<div class="canvasArea">
-				  <img id="loading" src="/triangleView/img/main/data.gif" width="250" height="250">
-				  <canvas id="canvas" width="300" height="240"></canvas>
+				  <img id="loading" src="/triangleView/img/main/loading3.gif" width="300" height="240">
+				  <canvas id="canvas" width="339" height="240"></canvas>
 				</div>
 			</div>
-			<div class="cloudTageArea"></div>
+			<div class="graphArea">
+			    <h5 style="color:#f7323f; text-align: center; padding-left:15px; font-family: '맑은고딕';"><b>태그 구름</b></h5>
+			    <hr style="margin-top: 5px; margin-bottom: 0px;">
+				<div class="cloudArea">
+				  <img id="loading2" src="/triangleView/img/main/loading3.gif" width="300" height="240">
+				  <div id="cloudCanvas"></div>
+				</div>
+			</div>
 		</div>
 		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
 			<div class="viewForm">
