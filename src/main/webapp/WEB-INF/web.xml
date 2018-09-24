@@ -156,6 +156,12 @@
 		<description></description>
 		<servlet-class>com.chain.triangleView.review.controller.AddCommentServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>insertWrite1Servlet</servlet-name>
+		<display-name>insertWrite1Servlet</display-name>
+		<description></description>
+		<servlet-class>com.chain.triangleView.review.controller.insertWrite1Servlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>logoutMainReviewSelectService</servlet-name>
 		<url-pattern>/logoutMain.rl</url-pattern>
@@ -233,5 +239,9 @@
 	<servlet-mapping>
 		<servlet-name>AddCommentServlet</servlet-name>
 		<url-pattern>/addComment</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>insertWrite1Servlet</servlet-name>
+		<url-pattern>/insertWrite1.bo</url-pattern>
 	</servlet-mapping>
 	</web-app>

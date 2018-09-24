@@ -10,7 +10,6 @@ public class Attachment {
 	private String filePath;			//저장경로
 	private Date uploadDate;			//일자
 	private String status;				//삭제여부
-	
 	private String fileSize;			//사이즈
 	private String fileType;			//타입
 	

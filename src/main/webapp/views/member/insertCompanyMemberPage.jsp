@@ -137,6 +137,7 @@
 </style>
 <script>
 
+	//회원이미지입력
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -153,6 +154,7 @@
 		readURL(this);
 	});
 
+	//비밀번호 체크
 	$("#userPwdCheck").change(function() {
 		if ($("#userPwd").val() != $(this).val()) {
 			$("#pwdresult").html("비밀번호가 일치하지 않습니다").css("color", "red");
@@ -165,6 +167,7 @@
 		}
 	})
 
+	//나이는 숫자만 입력받게
 	$(document).ready(function() {
 		$("#age").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
@@ -172,6 +175,7 @@
 
 	});
 
+	//전화번호는 숫자만 입력받게
 	$(document).ready(function() {
 		$("#phone").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
@@ -179,6 +183,7 @@
 
 	});
 
+	//사업자등록번호는 숫자만 입력받게
 	$(document).ready(function() {
 		$("#businessNo").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
@@ -252,6 +257,7 @@
 
 	}
 
+	//intro 글자수
 	$(document).ready(function() {
 		var left = 140
 		$('#text_counter').text('작성할 수 있는 글자수: ' + left);
@@ -273,38 +279,45 @@
 		});
 	});
 
-$(function(){
-		$("#nickCheck").click(function(){
-			var nick = $("#nick").val();
-			$.ajax({
+	//닉네임 중복검사
 
-				url:"nickCheck.do",
-				data:{nick:nick},
-				type:"post",
-				success:function(data){
-					var num = data;
-					if(num == 0){
-						$("#nickResult").text("사용가능한 닉네임입니다.").css("color", "green");
-						$('#newMember').attr("disabled", false);
-					}else{
-						
-						$("#nickResult").text("중복되는 닉네임입니다.").css("color", "red");
-						$('#newMember').attr("disabled", true);
-					}
-				},
-				error:function(){
-					console.log("서버 전송 실패");
-				}
-				
-			});
-			
-		});
+	$(function() {
+		$("#nickCheck").click(
+				function() {
+					var nick = $("#nick").val();
+					$.ajax({
+
+						url : "nickCheck.do",
+						data : {
+							nick : nick
+						},
+						type : "post",
+						success : function(data) {
+							var num = data;
+							if (num == 0) {
+								$("#nickResult").text("사용가능한 닉네임입니다.").css(
+										"color", "green");
+								$('#newMember').attr("disabled", false);
+							} else {
+
+								$("#nickResult").text("중복되는 닉네임입니다.").css(
+										"color", "red");
+								$('#newMember').attr("disabled", true);
+							}
+						},
+						error : function() {
+							console.log("서버 전송 실패");
+						}
+
+					});
+
+				});
 	});
 </script>
 </head>
 
 <body>
-	<form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertCompanyMember.me" method="post" encType="multipart/form-data">
+	<form class="JoinForm" id="form" name="testGo" action="" method="post" encType="multipart/form-data">
 		<div id="container" class="w3-container">
 			<div class="page-header">
 				<h2 style="text-align:center;"><img src="/triangleView/img/member/company.png" style="width:80px;">기업회원가입</h2>
@@ -453,15 +466,17 @@ $(function(){
 			</div>
 
 			<div class="w3-container" style="text-align: center;">
-			 <input type="submit" class="subButton" id="newMember" value="기업회원가입" disabled="disabled" ></input>
+			 <input type="button" class="subButton" id="newMember" value="기업회원가입" disabled="disabled" onclick="youHaveTo()" ></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
 			</div>
 			<script>
+			//취소버튼 눌렀을때 close
 				function end() {
 					document.getElementById('insertMemberTypeArea').style.display = 'none';
 					document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 				}
 				
+			//회원아이디 중복체크
 				$("#sendVertify").click(function(){
 					var id = $("#userId").val();
 					
@@ -473,14 +488,17 @@ $(function(){
 						},
 						success : function(data) {
 							console.log("성고오오오오옹!");
+							if(data== 0){
+							alert("중복된 이메일로 계정이 존재합니다. 다른 이메일을 입력해주세요 ");
+							
+							}else{
 							$("#p2").text(data);
 							var num = data;
-							
+							}
 						},
 						error : function() {
 							console.log("실패ㅠㅠ");
 						}
-
 					});
 				});
 				
@@ -500,6 +518,56 @@ $(function(){
 					}
 
 				});
+				
+				//null 값있을경우 
+				function youHaveTo(){
+					theForm = document.testGo;
+					if(theForm.userId.value==""){
+			            alert("아이디를 입력하지 않았습니다.")
+			            theForm.userId.focus();
+			            return false;
+					} else if(theForm.copName.value==""){
+			            alert("기업이름을 입력하지 않았습니다.")
+			            theForm.copName.focus();
+			            return false;
+					} else if(theForm.personName.value==""){
+			            alert("담당자이름을 입력하지 않았습니다.")
+			            theForm.personName.focus();
+			            return false;
+					} else if(theForm.nick.value==""){
+			            alert("닉네임을 입력하지 않았습니다.")
+			            theForm.nick.focus();
+			            return false;
+					} else if(theForm.userPwd.value==""){
+			            alert("비밀번호를 입력하지 않았습니다.")
+			            theForm.userPwd.focus();
+			            return false;
+			        }else if(theForm.businessNo.value==""){
+				        alert("사업자등록번호를 입력하지 않았습니다.")
+				        theForm.businessNo.focus();
+				        return false;
+				    }else if(theForm.phone.value==""){
+			            alert("전화번호를 입력하지 않았습니다.")
+			            theForm.phone.focus();
+			            return false;
+					} else if(theForm.sample4_postcode.value==""){
+				        alert("우편번호를 입력하지 않았습니다.")
+				        theForm.sample4_postcode.focus();
+				        return false;
+					} else if(theForm.sample4_roadAddress.value==""){
+				        alert("도로명을 입력하지 않았습니다.")
+				        theForm.sample4_roadAddress.focus();
+				        return false;
+					} else if(theForm.sample4_jibunAddress.value==""){
+				        alert("지번주소를 입력하지 않았습니다.")
+				        theForm.sample4_jibunAddress.focus();
+				        return false;
+					} else{
+						var form = document.getElementById("form");
+						form.action = "<%=request.getContextPath() %>/insertCompanyMember.me";
+						form.submit();
+					}
+				}
 			</script>
 		</div>
 	</form>

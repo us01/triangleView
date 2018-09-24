@@ -59,8 +59,8 @@ button {
 }
 
 .btn-success {
-	width: 120px;
-	background-color: #3178b1;
+	
+	background-color: #f8585b;
 	border: none;
 	color: #FDEBEC;
 	padding: 6px;
@@ -71,6 +71,8 @@ button {
 	margin-bottom: 4px;
 	cursor: pointer;
 	border-radius: 5px;
+	width: 70px;
+    height: 40px;
 }
 
 .w3-card {
@@ -135,8 +137,27 @@ button {
     display: block;
 }
 
+.w3-tag{
+    position: absolute;
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+}
+
+input[type=text],input[type=email],input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
 </style>
 <script>
+	//회원이미지 입력
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -153,6 +174,7 @@ button {
 		readURL(this);
 	});
 
+	//비밀번호체크
 	$("#userPwdCheck").change(function() {
 		if ($("#userPwd").val() != $(this).val()) {
 			$("#pwdresult").html("비밀번호가 일치하지 않습니다").css("color", "red");
@@ -165,6 +187,7 @@ button {
 		}
 	})
 
+	//나이는 숫자값만 입력
 	$(document).ready(function() {
 		$("#age").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
@@ -172,6 +195,7 @@ button {
 
 	});
 
+	//핸드폰번호는 숫자값만
 	$(document).ready(function() {
 		$("#phone").keyup(function() {
 			$(this).val($(this).val().replace(/[^0-9]/g, ""));
@@ -179,6 +203,7 @@ button {
 
 	});
 
+	//성별은 하나만 체크가능하게
 	function doOpenCheck(chk) {
 		var obj = document.getElementsByName("gender");
 		for (var i = 0; i < obj.length; i++) {
@@ -254,6 +279,7 @@ button {
 
 	}
 
+	//intro 작성글자수
 	$(document).ready(function() {
 		var left = 140
 		$('#text_counter').text('작성할 수 있는 글자수: ' + left);
@@ -275,6 +301,7 @@ button {
 		});
 	});
 
+	//회원 닉네임 체크
 	$(function() {
 
 		$("#nickCheck").click(
@@ -312,17 +339,17 @@ button {
 </script>
 </head>
 <body>
-   <form class="JoinForm" id="form" action="<%=request.getContextPath() %>/insertMember.me" method="post" encType="multipart/form-data">
+   <form class="JoinForm" id="form" name="testGo" action="" method="post" encType="multipart/form-data">
 
       <div id="container" class="w3-container">
          <div class="page-header">
             <h2 style="text-align:center;"><img src="/triangleView/img/member/reviewer.png" style="width:80px;">일반회원가입</h2>
          </div>
 
-         <div class="w3-card image" style="align: center;">
+         <div class="w3-card image" style="align:center;">
             <p style="text-align: -webkit-left;">
-               <span class="w3-tag w3-red" style="margin-left:15px;">회원이미지</span> 
-               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 110px;"/> 
+               <span class="w3-tag" style="margin-left:15px;background-color: white; color: black; margin-top: 57px;">프로필 이미지</span> 
+               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px;"/> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
                <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle"
                style="margin-top: 40px;" />
@@ -331,11 +358,11 @@ button {
          </div>
 
          <div class="w3-container w3-form" id="mail1">
-            <p><span class="w3-tag w3-red">아이디(이메일)</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">아이디(이메일)</span></p>
             <div class="input-group" style="text-align: center;">
-               <input type="email" class="w3-input w3-change" id="userId" name="userId"
-                  placeholder="아이디(이메일형식)" style="width:300px;"> <span class="input-group-btn">
-			<input type="button" class="btn-success" id="sendVertify" value="인증번호전송"></input>
+               <input type="email" class="w3-input w3-change myInt" id="userId" name="userId"
+                  placeholder="아이디(이메일형식)" style="width:270px;"> <span class="input-group-btn">
+			<input type="button" class="btn-success" id="sendVertify" value="전송" style="margin-top:-50px; margin-right: -30px;"></input>
                </span>
                
                 <p id="p2" style="width: 100px; height: 20px;">
@@ -344,40 +371,40 @@ button {
          </div>
 
          <div class="w3-container" id="mail2">
-            <p><span class="w3-tag w3-red">인증번호입력</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">인증번호입력</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호"
-               style="width:300px;">
-		<input type="button" class="btn-success" id="vertifyNum" value="인증번호입력"></input>
+               style="width:270px; ">
+		<input type="button" class="btn-success" id="vertifyNum" value="인증" style="margin-top:-50px; margin-left: 399px;"></input>
 		<br><label id="checkVerify"></label>
               
             </div>
          </div>
 
          <div class="w3-container" id="nickname">
-            <p><span class="w3-tag w3-red">닉네임</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;margin-top: 20px;">닉네임</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="nick" name="nick" 
-                  placeholder="닉네임을 입력해 주세요" style="width:300px;"> 
-			<input type="button" class="btn-success" id="nickCheck" value="중복검사"></input>
+                  placeholder="닉네임을 입력해 주세요" style="width:270px;"> 
+			<input type="button" class="btn-success" id="nickCheck" value="중복검사" style="margin-top:-50px; margin-left: 399px;"></input>
                <br><label id="nickResult"></label>
             </div>
          </div>
 
 
          <div class="w3-container">
-            <p><span class="w3-tag w3-red">비밀번호</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;margin-top: 20px;">비밀번호</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" 
-               id="userPwd" name="userPwd" placeholder="비밀번호" style="width:300px;">
+               id="userPwd" name="userPwd" placeholder="비밀번호" style="width:270px;">
             </div>
          </div>
 
          <div class="w3-container">
-            <p><span class="w3-tag w3-red">비밀번호확인</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;">비밀번호확인</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" name="userPwdCheck"
-                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:300px;">
+                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:270px;">
                <br><label id="pwdresult"></label>
             </div>
          </div>
@@ -385,27 +412,27 @@ button {
 
 			<div class="w3-container">
 				<p>
-					<span class="w3-tag w3-red">핸드폰번호</span>
+					<span class="w3-tag" style="background-color: white; color:black;">핸드폰번호</span>
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="phone" name="phone"
-						placeholder="핸드폰번호를 입력해주세요" style="width:300px;">
+						placeholder="핸드폰번호를 입력해주세요" style="width:270px;">
 				</div>
 			</div>
 			
          <div class="w3-container">
             <p>
-               <span class="w3-tag w3-red">나이</span>
+               <span class="w3-tag" style="background-color: white; color:black;">나이</span>
             </p>
             <div style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="age" 
-               name="age" placeholder="만 나이를 입력해 주세요" style="width:300px;">
+               name="age" placeholder="만 나이를 입력해 주세요" style="width:270px;">
             </div>
          </div>
 
          <div class="w3-container">
             <p>
-               <span class="w3-tag w3-red">성별</span>
+               <span class="w3-tag" style="background-color: white; color:black;">성별</span>
             </p>
             <div style="text-align: center;">
                <input name="gender" type="radio" class="w3-radio" value="M"
@@ -416,7 +443,7 @@ button {
          </div>
 
              <div class="w3-container">
-            <p><span class="w3-tag w3-red">주소</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;">주소</span></p>
             <input type="button" onclick="sample4_execDaumPostcode()" 
                value="우편번호 찾기" class="btn-success">
             
@@ -432,7 +459,7 @@ button {
 
          <div class="w3-container">
             <p>
-               <span class="w3-tag w3-red">관심사</span>
+               <span class="w3-tag" style="background-color: white; color:black;">관심사</span>
             </p>
             <input type="checkbox" class="w3-check" name="category" value="1">자유
             <input type="checkbox" class="w3-check" name="category" value="2">IT/가전
@@ -449,23 +476,25 @@ button {
 
          <div class="w3-container">
             <p>
-               <span class="w3-tag w3-red">자기소개</span>
+               <span class="w3-tag" style="background-color: white; color:black;">자기소개</span>
             </p>
             <textarea id="intro" rows="5" style="width: 490px; resize: none;" name="intro" ></textarea>
             <!-- <span id="text_counter"></span> -->
          </div>
 
          <div class="w3-container" style="text-align: center;">
-            <input type="submit" class="subButton" id="newMember" value="일반회원가입" disabled="disabled" onclick="youHaveTo()"></input>
+            <input type="button" class="subButton" id="newMember" value="일반회원가입" disabled="disabled" onclick="youHaveTo()"></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
          </div>
         
 			<script>
+			//가입취소버튼
 				function end() {
 					document.getElementById('insertMemberTypeArea').style.display = 'none';
 					document.getElementById('insertMemberTypeAearArea').style.display = 'none';
 				}
 				
+			//아이디 체크
 				$("#sendVertify").click(function(){
 					var id = $("#userId").val();
 					
@@ -477,9 +506,13 @@ button {
 						},
 						success : function(data) {
 							console.log("성고오오오오옹!");
+							if(data== 0){
+							alert("중복된 이메일로 계정이 존재합니다. 다른 이메일을 입력해주세요 ");
+							
+							}else{
 							$("#p2").text(data);
 							var num = data;
-							
+							}
 						},
 						error : function() {
 							console.log("실패ㅠㅠ");
@@ -505,16 +538,47 @@ button {
 
 				});
 
+				//null값이 있을때 회원가입취소
 				function youHaveTo(){
-					if($("#userId").val() == null || $("#nick").val() == null || 
-							 $("#phone").val() == null ||  $("#sample4_postcode").val() == null ||
-							 $("#sample4_roadAddress").text() == null || $("#sample4_jibunAddress").text() == null)
-					{
-						alert("정보 입력 부족으로 인한 회원가입 실패입니다!");
-					}else{
-						alert('회원 가입에 정상적으로 성공하셨습니다.');
-					}
 					
+					theForm = document.testGo;
+					if(theForm.userId.value==""){
+			            alert("아이디를 입력하지 않았습니다.")
+			            theForm.userId.focus();
+			            return false;
+					} else if(theForm.nick.value==""){
+			            alert("닉네임을 입력하지 않았습니다.")
+			            theForm.nick.focus();
+			            return false;
+					} else if(theForm.phone.value==""){
+			            alert("핸드폰번호를 입력하지 않았습니다.")
+			            theForm.phone.focus();
+			            return false;
+					} else if(theForm.age.value==""){
+			            alert("나이를 입력하지 않았습니다.")
+			            theForm.age.focus();
+			            return false;
+					} else if(theForm.gender.value==""){
+			            alert("성별을 입력하지 않았습니다.")
+			            theForm.gender.focus();
+			            return false;
+					} else if(theForm.sample4_postcode.value==""){
+				        alert("우편번호를 입력하지 않았습니다.")
+				        theForm.sample4_postcode.focus();
+				        return false;
+					} else if(theForm.sample4_roadAddress.value==""){
+				        alert("도로명을 입력하지 않았습니다.")
+				        theForm.sample4_roadAddress.focus();
+				        return false;
+					} else if(theForm.sample4_jibunAddress.value==""){
+				        alert("지번주소를 입력하지 않았습니다.")
+				        theForm.sample4_jibunAddress.focus();
+				        return false;
+					} else{
+						var form = document.getElementById("form");
+						form.action = "<%=request.getContextPath() %>/insertMember.me";
+						form.submit();
+					}
 				}
 			</script>
 

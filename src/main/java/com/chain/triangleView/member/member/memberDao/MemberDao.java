@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.review.review.vo.Review;
 
 import static com.chain.triangleView.common.JDBCTemplate.*;
 
@@ -106,7 +107,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public int insertMember(Connection con, Member m, ArrayList<Attachment> fileList) {
+	public int insertMember(Connection con, Member m) {
 		PreparedStatement pstmt = null;
 
 		int result = 0;
@@ -165,7 +166,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public int insertCompanyMember(Connection con, Member m, ArrayList<Attachment> fileList) {
+	public int insertCompanyMember(Connection con, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -421,5 +422,32 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int checkId(Connection con, String id) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("checkId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			
+			result = pstmt.executeUpdate();
+			System.out.println(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
 
 }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chain.triangleView.email.CrunchifyJavaMailExample;
+import com.chain.triangleView.member.member.service.MemberService;
+import com.chain.triangleView.member.member.vo.Member;
 
 /**
  * Servlet implementation class sendVerifyServlet
@@ -31,23 +33,31 @@ public class sendVerifyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		int result = 0;
-		//System.out.println(id);
+		int resultNum = 0;
+		System.out.println(id);
 		
+		result = new MemberService().checkId(id);
 		CrunchifyJavaMailExample cjme = new CrunchifyJavaMailExample();
 		
-		try {
-			int ran = (int)(Math.random() * 90000) + 10000;
-			cjme.generateAndSendEmail(id,ran);
-			result = ran;
+		if(result>0){
+			resultNum = 0;
+			request.setAttribute("resultNum", resultNum);
+			response.getWriter().println(resultNum);
+		}else{
+			try {
+				int ran = (int)(Math.random() * 90000) + 10000;
+				cjme.generateAndSendEmail(id,ran);
+				resultNum = ran;
+				
+			} catch (AddressException e) {
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
+			request.setAttribute("resultNum", resultNum);
+			response.getWriter().println(resultNum);
 		}
-		
-		request.setAttribute("result", result);
-		response.getWriter().println(result);
 	}
 
 	/**

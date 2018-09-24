@@ -199,6 +199,11 @@ body {
 <form class="write2Form" id="form" action="<%=request.getContextPath() %>/insertWrite3.bo" method="post" > 
 	<h4>동영상 게시판</h4>
 	<hr>
+
+		<div>
+			<input type="checkbox" class="w3-check" name="companySpon" value="1">기업후원리뷰
+		</div>
+
 	<h5>제목</h5>
 	<div class="input-group">
 		<input type="text" class="w3-input" id="title" name="title"
