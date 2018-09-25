@@ -258,7 +258,7 @@
 		height: 44px;
 	}
 	.insertMemberTypeArea {
-		z-index: 300;
+		z-index: 301;
    		position: absolute;
    		left: 50%;
    		margin-left:-150px;
