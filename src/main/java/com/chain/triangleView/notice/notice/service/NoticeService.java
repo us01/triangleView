@@ -18,6 +18,7 @@ public class NoticeService {
 		close(con);
 		
 		return noticeList;
+		
 	}
 
 	public ArrayList<HashMap<String, Object>> selectCurrNotice() {
