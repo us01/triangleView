@@ -134,11 +134,11 @@ button {
 </head>
 <body>
 	<div class="page-header" style="text-align:center; display: block;">
-		<h2><img src="/triangleView/img/member/passFind.png" style="width:45px; margin-top:-10px">비밀번호 찾기</h2>
+		<h2 style="font-size: 28px;"><img src="/triangleView/img/member/passFind.png" style="width:45px; margin-top:-10px">비밀번호 찾기</h2>
 	</div>
 	
 	<div class="howToUse">
-		<p id="howTo">회원가입 시 등록한 이메일 주소를 입력하시면<br>
+		<p id="howTo">회원가입 시 등록한 이메일 주소를 입력하시면<br><br>
 			비밀번호를 재설정 할 수 있는 인증번호를 전송해드립니다.</p>
 	</div>
 

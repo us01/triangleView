@@ -404,7 +404,7 @@ input[type=text],input[type=email],input[type=password], select {
             <p><span class="w3-tag" style="background-color: white; color:black;">비밀번호확인</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" name="userPwdCheck"
-                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:270px;">
+                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:270px; margin-top: 20px;">
                <br><label id="pwdresult"></label>
             </div>
          </div>
@@ -416,7 +416,7 @@ input[type=text],input[type=email],input[type=password], select {
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="phone" name="phone"
-						placeholder="핸드폰번호를 입력해주세요" style="width:270px;">
+						placeholder="핸드폰번호를 입력해주세요" style="width:270px; margin-top: 20px;">
 				</div>
 			</div>
 			
@@ -426,7 +426,7 @@ input[type=text],input[type=email],input[type=password], select {
             </p>
             <div style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="age" 
-               name="age" placeholder="만 나이를 입력해 주세요" style="width:270px;">
+               name="age" placeholder="만 나이를 입력해 주세요" style="width:270px; margin-top: 20px;">
             </div>
          </div>
 
@@ -442,10 +442,10 @@ input[type=text],input[type=email],input[type=password], select {
             </div>
          </div>
 
-             <div class="w3-container">
-            <p><span class="w3-tag" style="background-color: white; color:black;">주소</span></p>
+             <div class="w3-container" style="margin-top: 20px;">
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-top: -20px;">주소</span></p>
             <input type="button" onclick="sample4_execDaumPostcode()" 
-               value="우편번호 찾기" class="btn-success">
+               value="우편번호 찾기" class="btn-success" style="width: 120px;">
             
             <br> 
             <input type="text" id="sample4_postcode" placeholder="우편번호" 
@@ -459,7 +459,7 @@ input[type=text],input[type=email],input[type=password], select {
 
          <div class="w3-container">
             <p>
-               <span class="w3-tag" style="background-color: white; color:black;">관심사</span>
+               <span class="w3-tag" style="background-color: white; color:black; margin-top: -30px;">관심사</span>
             </p>
             <input type="checkbox" class="w3-check" name="category" value="1">자유
             <input type="checkbox" class="w3-check" name="category" value="2">IT/가전
@@ -474,15 +474,15 @@ input[type=text],input[type=email],input[type=password], select {
             
          </div>
 
-         <div class="w3-container">
+         <div class="w3-container" style="margin-top: 20px;">
             <p>
-               <span class="w3-tag" style="background-color: white; color:black;">자기소개</span>
+               <span class="w3-tag" style="background-color: white; color:black;margin-top: -25px;">자기소개</span>
             </p>
             <textarea id="intro" rows="5" style="width: 490px; resize: none;" name="intro" ></textarea>
             <!-- <span id="text_counter"></span> -->
          </div>
 
-         <div class="w3-container" style="text-align: center;">
+         <div class="w3-container" style="text-align: center; height: 40px;">
             <input type="button" class="subButton" id="newMember" value="일반회원가입" disabled="disabled" onclick="youHaveTo()"></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
          </div>

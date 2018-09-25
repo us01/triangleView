@@ -174,7 +174,7 @@ section {
 <body>
 <form class="write2Form" id="form" action="<%=request.getContextPath() %>/insertWrite2.bo" method="post" > 
 	<div class="container">
-		<h4>글쓰기 게시판</h4>
+		<h4 style="text-align:center;">글쓰기 게시판</h4>
 		<hr>
 			<div>
 				<input type="checkbox" class="w3-check" name="companySpon" value="1">기업후원리뷰

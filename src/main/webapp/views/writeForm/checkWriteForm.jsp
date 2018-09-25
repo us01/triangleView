@@ -31,12 +31,46 @@ body {
 	height: 200px;
 }
 
+.button1{
+	background: url(/triangleView/img/writeForm/cardReview.png) 0 0 no-repeat;
+	background-size: 200px;
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	border: 1px solid white;
+	left: 120px;
+    top: 50px;
+}
+
 .button2 {
-	background-color: #008CBA;
-} /* Blue */
+		background: url(/triangleView/img/writeForm/textReview.png) 0 0 no-repeat;
+	background-size: 200px;
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	border: 1px solid white;
+	left: 320px;
+    top: 50px;
+} 
 .button3 {
-	background-color: #f44336;
-} /* Red */
+		background: url(/triangleView/img/writeForm/movieReview.png) 0 0 no-repeat;
+	background-size: 200px;
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	border: 1px solid white;
+	left: 520px;
+    top: 50px;
+} 
 
 /* The Modal (background) */
 .modal {
@@ -84,22 +118,29 @@ body {
 
 }
 </style>
+<script>
+function write1PageMove() {
+	window.open('/triangleView/views/writeForm/write1.jsp', '_blank', 'width=1000 height=500 left=150px top=50px')
+}
 
+function write2PageMove() {
+	window.open('/triangleView/views/writeForm/write2.jsp', '_blank', 'width=1000 height=500 left=150px top=50px')
+}
+function write3PageMove() {
+	window.open('/triangleView/views/writeForm/write3.jsp', '_blank', 'width=1000 height=500 left=150px top=50px')
+}
+
+</script>
 <body>
 
-	<div class="w3-modal-content" style="text-align: center;" id="settingArea">
-		<p style="text-align: center">게시글 형태를 선택하세요</p>
-		<button id="member" class="button" onclick="window.open('/triangleView/views/writeForm/write1.jsp', '_blank', 
-		'width=1000 height=500 left=150px top=50px')">
-			카드형 <br>게시물 작성
+	<div class="w3-modal-content" style="text-align:center; height:300px; width:850px; background-color: antiquewhite;" id="settingArea" >
+		<p style="text-align: center" >게시글 형태를 선택하세요</p>
+		
+		<button id="member" class="button button1" onclick="write1PageMove()">
 		</button>
-		<button id="company" class="button button2"onclick="window.open('/triangleView/views/writeForm/write2.jsp', '_blank', 
-		'width=1000 height=500 left=150px top=50px')">
-			텍스트 <br>게시물 작성
+		<button id="company" class="button button2" onclick="write2PageMove()">
 		</button>
-		<button id="company" class="button button3" onclick="window.open('/triangleView/views/writeForm/write3.jsp', '_blank', 
-		'width=1000 height=500 left=150px top=50px')">
-			동영상 <br>게시물 작성
+		<button id="company" class="button button3" onclick="write3PageMove()">
 		</button>
 	</div>
 </body>

@@ -58,8 +58,9 @@
 	}
 	
 	.btn-success {
-		width: 120px;
-		background-color: #3178b1;
+		width: 70px;
+    	height: 40px;
+		background-color: #f8585b;
 		border: none;
 		color: #FDEBEC;
 		padding: 6px;
@@ -132,6 +133,23 @@
 	margin-left: 360px;
     margin-top: -30px;
     display: block;
+}
+
+.w3-tag{
+    position: absolute;
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+}
+
+input[type=text],input[type=email],input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 </style>
@@ -325,8 +343,8 @@
 
 			 <div class="w3-card image" style="align: center;">
             <p style="text-align: -webkit-left;">
-               <span class="w3-tag w3-red"  style="margin-left:15px;">회원이미지</span> 
-               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 110px;"/> 
+               <span class="w3-tag"  style="margin-left:15px; background-color: white; color: black; margin-top: 57px;">프로필 이미지</span> 
+               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px;"/> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
                <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle" />
                </label>
@@ -334,11 +352,11 @@
          	</div>
          
          <div class="w3-container w3-form" id="mail1">
-            <p><span class="w3-tag w3-red">아이디(이메일)</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">아이디(이메일)</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="email" class="w3-input w3-change" id="userId" name="userId"
-                  placeholder="아이디(이메일형식)" style="width:300px;"> <span class="input-group-btn">
-			<input type="button" class="btn-success" id="sendVertify" value="인증번호전송"></input>
+                  placeholder="아이디(이메일형식)" style="width:270px;"> <span class="input-group-btn">
+			<input type="button" class="btn-success" id="sendVertify" value="전송"  style="margin-top:-50px; margin-right: -30px;"></input>
                </span>
                
                 <p id="p2" style="width: 100px; height: 20px;">
@@ -347,87 +365,87 @@
          </div>
 
 	 <div class="w3-container" id="mail2">
-            <p><span class="w3-tag w3-red">인증번호입력</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">인증번호입력</span></p>
             <div class="input-group" style="text-align: center;">
-               <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호" style="width:300px;">
-		<input type="button" class="btn-success" id="vertifyNum" value="인증번호입력"></input>
+               <input type="text" id="checkNum" class="w3-input w3-change" placeholder="인증번호" style="width:270px;">
+		<input type="button" class="btn-success" id="vertifyNum" value="인증" style="margin-top:-50px; margin-left: 399px;"></input>
 		<br><label id="checkVerify"></label>
             </div>
          </div>
 
 			<div class="w3-container">
 				<p>
-					<span class="w3-tag w3-red">기업이름</span>
+					<span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">기업이름</span>
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="copName" name="copName"
-						placeholder="기업이름을 입력해 주세요" style="width:300px;">
+						placeholder="기업이름을 입력해 주세요" style="width:270px;">
 				</div>
 			</div>
 
 			<div class="w3-container">
 				<p>
-					<span class="w3-tag w3-red">담당자이름</span>
+					<span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">담당자이름</span>
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="personName" name="personName"
-						placeholder="담당자이름을 입력해 주세요" style="width:300px;">
+						placeholder="담당자이름을 입력해 주세요" style="width:270px;">
 				</div>
 			</div>
 			
          <div class="w3-container" id="nickname">
-            <p><span class="w3-tag w3-red">닉네임</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;margin-top: 20px; margin-left: -9px;">닉네임</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="text" class="w3-input w3-change" id="nick" name="nick" 
-                  placeholder="닉네임을 입력해 주세요" style="width:300px;"> 
-			<input type="button" class="btn-success" id="nickCheck" value="중복검사"></input>
+                  placeholder="닉네임을 입력해 주세요" style="width:270px;"> 
+			<input type="button" class="btn-success" id="nickCheck" value="중복검사" style="margin-top:-50px; margin-left: 399px;"></input>
               <br><label id="nickResult"></label>
             </div>
          </div>
 
          <div class="w3-container">
-            <p><span class="w3-tag w3-red">비밀번호</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black;margin-top: 20px; margin-left: -9px;">비밀번호</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" 
-               id="userPwd" name="userPwd" placeholder="비밀번호" style="width:300px;">
+               id="userPwd" name="userPwd" placeholder="비밀번호" style="width:270px;">
             </div>
          </div>
 
          <div class="w3-container">
-            <p><span class="w3-tag w3-red">비밀번호확인</span></p>
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-left: -9px; margin-top: 20px;">비밀번호확인</span></p>
             <div style="text-align: center;">
                <input type="password" class="w3-input w3-change" name="userPwdCheck"
-                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:300px;">
+                  id="userPwdCheck" placeholder="비밀번호 확인" style="width:270px;">
                <br><label id="pwdresult"></label>
             </div>
          </div>
 
 			<div class="w3-container">
 				<p>
-					<span class="w3-tag w3-red">사업자등록번호</span>
+					<span class="w3-tag" style="background-color: white; color:black; margin-left: -9px; margin-top: 20px;">사업자번호</span>
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="businessNo" name="businessNo"
-						placeholder="사업자등록번호를 입력해주세요" style="width:300px;">
+						placeholder="사업자등록번호를 입력해주세요" style="width:270px;">
 				</div>
 			</div>
 
 			<div class="w3-container">
 				<p>
-					<span class="w3-tag w3-red">담당자번호</span>
+					<span class="w3-tag" style="background-color: white; color:black; margin-left: -9px; margin-top: 20px;">담당자번호</span>
 				</p>
 				<div style="text-align: center;">
 					<input type="text" class="w3-input w3-change" id="phone" name="phone"
-						placeholder="담당자전화번호를 입력해주세요" style="width:300px;">
+						placeholder="담당자전화번호를 입력해주세요" style="width:270px;">
 				</div>
 			</div>
 
 
 
-         <div class="w3-container">
-            <p><span class="w3-tag w3-red">회사주소</span></p>
+         <div class="w3-container" style="margin-top: 20px;">
+            <p><span class="w3-tag" style="background-color: white; color:black; margin-left: -9px; margin-top:-30px;">회사주소</span></p>
             <input type="button" onclick="sample4_execDaumPostcode()" 
-               value="우편번호 찾기" class="btn-success">
+               value="우편번호 찾기" class="btn-success" style="width: 120px;">
             
             <br> 
             <input type="text" id="sample4_postcode" placeholder="우편번호"
@@ -442,7 +460,7 @@
 
 			<div class="w3-container">
             <p>
-               <span class="w3-tag w3-red">관심사</span>
+               <span class="w3-tag" style="background-color: white; color:black; margin-top: -30px;">관심사</span>
             </p>
             <input type="checkbox" class="w3-check" name="category" value="1">자유
             <input type="checkbox" class="w3-check" name="category" value="2">IT/가전
@@ -457,15 +475,15 @@
             
         	 </div>
 
-			<div class="w3-container">
+			<div class="w3-container" style="margin-top: 20px;">
 				<p>
-					<span class="w3-tag w3-red">회사소개</span>
+					<span class="w3-tag"  style="background-color: white; color:black;margin-top: -25px;">회사소개</span>
 				</p>
 				<textarea id="intro" rows="5" style="width: 490px; resize: none;" name="intro" ></textarea>
 				<!-- <span id="text_counter"></span> -->
 			</div>
 
-			<div class="w3-container" style="text-align: center;">
+			<div class="w3-container" style="text-align: center; height: 40px;">
 			 <input type="button" class="subButton" id="newMember" value="기업회원가입" disabled="disabled" onclick="youHaveTo()" ></input>
 			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
 			</div>
