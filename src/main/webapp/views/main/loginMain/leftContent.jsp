@@ -140,11 +140,12 @@
 	}
 </style>
 <script>
-	function followListBlock(userNo){
+	function followListBlock(meNo){
 		$.ajax({
 			url : '<%= request.getContextPath()%>/followUserList',
 			data : {
-				userNo : userNo
+				userNo : meNo,
+				meNo : meNo
 			},
 			success : function(data) {
 				$('.followUserArea').html(data);
@@ -154,11 +155,12 @@
 		});
 	}
 	
-	function followingListBlock(userNo){
+	function followingListBlock(meNo){
 		$.ajax({
 			url : '<%= request.getContextPath()%>/followingUserList',
 			data : {
-				userNo : userNo
+				userNo : meNo,
+				meNo : meNo
 			},
 			success : function(data) {
 				$('.followUserArea').html(data);
@@ -217,7 +219,7 @@
 			</ul>
 		<% }else{ %>
 			<script>
-				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack2.png)');
+				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack3.png)');
 			</script>
 			<div class="logoutleftArea">
 				<p style="margin-botton : 10px;"><b>회원 전용 <br/><br/>

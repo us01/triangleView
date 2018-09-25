@@ -72,7 +72,7 @@
 		cursor: pointer;
 		border-radius:5px;
 	}
-	.followTrueBtn {
+	.homeFollowTrueBtn {
 		position:absolute;
 		right:5px;
 		width: 87px;
@@ -86,7 +86,7 @@
 		cursor: pointer;
 		border-radius:5px;
 	}
-	.followFalseBtn {
+	.homeFollowFalseBtn {
 		position:absolute;
 		right:5px;
 		width: 87px;
@@ -141,7 +141,7 @@
 		z-index: 300;
    		position: absolute;
    		left: 50%;
-   		margin-left:-150px;
+   		margin-left:-200px;
     	top: 150px;
 	}
 	@media all and (max-width:769px) {
@@ -172,7 +172,7 @@
 	}
 </style>
 <script>
-	function followFalse(meNo, userNo){
+	function followFalse(userNo, meNo){
 		$.ajax({
 			url:'<%= request.getContextPath() %>/followFalse',
 			type:'get',
@@ -182,9 +182,9 @@
 			},
 			success:function(data){
 				if(data == '팔로우'){
-					$('.followTrueBtn').remove();
+					$('.homeFollowTrueBtn').remove();
 					
-					$button = '<button class="followFalseBtn" onclick="followTrue(' + meNo + ', ' + userNo + ')">팔로우 취소</button>';
+					$button = '<button class="homeFollowFalseBtn" onclick="followTrue(' + userNo + ', ' + meNo + ')">팔로우 취소</button>';
 					
 					$('.MyHomeProfileinformation li:first-child').append($button);
 				}else if(data == '팔로우 실패'){
@@ -194,7 +194,7 @@
 		});
 	}
 	
-	function followTrue(meNo, userNo){
+	function followTrue(userNo, meNo){
 		$.ajax({
 			url:'<%= request.getContextPath() %>/followTrue',
 			type:'get',
@@ -204,9 +204,9 @@
 			},
 			success:function(data){
 				if(data == '팔로우 취소'){
-					$('.followFalseBtn').remove();
+					$('.homeFollowFalseBtn').remove();
 					
-					$button = '<button class="followTrueBtn" onclick="followFalse(' + meNo + ', ' + userNo + ')">팔로우</button>';
+					$button = '<button class="homeFollowTrueBtn" onclick="followFalse(' + userNo + ', ' + meNo + ')">팔로우</button>';
 					
 					$('.MyHomeProfileinformation li:first-child').append($button);
 				}else if(data == '팔로우 취소 실패'){
@@ -233,11 +233,12 @@
 		document.getElementById('settingBoardArea').style.display='none';
 	}
 	
-	function followListBlock(userNo){
+	function followListBlock(userNo, meNo){
 		$.ajax({
 			url : '<%= request.getContextPath()%>/followUserList',
 			data : {
-				userNo : userNo
+				userNo : userNo,
+				meNo : meNo
 			},
 			success : function(data) {
 				$('.followUserArea').html(data);
@@ -247,11 +248,12 @@
 		});
 	}
 	
-	function followingListBlock(userNo){
+	function followingListBlock(userNo, meNo){
 		$.ajax({
 			url : '<%= request.getContextPath()%>/followingUserList',
 			data : {
-				userNo : userNo
+				userNo : userNo,
+				meNo : meNo
 			},
 			success : function(data) {
 				$('.followUserArea').html(data);
@@ -279,10 +281,10 @@
 					<% if(loginUser.getUserId().equals(member.getUserId())){ %>
 						<button class="myInfoModifyBtn" onclick="myInfoModify()">프로필 편집</button>
 					<% } else{ %>
-						<% if(member.getFollowTF() == 1){ %>
-							<button class="followTrueBtn" onclick="followFalse(<%= loginUser.getUserNo() %>, <%= member.getUserNo() %>)">팔로우</button>
+						<% if(member.getFollowTF() > 0){ %>
+							<button class="homeFollowTrueBtn" onclick="followFalse(<%= member.getUserNo() %>, <%= loginUser.getUserNo() %>)">팔로우</button>
 						<% }else{ %>
-							<button class="followFalseBtn" onclick="followTrue(<%= loginUser.getUserNo() %>, <%= member.getUserNo() %>)">팔로잉 취소</button>
+							<button class="homeFollowFalseBtn" onclick="followTrue(<%= member.getUserNo() %>, <%= loginUser.getUserNo() %>)">팔로잉 취소</button>
 						<% } %>
 					<% } %>
 				<% } %>
@@ -290,10 +292,17 @@
 			<li>
 				<h6>게시뷰 </h6>
 				<p class="MyHomeMyReview"><%= member.getReviewCount() %></p>
-				<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로우</h6>
-				<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> )"><%= member.getFollowingCount() %></p>
-				<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
-				<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>)"><%= member.getFollowCount() %></p>
+				<% if(loginUser != null){ %>
+					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>
+					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,<%= loginUser.getUserNo() %>)"><%= member.getFollowingCount() %></p>
+					<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
+					<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>, <%= loginUser.getUserNo() %>)"><%= member.getFollowCount() %></p>
+				<% }else{ %>
+					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>
+					<p class="MyHomefollow" onclick="followListBlock(<%= member.getUserNo()%> ,-1)"><%= member.getFollowingCount() %></p>
+					<h6 onclick="followingListBlock(<%= member.getUserNo() %>)">팔로워</h6>
+					<p class="MyHomefollower" onclick="followingListBlock(<%= member.getUserNo() %>, -1)"><%= member.getFollowCount() %></p>
+				<% } %>
 			</li>
 			<li>
 				<p class="MyHomeIntroduction">

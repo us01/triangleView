@@ -41,7 +41,7 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
-<dependency>
+    <dependency>
          <groupId>javax.mail</groupId>
          <artifactId>mail</artifactId>
          <version>1.4.7</version>
@@ -56,6 +56,7 @@
       <artifactId>tomcat-catalina</artifactId>
       <version>8.5.32</version>
    </dependency>
+
 	</dependencies>
 	<build>
 		<finalName>triangleView</finalName>
