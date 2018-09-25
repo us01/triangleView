@@ -217,7 +217,7 @@
 			</ul>
 		<% }else{ %>
 			<script>
-				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack2.png)');
+				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack3.png)');
 			</script>
 			<div class="logoutleftArea">
 				<p style="margin-botton : 10px;"><b>회원 전용 <br/><br/>
