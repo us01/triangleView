@@ -41,11 +41,6 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
-	    <dependency>
-	       <groupId>org.apache.tomcat</groupId>
-	       <artifactId>tomcat-catalina</artifactId>
-	       <version>8.5.32</version>
-	    </dependency>
 	</dependencies>
 	<build>
 		<finalName>triangleView</finalName>
