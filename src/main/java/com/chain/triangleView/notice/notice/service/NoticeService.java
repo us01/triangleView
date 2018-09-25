@@ -18,6 +18,17 @@ public class NoticeService {
 		close(con);
 		
 		return noticeList;
+		
+	}
+
+	public ArrayList<HashMap<String, Object>> selectCurrNotice() {
+		
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> noticeList = new NoticeDao().selectCurrNotice(con);
+		
+		close(con);
+		
+		return noticeList;
 	}
 
 }

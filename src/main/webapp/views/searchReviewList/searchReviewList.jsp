@@ -45,9 +45,10 @@
 		z-index:2;
 	}
 	.viewTitle {
-		width:100%;
+		width:95%;
 		display:inline-block;
 		text-align: left;
+		margin-left : 3px;
 	}
 	.viewTitle p {
 		font-size:13px;
@@ -60,33 +61,55 @@
 		margin-bottom:5px;
 	}
 	.viewSearchImage, .viewLikeImage{
-		width:50%;
+		width:45%;
 		float:left;
 		display:table;
-		text-align:center;
+		text-align:left;
+		padding-left: 10px;
+		margin-top : 5px;
 	}
 	.viewSearchImage p, .viewLikeImage p{
 		display:table-cell;
-		font-size:7px;
+		font-size:14px;
 		font-weight: bold;
 		text-align:left;
 		vertical-align:middle;
 		margin:0px;
 		color:darkgray;
+		padding-bottom:6px;
 	}
+	
+	.viewSearchImage img, .viewLikeImage img{
+		margin-right:7px;
+	}
+	
+	.viewSearchImage div, .viewLikeImage div{
+		display:inline;
+	}
+	
+	.viewSearchImage p, .viewLikeImage p{
+		display:table-cell;
+		font-size:14px;
+		font-weight: bold;
+		text-align:left;
+		margin:0px;
+		color:darkgray;
+	}
+	
 	.reviewWriter {
-		text-align:right;
-		font-size:11px;
+		float:right;
+		font-size:12px;
 		font-weight:bold;
-		padding-top:31px;
+		cursor:pointer;
 	}
+	
 	.reviewWriter p{
 		display:inline;
 		padding-right:3px;
 		font-size:12px;
 		font-weight:bold;
 		margin:0px;
-		cursor:pointer;
+		margin-top: -5px;
 	}
 	.formArea {
 		z-index: 300;
@@ -95,6 +118,7 @@
    		margin-left:-500px;
     	top: 110px;
 	}
+	
 	.reviewInfoArea {
 		margin-top:9px;
 		display: flex;
@@ -102,17 +126,21 @@
 		background:white;
 		border-radius: 10px;
 	}
+	
 	.graphArea {
 		width:50%;
 	}
+	
 	.cloudTageArea {
 		width:50%;
 	}
+	
 	.canvasArea {
 		display:inline-block;
 	  	text-align: center;
 	  	color: #bdc3c7;
 	}
+	
 	@media all and (max-width:768px){
 		.centerContent { 
 			width:100%; 
@@ -363,30 +391,32 @@
 		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
 			<div class="viewForm">
 				<div class="viewMainImage">
-					<img src="/triangleView/img/test3.jpg" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
+					<img src="/triangleView/img/test5.png" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
 				</div>
 				<div class="formType">
 					<% if(searchReviewList.get(i).getRwContentType() == 0){ %>
-						<img src="/triangleView/img/viewList/text.png">
+							<img src="/triangleView/img/viewList/text.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
 					<% }else if(searchReviewList.get(i).getRwContentType() == 1){ %>
-						<img src="/triangleView/img/viewList/card.png">
+						<img src="/triangleView/img/viewList/card.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
 					<% }else{ %>
-						<img src="/triangleView/img/viewList/video.png">
+						<img src="/triangleView/img/viewList/video.png" style="position:absolute; margin-left : 165px; margin-top : 10px; opacity:0.9;">
 					<% } %>
 				</div>
 				<div class="viewTitle">
-					<p><%= searchReviewList.get(i).getRwTitle() %></p>
+					<p><b><%= searchReviewList.get(i).getRwTitle() %></b></p>
 				</div>
-				<div class="viewSearchImage">
-					<img src="/triangleView/img/viewList/views.png">
-					<p><%= searchReviewList.get(i).getRwCount() %></p>
+				<div style="align:center;">
+					<div class="viewSearchImage">
+						<img src="/triangleView/img/viewList/view.png" style="width:30px; height:25px;">
+						<div><p><%= searchReviewList.get(i).getRwCount() %></p></div>
+					</div>
+					<div class="viewLikeImage">
+						<img src="/triangleView/img/viewList/love.png" style="width:30px; height:25px;">
+						<div><p><%= searchReviewList.get(i).getLikeCount() %></p></div>
+					</div>
 				</div>
-				<div class="viewLikeImage">
-					<img src="/triangleView/img/viewList/like.png">
-					<p><%= searchReviewList.get(i).getLikeCount() %></p>
-				</div>
-				<div class="reviewWriter">
-					@ <p onclick="goHome(this)" id="<%= searchReviewList.get(i).getUserId() %>"><%= searchReviewList.get(i).getNick() %></p>
+				<div class="reviewWriter" style="padding-right:3px;">
+					@<p onclick="goHome(this)" id="<%= searchReviewList.get(i).getUserId() %>"><%= searchReviewList.get(i).getNick() %></p>
 				</div>
 			</div>
 		<% } %>

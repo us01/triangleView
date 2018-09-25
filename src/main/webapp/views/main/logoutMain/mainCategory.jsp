@@ -74,28 +74,47 @@
 			
 		});
 	})
+	
+	function searchCategory(category){
+		
+		var searchHash = "";
+		var searchData = "";
+		
+		switch(category){
+		case 1 : searchHash = "자유"; searchData = searchHash; break;
+		case 2 : searchHash = "게임"; searchData = searchHash; break;
+		case 3 : searchHash = "취미"; searchData = searchHash; break;
+		case 4 : searchHash = "IT"; searchData = searchHash; break;
+		case 5 : searchHash = "인생"; searchData = searchHash; break;
+		case 6 : searchHash = "금융"; searchData = searchHash; break;
+		case 7 : searchHash = "스포츠"; searchData = searchHash; break;
+		case 8 : searchHash = "뷰티"; searchData = searchHash; break;
+		case 9 : searchHash = "뮤직"; searchData = searchHash; break;
+		}
+		location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+	}
 </script>
 </head>
 <body>
 	<div class="category">
 		<ul>
-			<li value="1"><img src="/triangleView/img/main/freedom.png">
+			<li onclick="searchCategory(1)"><img src="/triangleView/img/main/freedom.png">
 				<p>자유</p></li>
-			<li><img src="/triangleView/img/main/game.png">
+			<li onclick="searchCategory(2)"><img src="/triangleView/img/main/game.png">
 				<p>게임</p></li>
-			<li><img src="/triangleView/img/main/hobby.png">
+			<li onclick="searchCategory(3)"><img src="/triangleView/img/main/hobby.png">
 				<p>취미</p></li>
-			<li><img src="/triangleView/img/main/appliance.png">
+			<li onclick="searchCategory(4)"><img src="/triangleView/img/main/appliance.png">
 				<p>IT/가전</p></li>
-			<li><img src="/triangleView/img/main/life.png">
+			<li onclick="searchCategory(5)"><img src="/triangleView/img/main/life.png">
 				<p>인생</p></li>
-			<li><img src="/triangleView/img/main/banking.png">
+			<li onclick="searchCategory(6)"><img src="/triangleView/img/main/banking.png">
 				<p>금융</p></li>
-			<li><img src="/triangleView/img/main/sports.png">
+			<li onclick="searchCategory(7)"><img src="/triangleView/img/main/sports.png">
 				<p>스포츠</p></li>
-			<li><img src="/triangleView/img/main/beauty.png">
+			<li onclick="searchCategory(8)"><img src="/triangleView/img/main/beauty.png">
 				<p>뷰티</p></li>
-			<li><img src="/triangleView/img/main/music.png">
+			<li onclick="searchCategory(9);"><img src="/triangleView/img/main/music.png">
 				<p>뮤직</p></li>
 		</ul>
 	</div>
