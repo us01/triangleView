@@ -484,7 +484,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public ArrayList<Member> followUserList(Connection con, int userNo) {
+	public ArrayList<Member> followUserList(Connection con, int userNo, int meNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> userList = null;
@@ -493,7 +493,11 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userNo);
+			pstmt.setInt(1, meNo);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(3, userNo);
+			pstmt.setInt(4, userNo);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -505,6 +509,7 @@ public class MemberDao {
 				m.setNick(rset.getString("nick"));
 				m.setIntro(rset.getString("intro"));
 				m.setUserNo(rset.getInt("userno"));
+				m.setFollowTF(rset.getInt("followtf"));
 				
 				userList.add(m);
 			}
@@ -519,7 +524,7 @@ public class MemberDao {
 		return userList;
 	}
 	
-	public ArrayList<Member> followingUserList(Connection con, int userNo) {
+	public ArrayList<Member> followingUserList(Connection con, int userNo, int meNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Member> userList = null;
@@ -529,6 +534,8 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, meNo);
+			pstmt.setInt(3, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -540,6 +547,7 @@ public class MemberDao {
 				m.setNick(rset.getString("nick"));
 				m.setIntro(rset.getString("intro"));
 				m.setUserNo(rset.getInt("userno"));
+				m.setFollowTF(rset.getInt("followtf"));
 				
 				userList.add(m);
 			}

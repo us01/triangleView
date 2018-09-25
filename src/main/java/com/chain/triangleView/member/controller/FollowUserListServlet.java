@@ -20,8 +20,11 @@ public class FollowUserListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int meNo = Integer.parseInt(request.getParameter("meNo"));
 		
-		ArrayList<Member> userList = new MemberService().followUserList(userNo);
+		System.out.println("meNo : " + meNo);
+		
+		ArrayList<Member> userList = new MemberService().followUserList(userNo, meNo);
 		
 		if(userList != null){
 			request.setAttribute("userList", userList);
