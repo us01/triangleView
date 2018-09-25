@@ -204,20 +204,20 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Member> followUserList(int userNo) {
+	public ArrayList<Member> followUserList(int userNo, int meNo) {
 		Connection con = getConnection();
 		
-		ArrayList<Member> userList = new MemberDao().followUserList(con, userNo);
+		ArrayList<Member> userList = new MemberDao().followUserList(con, userNo, meNo);
 		
 		close(con);
 		
 		return userList;
 	}
 	
-	public ArrayList<Member> followingUserList(int userNo) {
+	public ArrayList<Member> followingUserList(int userNo, int meNo) {
 		Connection con = getConnection();
 		
-		ArrayList<Member> userList = new MemberDao().followingUserList(con, userNo);
+		ArrayList<Member> userList = new MemberDao().followingUserList(con, userNo, meNo);
 		
 		close(con);
 		

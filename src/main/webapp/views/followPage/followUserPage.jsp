@@ -18,6 +18,7 @@
 		height:400px;
 		background:white;
 		border-radius:20px;
+		overflow:hidden;
 	}
 	.followInfoAear {
 		height:24px;
@@ -32,6 +33,9 @@
 		text-align:center;
 	}
 	.followUserListArea > ul{
+		overflow: scroll;
+    	height: 363px;
+    	width: 418px;
 		list-style:none;
 		padding-left:0px;
 		margin:0px;
@@ -75,6 +79,7 @@
 		margin-right:10px;
 	}
 	.followTrueBtn {
+		position:static;
 		right:5px;
 		width: 94px;
 		background-color: #f8585b;
@@ -89,11 +94,27 @@
 		border-radius:5px;
 	}
 	.followFalseBtn {
+		position:static;
 		right:5px;
 		width: 94px;
 		background-color: lightgray;
 		border: none;
-		color: white;
+		color: #FDEBEC;
+		margin-top:3px;
+		padding: 7px;
+		text-align: center;
+		text-decoration: none;
+		font-size: 14px;
+		cursor: pointer;
+		border-radius:5px;
+	}
+	.loginBtn {
+		position:static;
+		right:5px;
+		width: 94px;
+		background-color: #f8585b;
+		border: none;
+		color: #FDEBEC;
 		margin-top:3px;
 		padding: 7px;
 		text-align: center;
@@ -147,6 +168,11 @@
 			}
 		});
 	}
+	
+	function loginInfoBtn(){
+		followgListBlock();
+		insertMemberTypeDisplayBlock();
+	}
 </script>
 </head>
 <body>
@@ -169,7 +195,17 @@
 								<div class="introArea"><%= userList.get(i).getIntro() %></div>
 							</div>
 							<div class="followingBtnArea<%= userList.get(i).getUserNo() %>">
-								<button class="followFalseBtn followFalseBtn<%= userList.get(i).getUserNo() %>" onclick="followTrue(<%= loginUser.getUserNo() %>, <%= userList.get(i).getUserNo() %>)">팔로우 취소</button>
+								<% if(loginUser != null){ %>
+									<% if(!userList.get(i).getNick().equals(loginUser.getNick())){ %>
+										<% if(userList.get(i).getFollowTF() > 0){ %>
+											<button class="followFalseBtn followFalseBtn<%= userList.get(i).getUserNo() %>" onclick="followTrue(<%= loginUser.getUserNo() %>, <%= userList.get(i).getUserNo() %>)">팔로잉 취소</button>
+										<% }else{ %>
+											<button class="followTrueBtn followTrueBtn<%= userList.get(i).getUserNo() %>" onclick="followFalse(<%= loginUser.getUserNo() %>, <%= userList.get(i).getUserNo() %>)">팔로잉</button>
+										<% } %>
+									<% } %>
+								<% }else{ %>
+									<button class="loginBtn" onclick="loginInfoBtn()">팔로잉</button>
+								<% } %>
 							</div>
 						</div>
 					</li>
