@@ -55,15 +55,20 @@ body {
 } */
 
 .my_button {
-	display: inline-block;
-	width: 150px;
+	
+	background-color: #f8585b;
+	border: none;
+	color: #FDEBEC;
+	padding: 6px;
 	text-align: center;
-	padding: 10px;
-	background-color: #006BCC;
-	color: #fff;
 	text-decoration: none;
-	border-radius: 10px;
-	border :0;
+	font-size: 14px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 120px;
+    height: 30px;
 }
 
 .subButton {
@@ -127,6 +132,16 @@ input:hover + p.arrow_box {
   content: " ";
 }
 
+.w3-change {
+    width: 650px;
+    height:30px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
 .star-input>.input,
 .star-input>.input>label:hover,
@@ -248,6 +263,28 @@ div.desc {
     text-align: center;
 }
 
+	.wrap_test1{
+		position:relative;
+	}
+	.ico_test1{
+		background: url(/triangleView/img/writeForm/imgplus.png) 0 0 no-repeat;
+		background-size: 250px;
+		width: 250px;
+		height: 250px;
+		display: inline-block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 1px solid white;
+	}
+
+	#imgInput1{
+		
+		width: 250px;
+		height: 250px;
+		display:visible;
+	}
+
 </style>
 
 <script type="text/javascript">
@@ -353,97 +390,27 @@ div.desc {
 
 <body>
 
-<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data">
+<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;">
 	<div class="container">
-		<h4>카드형 게시판</h4>
+		<h3 style="text-align:center; color:#f8585b;">카드형 리뷰</h3>
+		</div>
 		<hr>
+			
+		<div class="input-group" style="display:-webkit-inline-box">
+		<h5>제목</h5>
+			<input type="text" class="w3-input w3-change" id="title" name="title" style="text-align: center;
+    margin-left: 100px;" placeholder="글제목을 입력해주세요">
+		</div>
 
-			<div>
-				<input type="checkbox" class="w3-check" name="companySpon" value="1">기업후원리뷰
+
+		<div class="input-group" style="display:-webkit-inline-box">
+			<div id="companySup" style="width:635px;">
+			<h5 style="display:inline-block;">기업후원 리뷰</h5>
+				<input type="checkbox" class="w3-check" name="companySpon" value="1" style="margin-left: 18px;">
 			</div>
 			
-			
-			<div class="test">
-		<div class="gallery" id="gallery">
-  <a target="_blank" id="status">
-    <input type="file" id ="imgInp" name="file" style="display:block;" onChange="readURL(this)">
-    <img id="blah">
-  </a>
-  <div class="desc" id="holder">Add a description of the image here</div>
-		</div>
-<script type="text/javascript">
-var i = 0;
-/* 
-$(function() {
-	function LoadImg(this){
-		readURL(this); */
-
-/*     $("#imgInp").on('change', function(){
-        readURL(this);
-    });
-     */
-     function readURL(input) { 
-    	 if (input.files && input.files[0]) {
-    	  var reader = new FileReader(); 
-    	 reader.onload = function (e) 
-    	 { 
-    		 $('#blah').attr('src', e.target.result); } 
-    	 reader.readAsDataURL(input.files[0]); } 
-
-    		i=i+1;
-    	 	var $input = $("<input type = 'file' name = 'file"+i+"' onChange='readURL(this)'>");
-    		var $br = $("<a target ='_blank' id='status'>");
-    		var $hr = $("<img id='blah'>");
-    		var $tag = $("</a>");
-
-    		
-
-    		 $("#gallery").append($br);
-    		 $("#gallery").append($input);
-    	     $("#gallery").append($hr);
-    	     $("#gallery").append($tag);
-
-     
-     }
-     
-/*     var $input = $("<input type = 'file' name = 'file"+i+"' onChange='LoadImg(this)'>");
-	i=i+1;
-	var $br = $("<a target ='_blank' id='status'>");
-	var $hr = $("<img id='blah'>");
-	var $tag = $("</a>")
-	 $("#gallery").append($br);
-	 $("#gallery").append($input);
-     $("#gallery").append($hr);
-     $("#gallery").append($tag);
-	} */
-/* }); */
-
-/* function readURL(input) {
-    if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-        }
-
-      reader.readAsDataURL(input.files[0]);
-    }
-} */
-
-</script>
-
-		
-		</div>
-	
-		<h5>제목</h5>
-		<div class="input-group">
-			<input type="text" class="w3-input" id="title" name="title"
-				style="width: 490px" placeholder="글제목을 입력해주세요">
-		</div>
-
-	<h5>카테고리</h5>
-		<div class="input-group">
-
+			<div id="categorySup" >
+			<h5 style="display:inline-block;">카테고리</h5>
 
 			<select name="categoryCheck" class="form-control">
 				<option value="1" name="category" selected="selected">자유</option>
@@ -456,66 +423,76 @@ $(function() {
 				<option value="8" name="category">취미</option>
 				<option value="9" name="category">인생</option>
 			</select>
+			</div>
 		</div>
-		
-		<div>
-			<h5>이미지편집기</h5>
+
+		<div id="thumbNail">
+			<h5 style="display: inline-block;">썸네일</h5>
+		</div>
+
+		<div id="imageEdit" style="display: -webkit-inline-box;">
+			<h5 style="display: inline-block;">이미지</h5>
 			<div class="changePhoto">
-				<a>
-				<input type="button" class="my_button" id="newPhoto" value="이미지편집" onclick="moveEditor();">
-				<p class="arrow_box">원하시는 이미지 파일을 편집해서 저장후에 업로드 해주세요!</p>
+				<a> <input type="button" class="my_button" id="newPhoto"
+					value="이미지편집" onclick="moveEditor();" style="margin-left: 28px;">
+					<p class="arrow_box">원하시는 이미지 파일을 편집해서 저장후에 업로드 해주세요!</p>
 				</a>
 			</div>
+		</div>
+		
 
-
-			<div id="tetest">
-				<h5>게시글 작성</h5>
-
-				<input type="file" id ="contract_file" name="file" onChange="a()" style="display:block;">
-<!-- 					<a href="javascript:" onclick="fileUploadAction();"
-						class="my_button">파일 업로드</a> <input type="file" id="input_imgs" name="filename[]" multiple /> -->
-
+		<div id="write1Content">
+			<div id="test0" style="background-image: url(/triangleView/img/writeForm/imgplus.png); 
+			background-size: 250px; width: 250px; height: 250px; display: inline-block;">
+				<input type="file" id="imgInput1" name="file0" id="imgInput"
+					onChange="b()" style="display: hidden;">
 			</div>
-			
-		<!-- 	<script>
-			var i = 0;
-			
-		      function a() {
+		</div>
+		<script>
+		var i = 0;
+	function readURL(input) {
+  		var elem = $(input);
+  		if (input.files && input.files[0]) {
+   			var reader = new FileReader();
+    		reader.onload = function(e) {
+    			$("#test"+(i-1)).css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+    			
+    		}
+    		reader.readAsDataURL(elem.get(0).files[0]);
+  		}
+	}
 
-		            var $input = $("<input type = 'file' name = 'file"+i+"' onChange='a()'>");
-		            		i=i+1;
-		            var $br = $("<br>");
-		            var $hr = $("<hr>");
-		            $("#tetest").append($br);
-		            $("#tetest").append($hr);
-		            $("#tetest").append($input);
-		   
-		         
-		      }
-			</script> -->
+	$("input[type='file']").change(function() {
+  		readURL(this);
+  		
+	});
+	
+	 function b() {
+        i=i+1;
+  		var $div =$("<div id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></div>");
+        var $input = $("<input type = 'file' id = 'imgInput1' name = 'file"+i+"' onChange='b()' style='display:hidden;'>").change(function() {
+      		readURL(this);
+      		
+    	});
 
-<!-- 			<div>
-				<div class="imgs_wrap">
-					<img id="img" />
-				</div>
-			</div> -->
+        $($div).append($input);
+        $("#write1Content").append($div);
+		
+	 }
+</script> 
 
-			<!-- <a href="javascript:" class="my_button" onclick="submitAction();">업로드</a> -->
-
-
-		<h5>해쉬태그 작성</h5>
-		<div class="hash">
-			<input type="text" class="form-control" id="hash" name="hash"
-				style="width: 510px; height: 50px" placeholder="hashtag를 입력해주세요">
+		<div class="hash" style="display:-webkit-inline-box">
+		<h5>해시태그</h5>
+			<input type="text" class="w3-input w3-change" id="hash" name="hash"
+				style="width:650px; height:30px; margin-left: 60px;" placeholder="hashtag를 입력해주세요">
 		</div>
 		<br>
 		
 
-		<div class="form-group">
-			
+		<div style="display:-webkit-inline-box">	
 			<h5>한마디</h5>
-			<textarea id="introduce" name="introduce" rows="5" style="width: 510px"></textarea>
-			<span id="text_counter"></span>
+			<textarea id="introduce" class="w3-input w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:78px;"></textarea>
+			<!-- <span id="text_counter"></span> -->
 		</div>
 
 		<script>
@@ -539,25 +516,26 @@ $(function() {
 					});
 				});
 			</script>
-
-		<h5>별점</h5>
-		<span class="star-input">
-  		<span class="input">
-    		<input type="radio" name="star-input" id="p1" value="1"><label for="p1">0.5</label>
-    		<input type="radio" name="star-input" id="p2" value="2"><label for="p2">1</label>
-    		<input type="radio" name="star-input" id="p3" value="3"><label for="p3">1.5</label>
-    		<input type="radio" name="star-input" id="p4" value="4"><label for="p4">2</label>
-    		<input type="radio" name="star-input" id="p5" value="5"><label for="p5">2.5</label>
-    		<input type="radio" name="star-input" id="p6" value="6"><label for="p6">3</label>
-    		<input type="radio" name="star-input" id="p7" value="7"><label for="p7">3.5</label>
-    		<input type="radio" name="star-input" id="p8" value="8"><label for="p8">4</label>
-    		<input type="radio" name="star-input" id="p9" value="9"><label for="p9">4.5</label>
-    		<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
-  		</span>
-  		<output for="star-input"><b id="reresult">0</b>점</output>
-  		<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value="">
-  		
-		</span>
+			
+		<div style="display:-webkit-inline-box">
+			<h5>별점</h5>
+				<span class="star-input">
+  					<span class="input" style="margin-top:12px; margin-left: 92px;">
+    					<input type="radio" name="star-input" id="p1" value="1"><label for="p1">0.5</label>
+    					<input type="radio" name="star-input" id="p2" value="2"><label for="p2">1</label>
+    					<input type="radio" name="star-input" id="p3" value="3"><label for="p3">1.5</label>
+    					<input type="radio" name="star-input" id="p4" value="4"><label for="p4">2</label>
+    					<input type="radio" name="star-input" id="p5" value="5"><label for="p5">2.5</label>
+    					<input type="radio" name="star-input" id="p6" value="6"><label for="p6">3</label>
+    					<input type="radio" name="star-input" id="p7" value="7"><label for="p7">3.5</label>
+    					<input type="radio" name="star-input" id="p8" value="8"><label for="p8">4</label>
+    					<input type="radio" name="star-input" id="p9" value="9"><label for="p9">4.5</label>
+    					<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
+  					</span>
+  					<!-- <output for="star-input"><b id="reresult">0</b>점</output> -->
+  				<!-- <input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value=""> -->
+			</span>
+		</div>
 		
 		<br>
 	<hr>
@@ -613,8 +591,7 @@ $(function() {
 					</button>
 				</div>
 			</div>
-		</div>
-	</div>
+
 </form>
 </body>
 </html>

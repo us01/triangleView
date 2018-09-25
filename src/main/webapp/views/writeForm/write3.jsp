@@ -197,7 +197,7 @@ body {
 
 <body>
 <form class="write2Form" id="form" action="<%=request.getContextPath() %>/insertWrite3.bo" method="post" > 
-	<h4>동영상 게시판</h4>
+	<h4 style="text-align:center;">동영상 게시판</h4>
 	<hr>
 
 		<div>
