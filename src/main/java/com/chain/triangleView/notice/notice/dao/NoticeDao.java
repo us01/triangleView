@@ -48,7 +48,7 @@ public class NoticeDao {
 				hmap.put("noticecode", rset.getInt("noticecode"));
 				hmap.put("noticetitle", rset.getString("noticetitle"));
 				hmap.put("categorycode", rset.getInt("categorycode"));
-				//hmap.put("productarea", rset.getString("productarea"));
+				hmap.put("productarea", rset.getString("productarea"));
 				hmap.put("noticeenddate", rset.getString("noticeenddate"));
 				hmap.put("filename", rset.getString("filename"));
 				hmap.put("filePath", "notice_upload");
