@@ -2,7 +2,11 @@ package com.chain.triangleView.review.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -64,17 +68,53 @@ public class insertWrite1Servlet extends HttpServlet {
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
-			double rwGrade = rwGrade2 / 2;
-			String rwContent = "";
+			double rwGrade = 0.0;
+			if(multiRequest.getParameter("rwGrade") == null){
+				rwGrade = 0;
+			}else{
+				double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
+				rwGrade = rwGrade2 / 2;
+			}
 
+			String rwContent = "";
+			String companySponCheck = multiRequest.getParameter("companySpon");
+			int companySpon = 0;
+			if(companySponCheck == null){
+				companySpon = 0;
+			}else{
+				companySpon = 1;
+			}
+			
+			String resultHash = "";
+			if(rwHash != null){
+				//sha512로변환한 해시
+				MessageDigest digest;
+				try {
+					digest = MessageDigest.getInstance("SHA-512");
+					byte[] bytes = rwHash.getBytes(Charset.forName("UTF-8"));
+					digest.reset();
+					digest.update(bytes);
+					resultHash = Base64.getEncoder().encodeToString(digest.digest());
+				} catch (NoSuchAlgorithmException e) {
+					
+					e.printStackTrace();
+				}			
+			}else{
+				resultHash = "undefined";
+			}
+			
+			System.out.println("바뀌는가? : " + resultHash);
+			
 			Review rw = new Review();
 			rw.setRwTitle(rwTitle);
 			rw.setCategoryType(categoryType);
 			rw.setRwHash(rwHash);
 			rw.setRwComment(rwComment);
 			rw.setRwGrade(rwGrade);
-
+			rw.setRwSupport(companySpon);
+			
+			
+			
 			// 저장한 파일의 이름을 저장할 arrayList생성
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			// 원본 파일의 이름을 저장할 arrayList생성
@@ -85,37 +125,39 @@ public class insertWrite1Servlet extends HttpServlet {
 			
 			// Attachment 객체 생성하여 ArrayList객체 생성
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
-	         while (files.hasMoreElements()) {
-	            String name = files.nextElement();
+			while (files.hasMoreElements()) {
+				String name = files.nextElement();
 
-	            if(multiRequest.getFilesystemName(name) != null){
+				if (multiRequest.getFilesystemName(name) != null) {
 
-	               saveFiles.add(multiRequest.getFilesystemName(name));
-	               originFiles.add(multiRequest.getOriginalFileName(name));
+					saveFiles.add(multiRequest.getFilesystemName(name));
+					originFiles.add(multiRequest.getOriginalFileName(name));
 
-	               Attachment at = new Attachment();
-	               at.setFilePath(savePath);
-	               at.setOriginName(multiRequest.getOriginalFileName(name));
-	               at.setChangeName(multiRequest.getFilesystemName(name));
-	               rwContent += multiRequest.getOriginalFileName(name);
-	               fileObj = multiRequest.getFile(name);
-	               if (fileObj != null) {
-	                  // 파일길이 구하기위한 오브젝트생성
-	                  at.setFileSize(String.valueOf(fileObj.length()));
-	                  fileExtend = multiRequest.getOriginalFileName(name);
-	                  // 파일 확장자 구하기위해 생성
-	                  at.setFileType(fileExtend.substring(multiRequest.getOriginalFileName(name).lastIndexOf(".") + 1));
-	                  fileList.add(at);
-	               } else {
-	                  at.setFileSize("0");
-	                  at.setFileType(null);
-	               }
-	               rw.setRwContent(rwContent);
-	            }
-	         }
-	         Member m = new Member();
-	         m.setUserNo(userNo);
-			int result = new ReviewService().write1Review(rw, m, fileList);
+					Attachment at = new Attachment();
+					at.setFilePath(savePath);
+					at.setOriginName(multiRequest.getOriginalFileName(name));
+					at.setChangeName(multiRequest.getFilesystemName(name));
+					rwContent += multiRequest.getOriginalFileName(name);
+					fileObj = multiRequest.getFile(name);
+					if (fileObj != null) {
+						// 파일길이 구하기위한 오브젝트생성
+						at.setFileSize(String.valueOf(fileObj.length()));
+						fileExtend = multiRequest.getOriginalFileName(name);
+						// 파일 확장자 구하기위해 생성
+						at.setFileType(
+								fileExtend.substring(multiRequest.getOriginalFileName(name).lastIndexOf(".") + 1));
+						fileList.add(at);
+					} else {
+						at.setFileSize("0");
+						at.setFileType(null);
+					}
+					rw.setRwContent(rwContent);
+				}
+			}
+			Member m = new Member();
+			m.setUserNo(userNo);
+			
+			int result = new ReviewService().write1Review(rw, m, fileList,resultHash);
 			
 			if (result > 0) {
 				System.out.println("굿");

@@ -28,9 +28,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
-body {
-	margin: 30px;
-}
+	body {
+		margin:0px;
+		background:#fafafa;
+		font-family:'맑은고딕';
+	}
 
 .container2 {
 	justify-content: space-between;
@@ -284,104 +286,64 @@ div.desc {
 		height: 250px;
 		display:visible;
 	}
+	
+	#imgInput2{
+		
+		width: 200px;
+		height: 200px;
+		display:visible;
+	}
+	
+	.imgPlus{
+		width: 250px;
+		height: 250px;
+		display:visible;
+	}
+	
+	.w3-input2{
+	    padding: 8px;
+    display: block;
+    /* border: none; */
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+	}
 
 </style>
 
 <script type="text/javascript">
-	// 이미지 정보들을 담을 배열
-<%-- 	var sel_files = [];
-
-	$(document).ready(function() {
-		$("#input_imgs").on("change", handleImgFileSelect);
-	});
-
-	function fileUploadAction() {
-		console.log("fileUploadAction");
-		$("#input_imgs").trigger('click');
-
-	}
-
-
-	function handleImgFileSelect(e) {
-		// 이미지 정보들을 초기화
-		sel_files = [];
-		$(".imgs_wrap").empty();
-
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		var index = 0;
-		filesArr.forEach(function(f) {
-					if (!f.type.match("image.*")) {
-						alert("확장자는 이미지 확장자만 가능합니다.");
-						return;
-					}
-
-					sel_files.push(f);
-
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("
-								+ index
-								+ ")\" id=\"img_id_"
-								+ index
-								+ "\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='클릭하면 이미지가 삭제됩니다.' style='width:250px; height:150px;'></a>";
-						$(".imgs_wrap").append(html);
-						index++;
-
-					}
-					reader.readAsDataURL(f);
-
-				});
-	}
-
-	function deleteImageAction(index) {
-		console.log("index : " + index);
-		console.log("sel length : " + sel_files.length);
-
-		sel_files.splice(index, 1);
-
-		var img_id = "#img_id_" + index;
-		$(img_id).remove();
+	function submitAction() {
 		
-
-	}
-
-	function fileUploadAction() {
-		console.log("fileUploadAction");
-		$("#input_imgs").trigger('click');
-	}
-
-	function submitAction() {
-		console.log("업로드 파일 갯수 : " + sel_files.length);
-		var data = new FormData();
-
-		for (var i = 0, len = sel_files.length; i < len; i++) {
-			var name = "image_" + i;
-			alert(name);
-			data.append(name, sel_files[i]);
-		}
-		data.append("image_count", sel_files.length);
-
-		if (sel_files.length < 1) {
-			alert("한개이상의 파일을 선택해주세요.");
-			return;
-		}
-
-		//업로드
-        var write1Test= document.getElementById("write1Test");
-        write1Test.action = "<%=request.getContextPath()%>/insertWrite1.bo";
-        write1Test.submit();
-	} --%>
-	
-	function submitAction() {
-		 var write1Test= document.getElementById("write1Test");
+		theForm = document.write1Test;
+		if(theForm.title.value==""){
+	        alert("제목을 입력하지 않았습니다.")
+	        theForm.title.focus();
+	        return false;
+		} else if(theForm.imgInput2.value==""){
+	        alert("썸네일을 입력하지 않았습니다.")
+	        theForm.imgInput2.focus();
+	        return false;
+		} else if(theForm.imgInput1.value==""){
+	        alert("이미지를 입력하지 않았습니다.")
+	        theForm.imgInput1.focus();
+	        return false;
+		} else if(theForm.hash.value==""){
+	        alert("해시태그를 입력하지 않았습니다.")
+	        theForm.hash.focus();
+	        return false;
+		} else if(theForm.introduce.value==""){
+	        alert("한마디를 입력하지 않았습니다.")
+	        theForm.introduce.focus();
+	        return false;
+		} else{
+			var write1Test= document.getElementById("write1Test");
 	        write1Test.action = "<%=request.getContextPath()%>/insertWrite1.bo";
 	        write1Test.submit();
+		}
+		
 	}
 
 	function moveEditor() {
-		location.href = "forWrite1/editor.jsp"
+		location.href = "/triangleView/views/writeForm/forWrite1/editor.jsp"
 
 	}
 
@@ -389,21 +351,26 @@ div.desc {
 </head>
 
 <body>
+<jsp:include page="../main/header/headerNav.jsp" flush="true" />
+<br>
+<br>
+<br>
 
-<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;">
+<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center;">
 	<div class="container">
 		<h3 style="text-align:center; color:#f8585b;">카드형 리뷰</h3>
 		</div>
 		<hr>
 			
-		<div class="input-group" style="display:-webkit-inline-box">
+		<div class="input-group" style="display:-webkit-inline-box; text-align: left; width:650px; margin-left:-130px;">
 		<h5>제목</h5>
-			<input type="text" class="w3-input w3-change" id="title" name="title" style="text-align: center;
+			<input type="text" class="w3-input2 w3-change" id="title" name="title" style="text-align: center;
     margin-left: 100px;" placeholder="글제목을 입력해주세요">
 		</div>
+		<br>
 
 
-		<div class="input-group" style="display:-webkit-inline-box">
+		<div class="input-group" style="display:-webkit-inline-box; text-align: left;">
 			<div id="companySup" style="width:635px;">
 			<h5 style="display:inline-block;">기업후원 리뷰</h5>
 				<input type="checkbox" class="w3-check" name="companySpon" value="1" style="margin-left: 18px;">
@@ -425,28 +392,53 @@ div.desc {
 			</select>
 			</div>
 		</div>
+		<br>
 
-		<div id="thumbNail">
-			<h5 style="display: inline-block;">썸네일</h5>
+		<div id="thumbNail" style="display: block; text-align: left; margin-left: 222px;">
+			<h5 style="display: inline-block;">썸네일</h5><br>
+			<label name = "testGoGo" id="testGoGo" style="background-image: url(/triangleView/img/writeForm/imgplus.png);
+			background-size: 200px; width: 200px; height: 200px; display: inline-block;">
+			<input type="file" id="imgInput2" name="file200" accept="image/gif, image/jpeg, image/png" id="imgInput"
+			onchange="LoadImg(this);" style="visibility: hidden;">
+			</label>
 		</div>
+		<br>
+		
+		<script>
+		function LoadImg(value) {
+			if (value.files && value.files[0]) {
+				var reader = new FileReader();
 
-		<div id="imageEdit" style="display: -webkit-inline-box;">
+				reader.onload = function(e) {
+					$("#testGoGo").css('background', 'transparent url('+e.target.result +') left top no-repeat').css('background-size','300px').css('background-size','contain');
+				}
+
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+
+/* 		$("#imgInput").change(function() {
+			readURL(this);
+		}); */
+		</script>
+
+		<div id="imageEdit" style="display: -webkit-box;text-align: left; margin-left: 222px;">
 			<h5 style="display: inline-block;">이미지</h5>
 			<div class="changePhoto">
 				<a> <input type="button" class="my_button" id="newPhoto"
-					value="이미지편집" onclick="moveEditor();" style="margin-left: 28px;">
+					value="이미지편집" onclick="moveEditor();" style="margin-left: 28px; margin-top: 8px;">
 					<p class="arrow_box">원하시는 이미지 파일을 편집해서 저장후에 업로드 해주세요!</p>
 				</a>
 			</div>
 		</div>
 		
 
-		<div id="write1Content">
-			<div id="test0" style="background-image: url(/triangleView/img/writeForm/imgplus.png); 
+		<div id="write1Content" style="text-align: left; margin-left: 222px;">
+			<label for="imgInput1" id="test0" style="background-image: url(/triangleView/img/writeForm/imgplus.png); 
 			background-size: 250px; width: 250px; height: 250px; display: inline-block;">
-				<input type="file" id="imgInput1" name="file0" id="imgInput"
-					onChange="b()" style="display: hidden;">
-			</div>
+				<input type="file" id="imgInput1" name="file0" id="imgInput" accept="image/gif, image/jpeg, image/png"
+					onChange="b()" style="visibility: hidden;">
+			</label>
 		</div>
 		<script>
 		var i = 0;
@@ -469,8 +461,8 @@ div.desc {
 	
 	 function b() {
         i=i+1;
-  		var $div =$("<div id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></div>");
-        var $input = $("<input type = 'file' id = 'imgInput1' name = 'file"+i+"' onChange='b()' style='display:hidden;'>").change(function() {
+  		var $div =$("<label for = 'imgInput1"+i+"' id ='test"+i+"' style='width:250px; height:250px;background-image:url(/triangleView/img/writeForm/imgplus.png); background-size:250px; display:inline-block;'></label>");
+        var $input = $("<input type = 'file' class = 'imgPlus' id = 'imgInput1"+i+"' name = 'file"+i+"' onChange='b()' style='visibility: hidden;'>").change(function() {
       		readURL(this);
       		
     	});
@@ -483,7 +475,7 @@ div.desc {
 
 		<div class="hash" style="display:-webkit-inline-box">
 		<h5>해시태그</h5>
-			<input type="text" class="w3-input w3-change" id="hash" name="hash"
+			<input type="text" class="w3-input2 w3-change" id="hash" name="hash"
 				style="width:650px; height:30px; margin-left: 60px;" placeholder="hashtag를 입력해주세요">
 		</div>
 		<br>
@@ -491,10 +483,10 @@ div.desc {
 
 		<div style="display:-webkit-inline-box">	
 			<h5>한마디</h5>
-			<textarea id="introduce" class="w3-input w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:78px;"></textarea>
+			<textarea id="introduce" class="w3-input2 w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:78px;"></textarea>
 			<!-- <span id="text_counter"></span> -->
 		</div>
-
+	<br>
 		<script>
 				$(document).ready(function() {
 					var left = 100
@@ -517,7 +509,7 @@ div.desc {
 				});
 			</script>
 			
-		<div style="display:-webkit-inline-box">
+		<div style="display: -webkit-box; margin-left: 222px;">
 			<h5>별점</h5>
 				<span class="star-input">
   					<span class="input" style="margin-top:12px; margin-left: 92px;">
@@ -532,8 +524,8 @@ div.desc {
     					<input type="radio" name="star-input" id="p9" value="9"><label for="p9">4.5</label>
     					<input type="radio" name="star-input" id="p10" value="10"><label for="p10">5</label>
   					</span>
-  					<!-- <output for="star-input"><b id="reresult">0</b>점</output> -->
-  				<!-- <input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px;" value=""> -->
+  					 <output for="star-input" style="display:none"><b id="reresult" style="display:none">0</b>점</output>
+  				<input type="text" id="starPoint" name="rwGrade" style="width: 100px; height:20px; display:none;" value="" >
 			</span>
 		</div>
 		
@@ -580,17 +572,22 @@ div.desc {
 	starRating();
 	</script>
 
-			<div class="container2">
-				<div class="btn-holder">
-					<button type="submit" class="subButton" id="end" onclick="submitAction();">
+			<div class="container2" style="height: 50px; display: -webkit-inline-box;">
+				<div class="btn-holder" style="    margin-left: 50px;">
+					<button type="submit" class="subButton" id="end" onclick="submitAction();" style="width:350px; height: 35px;"> 
 						게시물 작성
 					</button>
-					<button type="submit" class="subButton"
-						onclick="javascript:window.close()">
+					<button type="reset" class="subButton" onclick="goBack()"  style="width:350px; height: 35px; margin-left: 100px;">
 						작성취소
 					</button>
 				</div>
 			</div>
+
+		<script>
+		function goBack(){
+			location.href="/triangleView/loginMain";
+		}
+		</script>
 
 </form>
 </body>
