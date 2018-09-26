@@ -8,6 +8,7 @@ public class Form implements Serializable{
 	private String rwComment; 
 	private String rwTitle;
 	private int rwLikeCount;
+	private String thumbnail;
 	private int rwCommentCount;
 	private String rwHash;
 	private String nick;
@@ -17,7 +18,7 @@ public class Form implements Serializable{
 		super();
 	}
 
-	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount,
+	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount, String thumbnail,
 			int rwCommentCount, String rwHash, String nick, int rwNo) {
 		super();
 		this.rwContent = rwContent;
@@ -25,6 +26,7 @@ public class Form implements Serializable{
 		this.rwComment = rwComment;
 		this.rwTitle = rwTitle;
 		this.rwLikeCount = rwLikeCount;
+		this.thumbnail = thumbnail;
 		this.rwCommentCount = rwCommentCount;
 		this.rwHash = rwHash;
 		this.nick = nick;
@@ -71,6 +73,14 @@ public class Form implements Serializable{
 		this.rwLikeCount = rwLikeCount;
 	}
 
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
 	public int getRwCommentCount() {
 		return rwCommentCount;
 	}
@@ -106,8 +116,8 @@ public class Form implements Serializable{
 	@Override
 	public String toString() {
 		return "Form [rwContent=" + rwContent + ", writeDate=" + writeDate + ", rwComment=" + rwComment + ", rwTitle="
-				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", rwCommentCount=" + rwCommentCount + ", rwHash=" + rwHash
-				+ ", nick=" + nick + ", rwNo=" + rwNo + "]";
+				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", thumbnail=" + thumbnail + ", rwCommentCount="
+				+ rwCommentCount + ", rwHash=" + rwHash + ", nick=" + nick + ", rwNo=" + rwNo + "]";
 	}
-
+	
 }

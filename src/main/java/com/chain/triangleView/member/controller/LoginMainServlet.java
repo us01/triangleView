@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.notice.notice.service.NoticeService;
 import com.chain.triangleView.review.review.service.ReviewService;
@@ -26,21 +27,19 @@ public class LoginMainServlet extends HttpServlet {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(userNo);
 		ArrayList<HashMap<String, Object>> noticeList = null;
-		 
+		
+		Member followCountMember = new MemberService().followCountSelect(userNo);
 		noticeList = new NoticeService().selectAllNotice();
 		
 		if(interestReviewList != null){
+			request.setAttribute("interestReviewList", interestReviewList);
+			request.setAttribute("followCountMember", followCountMember);
 			
 			if(noticeList != null) {
-
-				request.setAttribute("selectAllNotice", noticeList);
-				request.setAttribute("interestReviewList", interestReviewList);
-				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
-			}else {
-				
-				request.setAttribute("interestReviewList", interestReviewList);
-				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
+				request.setAttribute("selectAllNotice", noticeList);	
 			}
+			
+			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
 			request.setAttribute("msg", "관심 정보가 조회되지 않았어요");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

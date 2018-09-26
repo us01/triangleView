@@ -54,6 +54,7 @@ public class ReviewDao {
 				review.setLikeCount(rset.getInt("likecount"));
 				review.setCategoryType(rset.getInt("categorytype"));
 				review.setRwContent(rset.getString("rwContent"));
+				review.setThumbnail(rset.getString("filename"));
 				review.setRwTitle(rset.getString("rwtitle"));
 				review.setModifyYn(rset.getString("modifyyn"));
 				review.setCoorLink(rset.getString("coorlink"));
@@ -102,6 +103,7 @@ public class ReviewDao {
 				form.setRwCommentCount(rset.getInt("rwcommentcount"));
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
+				form.setThumbnail(rset.getString("filename"));
 				form.setWriteDate(rset.getString("rwwritedate"));
 				form.setRwTitle(rset.getString("rwtitle"));
 				form.setRwContent(rset.getString("rwcontent"));
@@ -178,6 +180,7 @@ public class ReviewDao {
 				review.setLikeCount(rset.getInt("likecount"));
 				review.setCategoryType(rset.getInt("categorytype"));
 				review.setRwContent(rset.getString("rwContent"));
+				review.setThumbnail(rset.getString("filename"));
 				review.setRwTitle(rset.getString("rwtitle"));
 				review.setModifyYn(rset.getString("modifyyn"));
 				review.setCoorLink(rset.getString("coorlink"));
@@ -222,6 +225,7 @@ public class ReviewDao {
 				review.setLikeCount(rset.getInt("likecount"));
 				review.setCategoryType(rset.getInt("categorytype"));
 				review.setRwContent(rset.getString("rwContent"));
+				review.setThumbnail(rset.getString("filename"));
 				review.setRwTitle(rset.getString("rwtitle"));
 				review.setModifyYn(rset.getString("modifyyn"));
 				review.setCoorLink(rset.getString("coorlink"));

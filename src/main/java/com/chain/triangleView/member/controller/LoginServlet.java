@@ -31,24 +31,22 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 	
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
-		 ArrayList<HashMap<String, Object>> noticeList = null;
-		
+		ArrayList<HashMap<String, Object>> noticeList = null;
+
 		if(loginUser != null){
 			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
+			noticeList = new NoticeService().selectAllNotice();
+			Member followCountMember = new MemberService().followCountSelect(loginUser.getUserNo());
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			noticeList = new NoticeService().selectAllNotice();
-			
+			request.setAttribute("followCountMember", followCountMember);
+			request.setAttribute("interestReviewList", interestReviewList);
 			if(noticeList != null) {
 				request.setAttribute("selectAllNotice", noticeList);
-				request.setAttribute("interestReviewList", interestReviewList);
-				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);		
-			}else {
-				
-				request.setAttribute("interestReviewList", interestReviewList);
-				request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);				
 			}
+			
+			request.getRequestDispatcher("/views/main/loginMain/loginMain.jsp").forward(request, response);
 		}else{
 			request.setAttribute("msg", "로그인 정보가 조회되지 않았어요");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

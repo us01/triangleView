@@ -11,6 +11,7 @@ public class Review {
 	private String rwContent;
 	private String rwTitle;
 	private String modifyYn;
+	private String thumbnail;
 	private Date modifyDate;
 	private Date writerDate;
 	private String coorLink;
@@ -29,9 +30,9 @@ public class Review {
 	}
 
 	public Review(String nick, String userId, int todayRwCount, int likeCount, int categoryType, String rwContent,
-			String rwTitle, String modifyYn, Date modifyDate, Date writerDate, String coorLink, int rwContentType,
-			int rwCount, String rwHash, String rwComment, int rwType, int coorCode, int rwSupport, int rwNo,
-			double rwGrade) {
+			String rwTitle, String modifyYn, String thumbnail, Date modifyDate, Date writerDate, String coorLink,
+			int rwContentType, int rwCount, String rwHash, String rwComment, int rwType, int coorCode, int rwSupport,
+			int rwNo, double rwGrade) {
 		super();
 		this.nick = nick;
 		this.userId = userId;
@@ -41,6 +42,7 @@ public class Review {
 		this.rwContent = rwContent;
 		this.rwTitle = rwTitle;
 		this.modifyYn = modifyYn;
+		this.thumbnail = thumbnail;
 		this.modifyDate = modifyDate;
 		this.writerDate = writerDate;
 		this.coorLink = coorLink;
@@ -117,6 +119,14 @@ public class Review {
 
 	public void setModifyYn(String modifyYn) {
 		this.modifyYn = modifyYn;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public Date getModifyDate() {
@@ -219,10 +229,10 @@ public class Review {
 	public String toString() {
 		return "Review [nick=" + nick + ", userId=" + userId + ", todayRwCount=" + todayRwCount + ", likeCount="
 				+ likeCount + ", categoryType=" + categoryType + ", rwContent=" + rwContent + ", rwTitle=" + rwTitle
-				+ ", modifyYn=" + modifyYn + ", modifyDate=" + modifyDate + ", writerDate=" + writerDate + ", coorLink="
-				+ coorLink + ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwHash=" + rwHash
-				+ ", rwComment=" + rwComment + ", rwType=" + rwType + ", coorCode=" + coorCode + ", rwSupport="
-				+ rwSupport + ", rwNo=" + rwNo + ", rwGrade=" + rwGrade + "]";
+				+ ", modifyYn=" + modifyYn + ", thumbnail=" + thumbnail + ", modifyDate=" + modifyDate + ", writerDate="
+				+ writerDate + ", coorLink=" + coorLink + ", rwContentType=" + rwContentType + ", rwCount=" + rwCount
+				+ ", rwHash=" + rwHash + ", rwComment=" + rwComment + ", rwType=" + rwType + ", coorCode=" + coorCode
+				+ ", rwSupport=" + rwSupport + ", rwNo=" + rwNo + ", rwGrade=" + rwGrade + "]";
 	}
-  
+
 }

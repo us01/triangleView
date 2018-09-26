@@ -373,7 +373,7 @@
 			<div>
 				<div class="contentinfo-header">
 					<div class="reviewProfileImageArea">
-						<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+						<img src="/triangleView/profileImg_upload/<%= form.getThumbnail() %>">
 					</div>
 					<div class="reviewTitleArea">
 						<p><%= form.getRwTitle() %></p>

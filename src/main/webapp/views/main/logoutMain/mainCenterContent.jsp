@@ -398,7 +398,7 @@
 					<%for(int i = 0; i <= reviewList.size()-1; i++){%>
 						<div class="viewForm">
 							<div class="viewMainImage">
-								<img src="/triangleView/img/test5.png" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>);">
+								<img src="/triangleView/review_upload/<%= reviewList.get(i).getThumbnail() %>" onclick="loadReivewForm(<%= reviewList.get(i).getRwNo() %>, <%= reviewList.get(i).getRwContentType() %>);">
 							</div>
 							<div class="formType">
 								<% if(reviewList.get(i).getRwContentType() == 0){ %>
@@ -469,7 +469,7 @@
 									<%} %>
 						</div>
 						<div class="recruitmentTitleArea">
-							<label style=""><b><%= hmap.get("noticetitle") %></b></label>
+							<label><b style="width:200px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"><%= hmap.get("noticetitle") %></b></label>
 							<p>문제적남자 뇌색캔디 _ 뇌색겸 제고</p>
 						</div>
 						<div class="recruitmentStrengthArea">

@@ -12,6 +12,7 @@ public class Member {
 	private int followCount; //팔로우 수
 	private int followingCount; //팔로워 수
 	private int followTF;   //회원과의 관계
+	private String thumbnail; //프로필 사진 이름
 	private int age;        //나이
 	private String gender;  //성별
 	private int postNo;     //우편번호
@@ -37,9 +38,10 @@ public class Member {
 	public Member(){}
 
 	public Member(int userNo, String userId, String nick, String userPwd, int reviewCount, int followCount,
-			int followingCount, int followTF, int age, String gender, int postNo, String address, Date enrollDate,
-			String withdraw, Date withdrawDate, int userType, int point, String[] category, String[] cateNum,
-			String intro, String phone, String personName, int businessNo, String copName, int userLevel) {
+			int followingCount, int followTF, String thumbnail, int age, String gender, int postNo, String address,
+			Date enrollDate, String withdraw, Date withdrawDate, int userType, int point, String[] category,
+			String[] cateNum, String intro, String phone, String personName, int businessNo, String copName,
+			int userLevel) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -49,6 +51,7 @@ public class Member {
 		this.followCount = followCount;
 		this.followingCount = followingCount;
 		this.followTF = followTF;
+		this.thumbnail = thumbnail;
 		this.age = age;
 		this.gender = gender;
 		this.postNo = postNo;
@@ -130,6 +133,14 @@ public class Member {
 
 	public void setFollowTF(int followTF) {
 		this.followTF = followTF;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public int getAge() {
@@ -272,11 +283,12 @@ public class Member {
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", nick=" + nick + ", userPwd=" + userPwd
 				+ ", reviewCount=" + reviewCount + ", followCount=" + followCount + ", followingCount=" + followingCount
-				+ ", followTF=" + followTF + ", age=" + age + ", gender=" + gender + ", postNo=" + postNo + ", address="
-				+ address + ", enrollDate=" + enrollDate + ", withdraw=" + withdraw + ", withdrawDate=" + withdrawDate
-				+ ", userType=" + userType + ", point=" + point + ", category=" + Arrays.toString(category)
-				+ ", cateNum=" + Arrays.toString(cateNum) + ", intro=" + intro + ", phone=" + phone + ", personName="
-				+ personName + ", businessNo=" + businessNo + ", copName=" + copName + ", userLevel=" + userLevel + "]";
+				+ ", followTF=" + followTF + ", thumbnail=" + thumbnail + ", age=" + age + ", gender=" + gender
+				+ ", postNo=" + postNo + ", address=" + address + ", enrollDate=" + enrollDate + ", withdraw="
+				+ withdraw + ", withdrawDate=" + withdrawDate + ", userType=" + userType + ", point=" + point
+				+ ", category=" + Arrays.toString(category) + ", cateNum=" + Arrays.toString(cateNum) + ", intro="
+				+ intro + ", phone=" + phone + ", personName=" + personName + ", businessNo=" + businessNo
+				+ ", copName=" + copName + ", userLevel=" + userLevel + "]";
 	}
-	
+
 }
