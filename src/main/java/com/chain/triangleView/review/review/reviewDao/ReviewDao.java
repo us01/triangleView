@@ -262,7 +262,8 @@ public class ReviewDao {
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setString(5, rw.getRwHash());
 			pstmt.setString(6, rw.getRwComment());
-			pstmt.setDouble(7, rw.getRwGrade());
+			pstmt.setInt(7, rw.getRwSupport());
+			pstmt.setDouble(8, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			
@@ -292,7 +293,8 @@ public class ReviewDao {
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setString(5, rw.getRwHash());
 			pstmt.setString(6, rw.getRwComment());
-			pstmt.setDouble(7, rw.getRwGrade());
+			pstmt.setInt(7, rw.getRwSupport());
+			pstmt.setDouble(8, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			
@@ -398,7 +400,8 @@ public class ReviewDao {
 			pstmt.setString(4, rw.getRwTitle());
 			pstmt.setString(5, rw.getRwHash());
 			pstmt.setString(6, rw.getRwComment());
-			pstmt.setDouble(7, rw.getRwGrade());
+			pstmt.setInt(7, rw.getRwSupport());
+			pstmt.setDouble(8, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			
@@ -420,6 +423,7 @@ public class ReviewDao {
 
 		try {
 			for(int i = 0; i < fileList.size(); i++){
+				int j = i;
 				pstmt = con.prepareStatement(query);
 
 				pstmt.setString(1, fileList.get(i).getOriginName());
@@ -427,6 +431,7 @@ public class ReviewDao {
 				pstmt.setString(3, fileList.get(i).getFileSize());
 				pstmt.setString(4, fileList.get(i).getFileType());
 				pstmt.setInt(5, m.getUserNo());
+				pstmt.setInt(6, j);
 
 				result += pstmt.executeUpdate();
 			}
@@ -439,6 +444,122 @@ public class ReviewDao {
 		}
 
 		return result;
+	}
+
+	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertWrite2Attachment");
+
+		try {
+			for(int i = 0; i < fileList.size(); i++){
+				int j = i;
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2,fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFileSize());
+				pstmt.setString(4, fileList.get(i).getFileType());
+				pstmt.setInt(5, m.getUserNo());
+				pstmt.setInt(6, j);
+
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertWrite3Attachment");
+
+		try {
+			for(int i = 0; i < fileList.size(); i++){
+				int j = i;
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFileSize());
+				pstmt.setString(4, fileList.get(i).getFileType());
+				pstmt.setInt(5, m.getUserNo());
+				pstmt.setInt(6, j);
+
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertHashtag(Connection con, Review rwNoCheck, String resultHash) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertHashtag");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, resultHash);
+			pstmt.setInt(2, rwNoCheck.getRwNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Review reviewNoCheck(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Review rwResult = null;
+		//System.out.println("확이ㄴ " + m.getRwNo());
+		String query = prop.getProperty("reviewNoCheck");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, m.getUserNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				rwResult = new Review();
+				
+				rwResult.setRwNo(rset.getInt("rwNo"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return rwResult;
 	}
 
 }

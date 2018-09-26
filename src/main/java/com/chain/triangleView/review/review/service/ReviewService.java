@@ -73,20 +73,20 @@ public class ReviewService {
 		return searchReviewList;
 	}
 	
-	public int write2Review(Review rw, Member m) {
+	public int write2Review(Review rw, Member m, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
+		int result = 0;
+		int result1 = new ReviewDao().write2Review(con,rw,m);
+		int result2 = 0;
+
+		if(fileList != null){
+			
+			result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m);
+		}
 		
-		int result = new ReviewDao().write2Review(con,rw,m);
-		
-	/*	if(result >0){
-			Review rw = new ReviewDao().wri
-			for(int i =0; i < fileList.size(); i++){
-				fileList.get(i).setUserId(member.getUserNo());
-			}
-		}*/
-		/*int result1 = new ReviewDao().write2Hash(con,rw);*/
-		if(result > 0){
+		if(result1 > 0 && result2>0){
 			commit(con);
+			result = 1;
 		}else{
 			rollback(con);
 		}
@@ -96,13 +96,20 @@ public class ReviewService {
 		return result;
 	}
 
-	public int write3Review(Review rw, Member m) {
+	public int write3Review(Review rw, Member m, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
+		int result = 0;
+		int result1 = new ReviewDao().write3Review(con,rw,m);
+		int result2 = 0;
+
+		if(fileList != null){
+			
+			result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m);
+		}
 		
-		int result = new ReviewDao().write3Review(con,rw,m);
-		
-		if(result > 0){
+		if(result1 > 0 && result2>0){
 			commit(con);
+			result = 1;
 		}else{
 			rollback(con);
 		}
@@ -138,26 +145,28 @@ public class ReviewService {
 		return result;
 	}
 
-	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList) {
-		
+	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList, String resultHash) {
 		Connection con = getConnection();
+		
 		int result = 0;
 		int result1 = new ReviewDao().write1Review(con,rw,m);
 		int result2 = 0;
+		int result3 = 0;
 		
-		
-/*		if(result1 >0){
-			for(int i =0; i < fileList.size(); i++){
-				fileList.get(i).setUserId(m.getUserNo());
-			}
-		}*/
+		if(result1 > 0){
+			/*int rwNo = new Review().reviewNoCheck(con, rw);*/
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);
+			System.out.println("두번쨰체크 : " + rwNoCheck);
+			result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
+		}
 		
 		if(fileList != null){
 			
 			result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m);
 		}
 		
-		if(result1 > 0 && result2>0){
+			
+		if(result1 > 0 && result2>0 && result3>0){
 			commit(con);
 			result = 1;
 		}else{
