@@ -28,7 +28,6 @@ public class logoutMainReviewSelectService extends HttpServlet {
 			ArrayList<HashMap<String, Object>> noticeList = new NoticeService().selectCurrNotice();
 
 			if(noticeList != null) {
-				
 				request.setAttribute("noticeList", noticeList);
 			}
 			request.setAttribute("reviewList", reviewList);

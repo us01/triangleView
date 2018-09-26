@@ -66,6 +66,7 @@
 		color:#262626;
 		margin:0px;
 		margin-top:5px;
+		cursor:pointer;
 	} 
 	.introArea {
 		font-size:12px;
@@ -168,6 +169,25 @@
 			}
 		});
 	}
+	
+	function loginInfoBtn(){
+		followgListBlock();
+		insertMemberTypeDisplayBlock();
+	}
+	
+	function goHome(word){
+		var goUser = $(word).attr("id");
+		var goMe = '';
+		<% if(loginUser != null){ %>
+			goMe = '<%= loginUser.getUserId() %>';
+		<% } %>
+		
+		if(goMe != goUser){
+			location.href='<%= request.getContextPath()%>/userHome?goUser=' + goUser + '&goMe=' + goMe;
+		}else{
+			location.href='<%= request.getContextPath()%>/myHome';
+		}
+	}
 </script>
 </head>
 <body>
@@ -182,11 +202,11 @@
 						<div class="userInfoArea">
 							<div class="userImgInfoArea">
 								<div>
-									<img src="/triangleView/img/test3.jpg"/>
+									<img src="/triangleView/profileImg_upload/<%= userList.get(i).getThumbnail() %>"/>
 								</div>
 							</div>
 							<div class="userNickInfoArea">
-								<div class="NickArea"><%= userList.get(i).getNick() %></div>
+								<div class="NickArea" id="<%= userList.get(i).getUserId() %>" onclick="goHome(this)"><%= userList.get(i).getNick() %></div>
 								<div class="introArea"><%= userList.get(i).getIntro() %></div>
 							</div>
 							<div class="followingBtnArea<%= userList.get(i).getUserNo() %>">
@@ -199,7 +219,7 @@
 										<% } %>
 									<% } %>
 								<% }else{ %>
-									<button class="loginBtn" onclick="insertMemberTypeDisplayBlock()">팔로잉</button>
+									<button class="loginBtn" onclick="loginInfoBtn()">팔로잉</button>
 								<% } %>
 							</div>
 						</div>

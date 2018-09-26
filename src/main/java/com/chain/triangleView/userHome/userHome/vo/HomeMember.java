@@ -6,6 +6,7 @@ public class HomeMember {
 	private String nick;    //회원닉네임
 	private int reviewCount; //게시글 수
 	private int followCount; //팔로우 수
+	private String thumbnail; //프로필 사진 이름
 	private int followingCount; //팔로워 수
 	private int userType; //유저타입(일반/기업)   
 	private String intro;   //자기소개
@@ -15,14 +16,15 @@ public class HomeMember {
 		super();
 	}
 
-	public HomeMember(int userNo, String userId, String nick, int reviewCount, int followCount, int followingCount,
-			int userType, String intro, int followTF) {
+	public HomeMember(int userNo, String userId, String nick, int reviewCount, int followCount, String thumbnail,
+			int followingCount, int userType, String intro, int followTF) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
 		this.nick = nick;
 		this.reviewCount = reviewCount;
 		this.followCount = followCount;
+		this.thumbnail = thumbnail;
 		this.followingCount = followingCount;
 		this.userType = userType;
 		this.intro = intro;
@@ -69,6 +71,14 @@ public class HomeMember {
 		this.followCount = followCount;
 	}
 
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
 	public int getFollowingCount() {
 		return followingCount;
 	}
@@ -104,8 +114,9 @@ public class HomeMember {
 	@Override
 	public String toString() {
 		return "HomeMember [userNo=" + userNo + ", userId=" + userId + ", nick=" + nick + ", reviewCount=" + reviewCount
-				+ ", followCount=" + followCount + ", followingCount=" + followingCount + ", userType=" + userType
-				+ ", intro=" + intro + ", followTF=" + followTF + "]";
+				+ ", followCount=" + followCount + ", thumbnail=" + thumbnail + ", followingCount=" + followingCount
+				+ ", userType=" + userType + ", intro=" + intro + ", followTF=" + followTF + "]";
 	}
 
+	
 }

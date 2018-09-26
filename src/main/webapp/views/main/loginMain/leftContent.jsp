@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	Member followCountMember = (Member)request.getAttribute("followCountMember");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -78,8 +79,11 @@
 		margin-top:5px;
 		margin-bottom:9px;
 		font-weight:bold;
+		cursor:pointer;
+		display:inline;
 	}
 	.leftProfile li:nth-of-type(5){
+		margin-top:10px;
 		margin-bottom:40px;
 	}
 	.interest {
@@ -182,10 +186,9 @@
 			<ul class="leftProfile">
 				<li>
 					<div class="leftProfileImage">
-						<img src="/triangleView/img/test.png" style="border-radius:50%; width:120px; height:120px;">
+						<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>" style="border-radius:50%; width:120px; height:120px;">
 					</div>
 				</li>
-	
 				<li>
 					<p class="introduction">
 						<%= loginUser.getIntro() %>
@@ -196,11 +199,11 @@
 				</li>
 				<li>
 					<h6 onclick="followListBlock(<%= loginUser.getUserNo()%> )">팔로잉</h6>
-					<p class="follow" onclick="followListBlock( <%= loginUser.getUserNo()%> )"><%= loginUser.getFollowingCount() %></p>
+					<p class="follow" onclick="followListBlock( <%= loginUser.getUserNo()%> )"><%= followCountMember.getFollowingCount() %></p>
 				</li>
 				<li>
 					<h6 onclick="followingListBlock(<%= loginUser.getUserNo() %>)">팔로워</h6>
-					<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= loginUser.getFollowCount() %></p>
+					<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= followCountMember.getFollowCount() %></p>
 				</li>
 				<li>
 					<h6>관심주제</h6>

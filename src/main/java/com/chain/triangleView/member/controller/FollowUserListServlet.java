@@ -22,8 +22,6 @@ public class FollowUserListServlet extends HttpServlet {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		int meNo = Integer.parseInt(request.getParameter("meNo"));
 		
-		System.out.println("meNo : " + meNo);
-		
 		ArrayList<Member> userList = new MemberService().followUserList(userNo, meNo);
 		
 		if(userList != null){

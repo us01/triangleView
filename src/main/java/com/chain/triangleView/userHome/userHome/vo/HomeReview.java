@@ -5,6 +5,7 @@ public class HomeReview {
 	private int userNo;
 	private int likeCount;
 	private String rwTitle;
+	private String thumbnail;
 	private int rwContentType;
 	private int rwCount;
 	private int rwType;
@@ -14,13 +15,14 @@ public class HomeReview {
 		super();
 	}
 
-	public HomeReview(String nick, int userNo, int likeCount, String rwTitle, int rwContentType, int rwCount,
-			int rwType, int rwNo) {
+	public HomeReview(String nick, int userNo, int likeCount, String rwTitle, String thumbnail, int rwContentType,
+			int rwCount, int rwType, int rwNo) {
 		super();
 		this.nick = nick;
 		this.userNo = userNo;
 		this.likeCount = likeCount;
 		this.rwTitle = rwTitle;
+		this.thumbnail = thumbnail;
 		this.rwContentType = rwContentType;
 		this.rwCount = rwCount;
 		this.rwType = rwType;
@@ -59,6 +61,14 @@ public class HomeReview {
 		this.rwTitle = rwTitle;
 	}
 
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
 	public int getRwContentType() {
 		return rwContentType;
 	}
@@ -94,8 +104,8 @@ public class HomeReview {
 	@Override
 	public String toString() {
 		return "HomeReview [nick=" + nick + ", userNo=" + userNo + ", likeCount=" + likeCount + ", rwTitle=" + rwTitle
-				+ ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwType=" + rwType + ", rwNo=" + rwNo
-				+ "]";
+				+ ", thumbnail=" + thumbnail + ", rwContentType=" + rwContentType + ", rwCount=" + rwCount + ", rwType="
+				+ rwType + ", rwNo=" + rwNo + "]";
 	}
 
 }

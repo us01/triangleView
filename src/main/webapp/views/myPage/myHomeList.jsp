@@ -13,6 +13,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
 <title>Insert title here</title>
 <style>
 	body{
@@ -65,6 +70,10 @@
 		float:left;
 		display:table;
 		text-align:center;
+	}
+	.viewSearchImage > img, .viewLikeImage > img{
+		width:30px;
+		height:25px;
 	}
 	.viewSearchImage p, .viewLikeImage p{
 		display:table-cell;
@@ -127,7 +136,7 @@
 		<% for(int i = 0; i < reviews.size(); i++){ %>
 			<div class="viewForm">
 				<div class="viewMainImage" onclick="loadReivewForm(<%= reviews.get(i).getRwNo() %>, <%= reviews.get(i).getRwContentType() %>)">
-					<img src="/triangleView/img/test3.jpg">
+					<img src="/triangleView/review_upload/<%= reviews.get(i).getThumbnail() %>">
 				</div>
 				<div class="formType">
 					<% if(reviews.get(i).getRwType() == 0){ %>
@@ -142,11 +151,11 @@
 					<p><%= reviews.get(i).getRwTitle() %></p>
 				</div>
 				<div class="viewSearchImage">
-					<img src="/triangleView/img/viewList/views.png">
+					<img src="/triangleView/img/viewList/view.png">
 					<p><%= reviews.get(i).getRwCount() %></p>
 				</div>
 				<div class="viewLikeImage">
-					<img src="/triangleView/img/viewList/like.png">
+					<img src="/triangleView/img/viewList/love.png">
 					<p><%= reviews.get(i).getLikeCount() %></p>
 				</div>
 				<div class="reviewWriter">
