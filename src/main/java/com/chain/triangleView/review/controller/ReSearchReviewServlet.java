@@ -11,6 +11,7 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.chain.triangleView.NLP.NLPfiltering;
 import com.chain.triangleView.crolling.Crolling;
+import com.chain.triangleView.hottag.Service.HotTagService;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 import com.google.cloud.language.v1.Sentiment;
@@ -28,7 +29,7 @@ public class ReSearchReviewServlet extends HttpServlet {
 		String searchHash = request.getParameter("searchHash");
 		String searchData = request.getParameter("searchData");
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
-
+		new HotTagService().countTag(searchData); 
 		if(searchReviewList != null){
 
 			request.setAttribute("searchReviewList", searchReviewList);
