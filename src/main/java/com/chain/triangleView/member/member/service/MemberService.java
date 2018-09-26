@@ -167,7 +167,8 @@ public class MemberService {
 		int result = 0;
 		
 		result = new MemberDao().checkId(con,id);
-    close(con);
+		
+		close(con);
 		
 		return result;
 	}
@@ -222,5 +223,15 @@ public class MemberService {
 		close(con);
 		
 		return userList;
+	}
+
+	public Member followCountSelect(int userNo) {
+		Connection con = getConnection();
+		
+		Member followCountMember = new MemberDao().followCountSelect(con, userNo);
+		
+		close(con);
+		
+		return followCountMember;
 	}
 }

@@ -391,7 +391,7 @@
 		<% for(int i = 0; i <= searchReviewList.size()-1; i++){ %>
 			<div class="viewForm">
 				<div class="viewMainImage">
-					<img src="/triangleView/img/test5.png" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
+					<img src="/triangleView/review_upload/<%= searchReviewList.get(i).getThumbnail()%>" onclick="loadReivewForm(<%= searchReviewList.get(i).getRwNo() %>, <%= searchReviewList.get(i).getRwContentType() %>)">
 				</div>
 				<div class="formType">
 					<% if(searchReviewList.get(i).getRwContentType() == 0){ %>

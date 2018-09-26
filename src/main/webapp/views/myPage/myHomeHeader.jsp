@@ -272,7 +272,11 @@
 <body>
 	<div class="myHomeHeaderArea">
 		<div class="MyHomeProfileImageArea">
-			<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+			<% if(member.getThumbnail() != null){  %>
+				<img src="/triangleView/profileImg_upload/<%= member.getThumbnail() %>">
+			<% }else{ %>
+				<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+			<% } %>
 		</div>
 		<ul class="MyHomeProfileinformation">
 			<li>
@@ -290,7 +294,7 @@
 				<% } %>
 			</li>
 			<li>
-				<h6>게시뷰 </h6>
+				<h6>게시뷰</h6>
 				<p class="MyHomeMyReview"><%= member.getReviewCount() %></p>
 				<% if(loginUser != null){ %>
 					<h6 onclick="followListBlock(<%= member.getUserNo()%> )">팔로잉</h6>

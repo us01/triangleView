@@ -55,6 +55,7 @@ public class UserHomeDao {
 				member.setFollowCount(rset.getInt("followCount"));
 				member.setFollowTF(rset.getInt("followtf"));
 				member.setFollowingCount(rset.getInt("followingCount"));
+				member.setThumbnail(rset.getString("filename"));
 				member.setIntro(rset.getString("intro"));
 				member.setNick(rset.getString("nick"));
 				member.setUserId(rset.getString("userid"));
@@ -82,6 +83,7 @@ public class UserHomeDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, nick);
+			pstmt.setString(2, nick);
 			
 			rset = pstmt.executeQuery();
 			
@@ -95,6 +97,7 @@ public class UserHomeDao {
 				r.setLikeCount(rset.getInt("likecount"));
 				r.setRwCount(rset.getInt("rwcount"));
 				r.setRwTitle(rset.getString("rwtitle"));
+				r.setThumbnail(rset.getString("filename"));
 				r.setRwContentType(rset.getInt("rwcontenttype"));
 				r.setRwType(rset.getInt("rwtype"));
 				r.setRwNo(rset.getInt("rwno"));

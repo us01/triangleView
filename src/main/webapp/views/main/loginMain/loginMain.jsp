@@ -7,6 +7,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Review> interestReviewList = (ArrayList<Review>)request.getAttribute("interestReviewList");
 	ArrayList<Review> searchReviewList = (ArrayList<Review>)request.getAttribute("searchReviewList");
+	Member followCountMember = (Member)request.getAttribute("followCountMember");
 	String searchData = "default";
 	ArrayList<HashMap<String, Object>> noticeList = (ArrayList<HashMap<String, Object>>)request.getAttribute("selectAllNotice");
 %>
@@ -67,7 +68,6 @@
 </style>
 <script>
 function uploadView(){
-	
 	$(".uploadViewAear").css("margin-left", "-250px");
 	$.ajax({
 		url : "/triangleView/views/writeForm/checkWriteForm.jsp",
@@ -110,7 +110,9 @@ function uploadView(){
 <body>
 	<jsp:include page="../header/headerNav.jsp" flush="true" />
 	<div class="centents">
-		<jsp:include page="./leftContent.jsp" flush="true" />
+		<jsp:include page="./leftContent.jsp" flush="true">
+			<jsp:param name="followCountMember" value="<%= followCountMember %>"/>
+		</jsp:include>
 		<div class="reviewListArea">
 			<% if(interestReviewList != null){ %>
 				<jsp:include page="./centerContent.jsp" flush="true">

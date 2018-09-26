@@ -11,6 +11,8 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.chain.triangleView.NLP.NLPfiltering;
 import com.chain.triangleView.crolling.Crolling;
+import com.chain.triangleView.member.member.service.MemberService;
+import com.chain.triangleView.member.member.vo.Member;
 import com.chain.triangleView.hottag.Service.HotTagService;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
@@ -28,10 +30,17 @@ public class ReSearchReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchHash = request.getParameter("searchHash");
 		String searchData = request.getParameter("searchData");
+		
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
-		new HotTagService().countTag(searchData); 
-		if(searchReviewList != null){
 
+		if(((Member)request.getSession().getAttribute("loginUser")) != null){
+			Member followCountMember = new MemberService().followCountSelect(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+			request.setAttribute("followCountMember", followCountMember);
+		}
+		
+		new HotTagService().countTag(searchData); 
+    
+		if(searchReviewList != null){
 			request.setAttribute("searchReviewList", searchReviewList);
 			request.setAttribute("searchReviewData", searchData);
 			request.getRequestDispatcher("/views/searchReviewList/searchReviewList.jsp").forward(request, response);

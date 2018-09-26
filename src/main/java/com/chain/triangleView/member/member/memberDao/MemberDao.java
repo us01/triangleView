@@ -54,6 +54,7 @@ public class MemberDao {
 				loginUser.setUserPwd(rset.getString("userPwd"));
 				loginUser.setAge(rset.getInt("age"));
 				loginUser.setGender(rset.getString("gender"));
+				loginUser.setThumbnail(rset.getString("fileoriginname"));
 				loginUser.setIntro(rset.getString("intro"));
 				loginUser.setNick(rset.getString("nick"));
 				loginUser.setReviewCount(rset.getInt("rwcount"));
@@ -509,6 +510,8 @@ public class MemberDao {
 				m.setNick(rset.getString("nick"));
 				m.setIntro(rset.getString("intro"));
 				m.setUserNo(rset.getInt("userno"));
+				m.setThumbnail(rset.getString("filename"));
+				m.setUserId(rset.getString("userid"));
 				m.setFollowTF(rset.getInt("followtf"));
 				
 				userList.add(m);
@@ -546,6 +549,8 @@ public class MemberDao {
 				
 				m.setNick(rset.getString("nick"));
 				m.setIntro(rset.getString("intro"));
+				m.setUserId(rset.getString("userid"));
+				m.setThumbnail(rset.getString("filename"));
 				m.setUserNo(rset.getInt("userno"));
 				m.setFollowTF(rset.getInt("followtf"));
 				
@@ -560,6 +565,38 @@ public class MemberDao {
 		}
 		
 		return userList;
+	}
+
+	public Member followCountSelect(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member followCountMember = null;
+		
+		String query = prop.getProperty("followCountSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				followCountMember = new Member();
+				
+				followCountMember.setFollowCount(rset.getInt("followCount"));
+				followCountMember.setFollowingCount(rset.getInt("followingCount"));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return followCountMember;
 	}
 
 }
