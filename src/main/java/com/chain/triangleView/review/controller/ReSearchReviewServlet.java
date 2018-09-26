@@ -13,6 +13,7 @@ import com.chain.triangleView.NLP.NLPfiltering;
 import com.chain.triangleView.crolling.Crolling;
 import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.hottag.Service.HotTagService;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 import com.google.cloud.language.v1.Sentiment;
@@ -37,6 +38,8 @@ public class ReSearchReviewServlet extends HttpServlet {
 			request.setAttribute("followCountMember", followCountMember);
 		}
 		
+		new HotTagService().countTag(searchData); 
+    
 		if(searchReviewList != null){
 			request.setAttribute("searchReviewList", searchReviewList);
 			request.setAttribute("searchReviewData", searchData);

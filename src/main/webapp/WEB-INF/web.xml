@@ -182,6 +182,18 @@
       <description></description>
       <servlet-class>com.chain.triangleView.review.controller.CloudTagServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>HotTagServlet</servlet-name>
+   	<display-name>HotTagServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.hottag.controller.HotTagServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>LoginHotReveiwServlet</servlet-name>
+   	<display-name>LoginHotReveiwServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.review.controller.LoginHotReveiwServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -277,5 +289,13 @@
    <servlet-mapping>
       <servlet-name>CloudTagServlet</servlet-name>
       <url-pattern>/cloudTag.sr</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>HotTagServlet</servlet-name>
+   	<url-pattern>/hottag</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>LoginHotReveiwServlet</servlet-name>
+   	<url-pattern>/loginHotReview</url-pattern>
    </servlet-mapping>
    </web-app>

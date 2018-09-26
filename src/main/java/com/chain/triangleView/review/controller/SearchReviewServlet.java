@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chain.triangleView.member.member.service.MemberService;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.hottag.Service.HotTagService;
 import com.chain.triangleView.notice.notice.service.NoticeService;
-import com.chain.triangleView.notice.notice.vo.notice.Notice;
 import com.chain.triangleView.review.review.service.ReviewService;
 import com.chain.triangleView.review.review.vo.Review;
 
@@ -30,13 +30,13 @@ public class SearchReviewServlet extends HttpServlet {
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
 		ArrayList<HashMap<String, Object>> noticeList = null;
 		
-		
-		
 		if(((Member)request.getSession().getAttribute("loginUser")) != null){
 			Member followCountMember = new MemberService().followCountSelect(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 			request.setAttribute("followCountMember", followCountMember);
 		}
 
+		new HotTagService().countTag(searchData); 
+		 
 		if(searchReviewList != null){
 			noticeList = new NoticeService().selectAllNotice();
 

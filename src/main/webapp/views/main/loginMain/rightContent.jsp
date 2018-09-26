@@ -169,9 +169,72 @@
 		cursor:pointer;
 	}
 
+	#hottag:hover, #hotreview:hover{
+		
+		cursor:pointer;
+	}
 </style>
 <script>
 	$(function(){
+		
+		// 핫태크 ajax
+		tagAjax();
+		
+		timer = setInterval( function () {
+			tagAjax();
+		}, 30000); // 30초에 한번씩 받아온다.
+		
+		function tagAjax(){
+			
+			$.ajax({
+				url : "/triangleView/hottag",
+				type : "POST",
+				success : function(data) {
+
+					$('#hottag').empty();
+					for(var i=0; i<10;i ++){
+	
+
+						var $li = $('<li><em>' + (i+1) + '</em>' + data[i] + '</li>');
+						$li.click(function(){
+							
+							var searchHash = $(this).text().substring(1, $(this).text().length);
+							var searchData = searchHash;
+							location.href="<%= request.getContextPath()%>/searchReview.sr?searchHash=" + searchHash +"&searchData=" + searchData;
+						});
+						
+						$('#hottag').append($li);
+					}
+				}
+			});
+		};
+		
+		// 인기리뷰 ajax
+		$.ajax({
+			url : "/triangleView/loginHotReview",
+			type : "POST",
+			success : function(data) {
+
+				
+				for(var key in data){
+					
+					var $li = $('<li>');
+					var $img = $('<img src="/triangleView/review_upload/' + data[key].filename + '">');
+					
+					$li.append($img);
+					$li.append('<p class="reviewTitle">' +	data[key].rwtitle + '</p>'); 
+					$li.append('<p class="member_id">@' +  data[key].nick + '</p>');
+					
+					$li.click(function(){
+						
+						alert("클릭");
+					});
+					$('#hotreview').append($li);	
+				}
+			}
+		});
+		
+
 		var $panel = $(".rolling_panel").find("ul");
 		 
 	    var itemWidth = $panel.children().outerWidth(); // 아이템 가로 길이
@@ -258,17 +321,7 @@
 			<li>
 				<div class="hotTagArea">
 					<p>핫태그</p>
-					<ul>
-						<li><em>1</em>오늘날씨</li>
-						<li><em>2</em>하루만에석방</li>
-						<li><em>3</em>중부</li>
-						<li><em>4</em>로또</li>
-						<li><em>5</em>인생</li>
-						<li><em>6</em>스벌</li>
-						<li><em>7</em>블로그</li>
-						<li><em>8</em>세모뷰</li>
-						<li><em>9</em>그랭</li>
-						<li><em>10</em>바이</li>
+					<ul id ="hottag">
 					</ul>
 				</div>
 			</li>
@@ -276,17 +329,7 @@
 				<div class="favorRiviewArea">
 					<p class="favorTitle">인기리뷰</p>
 					<div class="rolling_panel">
-						<ul>
-							<li>
-								<img src="/triangleView/img/test2.jpg">
-								<p class="reviewTitle">#고래는 밥일까 사냥일까 </p>
-								<p class="member_id">@ one_bin_293</p>
-							</li>
-							<li>
-								<img src="/triangleView/img/test3.jpg">
-								<p class="reviewTitle">#쌈자의 출현 시기 </p>
-								<p class="member_id">@ ssamJa_2018</p>
-							</li>
+						<ul id="hotreview">
 						</ul>
 					</div>
 				</div>

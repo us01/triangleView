@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 	
 		Member loginUser = new MemberService().loginCheck(userId, userPwd);
 		ArrayList<HashMap<String, Object>> noticeList = null;
-		
+
 		if(loginUser != null){
 			ArrayList<Review> interestReviewList = new ReviewService().selectInterestReview(loginUser.getUserNo());
 			noticeList = new NoticeService().selectAllNotice();
