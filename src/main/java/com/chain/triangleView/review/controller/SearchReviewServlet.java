@@ -26,7 +26,7 @@ public class SearchReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchHash = request.getParameter("searchHash");
 		String searchData = request.getParameter("searchData");
-
+		
 		ArrayList<Review> searchReviewList = new ReviewService().searchHashSelect(searchHash);
 		ArrayList<HashMap<String, Object>> noticeList = null;
 		

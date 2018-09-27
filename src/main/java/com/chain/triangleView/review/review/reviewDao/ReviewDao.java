@@ -104,6 +104,7 @@ public class ReviewDao {
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
 				form.setThumbnail(rset.getString("filename"));
+				form.setCoorLink(rset.getString("coorlink"));
 				form.setWriteDate(rset.getString("rwwritedate"));
 				form.setRwTitle(rset.getString("rwtitle"));
 				form.setRwContent(rset.getString("rwcontent"));
@@ -145,6 +146,7 @@ public class ReviewDao {
 				}
 				comment.setRwDate(rset.getString("rwdate"));
 				comment.setUserNo(rset.getInt("userNo"));
+				comment.setThumbnail(rset.getString("filename"));
 				comment.setNick(rset.getString("nick"));
 				comment.setRwNo(rset.getInt("rwno"));
 				comment.setCommentNo(rset.getInt("commentno"));

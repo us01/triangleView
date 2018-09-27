@@ -90,10 +90,11 @@
 		margin-top: -5px;
 	}
 	.formArea {
+		display:inline-flex;
 		z-index: 300;
    		position: fixed;
    		left: 50%;
-   		margin-left:-500px;
+   		margin-left:-600px;
     	top: 110px;
 	}
 	@media all and (max-width:768px){
@@ -114,8 +115,8 @@
 			},
 			success : function(data) {
 				$(".formArea").html(data);
-				document.getElementById('formAreaArea').style.display = 'block';
-				document.getElementById('formArea').style.display = 'block';
+				document.getElementById('formAreaArea').style.display = 'inline-flex';
+				document.getElementById('formArea').style.display = 'inline-flex';
 			}
 		});
 	}

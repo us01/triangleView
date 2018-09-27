@@ -1,3 +1,4 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chain.triangleView.review.review.vo.RwComment"%>
 <%@page import="com.chain.triangleView.review.review.vo.Form"%>
@@ -6,16 +7,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member loginUser = (Member)session.getAttribute("loginUser");
 	HashMap<String, Object> reviewForm = (HashMap<String, Object>)request.getAttribute("reviewForm");
 
 	Iterator<String> keys = reviewForm.keySet().iterator();
 	Form form = null;
 	ArrayList<RwComment> rwComment = null;
 	
+	int rwNo = -1;
+	
 	while(keys.hasNext()){
 		String key = keys.next();
 		if(key.equals("form")){
 			form = (Form)reviewForm.get(key);
+			rwNo = form.getRwNo();
 		}else if(key.equals("rwComment")){
 			rwComment = (ArrayList<RwComment>)reviewForm.get(key);
 		}
@@ -25,6 +30,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="/triangleView/css/w3.css">
 <script
 	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
@@ -121,17 +127,19 @@
 		text-align:left;
 		margin-right:200px;
 	}
-	.parentComment_apply {
-		font-size:11px;
-		display:inline-block;
-		padding-right: 16px;
-		float:right;
-	}
 	.childComment_apply {
 		font-size:11px;
 		display:inline-block;
-		padding-right: 16px;
+		padding-right:10px;
+		color:#365899;
 		float:right;
+	}
+	.parentComment_apply {
+		font-size:11px;
+		display:inline-block;
+		padding-left: 70px;
+		color:#365899;
+		float:left;
 	}
 	.profileImageArea {
 		width:33px;
@@ -166,8 +174,19 @@
 		overflow:hidden;
 		margin-right:8px;
 	}
-	
-	.commentInsertProfileImageArea {
+	.childCommentInsertProfileImageArea {
+		width:25px;
+		height:25px;
+		border-radius:50%;
+		overflow:hidden;
+		margin-top:4px;
+		margin-left:10px;
+	}
+	.childCommentInsertProfileImageArea img{
+		width:25px;
+		height:25px;
+	}
+	.parentCommentInsertProfileImageArea {
 		width:33px;
 		height:33px;
 		border-radius:50%;
@@ -177,9 +196,16 @@
 		margin-right:15px;
 		
 	}
+	.parentCommentInsertProfileImageArea img{
+		width:33px;
+		height:33px;
+	}
 	.reviewProfileImageArea img{
 		width:42px;
 		height:42px;
+	}
+	.addchlidCommentArea {
+		display:none;
 	}
 	.parentCommentProfileImageArea img{
 		width:33px;
@@ -189,17 +215,14 @@
 		width:25px;
 		height:25px;
 	}
-	.commentInsertProfileImageArea img{
-		width:33px;
-		height:33px;
-	}
+	
 	.reviewTitleArea {
 		width:232px;
 		text-align:left;
 		height:35px;
 		border-radius:18px;
 	}
-	.commentInsertInputArea {
+	.parentCommentInsertInputArea {
 		displya:inline;
 		margin-top:5px;
 		width:232px;
@@ -209,14 +232,54 @@
 		background:white;
 		
 	}
-	.commentInsertInputArea div {
+	.parentCommentInsert {
+		position:absolute;
+		background:#f2f3f5;
+		left:0px;
+		top: 455px;
+		width:300px;
+		height:45px;
+		display:flex;
+	}
+	.parentCommentInsertInputArea div {
 		display:inline;
 	}
-	.commentInsertInputArea input{
+	.parentCommentInsertInputArea input{
 		vertical-align:middle;
 		border:none;
 		margin-left:10px;
 		margin-top:6px;
+		box-sizing:border-box;
+		outline:none;
+	}
+	.childCommentInsertInputArea {
+		margin-top:4px;
+		margin-left:10px;
+		width:228px;
+		text-align:left;
+		height:25px;
+		border-radius:18px;
+		background:white;
+		
+	}
+	.childCommentInsert {
+		margin-right:8px;
+		margin-top:5px;
+		margin-bottom:5px;
+		background:#f2f3f5;
+		width:280px;
+		border-radius:15px;
+		height:33px;
+		display:flex;
+		float:right;
+	}
+	.childCommentInsertInputArea div {
+		display:inline;
+	}
+	.childCommentInsertInputArea input{
+		vertical-align:middle;
+		border:none;
+		margin-left:10px;
 		box-sizing:border-box;
 		outline:none;
 	}
@@ -238,6 +301,15 @@
 		text-align:left;
 		font-size:12px;
 		color: #777D88;
+	}
+	.commentLoginInfoArea {
+		width:100%;
+		font-size:12px;
+		background:#f2f3f5;
+		height:46px;
+		text-align:center;
+		padding-top:15px;
+		color:#878787;
 	}
 	.comment-qty {
 		width:139px;
@@ -272,16 +344,36 @@
 		font-size:12px; 
 		text-align:right;
 	}
-	.commentInsert {
-		position:absolute;
-		background:#f2f3f5;
-		left:0px;
-		top: 455px;
-		width:300px;
-		height:45px;
-		display:flex;
-	}
+	
 </style>
+<script>
+	function addCommentAreaDisplay(rwNo){
+		var display = $('.addchlidCommentArea'+rwNo).css('display');
+		
+		if(display == "none"){
+			$('.addchlidCommentArea').css('display', 'none');
+			document.getElementById('addchlidCommentArea'+rwNo).style.display = 'block';
+		}else{
+			document.getElementById('addchlidCommentArea'+rwNo).style.display = 'none';
+		}
+	}
+	
+	function addComment(rwNo, commentNo, inputId){
+		<% if(loginUser != null){ %>
+			var userNo = '<%= loginUser.getUserNo() %>';
+		<% } %>
+		var commentContent = '';
+		
+		if(commentNo == -1){
+			commentContent = $('#parentComment'+rwNo).val();
+		}else{
+			commentContent = $('#childComment'+inputId).val();
+			alert(commentContent);
+		}
+		alert("commentNo : " + commentNo);
+		location.href='<%= request.getContextPath() %>/addComment?rwNo=' + rwNo + '&commentNo=' + commentNo + '&userNo=' + userNo + '&commentContent=' + commentContent;
+	}
+</script>
 </head>
 <body>
 	<div class="review-Form">
@@ -312,53 +404,75 @@
 					</div>
 				</div>
 				<!--코멘트  -->
-				<div class="contentinfo-comment">
-					<% for(int i = 0; i < rwComment.size(); i++){ %>
-						<% if(!rwComment.get(i).getParentCommentNo()){ %>
-							<div class="addParentComment">
-								<div class="parentComment-insertArea">
-									<div class="parentCommentProfileImageArea">
-										<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+				<% if(rwComment != null){ %>
+					<div class="contentinfo-comment">
+						<% for(int i = 0; i < rwComment.size(); i++){ %>
+							<% if(!rwComment.get(i).getParentCommentNo()){ %>
+								<div class="addParentComment">
+									<div class="parentComment-insertArea">
+										<div class="parentCommentProfileImageArea">
+											<img src="/triangleView/profileImg_upload/<%= rwComment.get(i).getThumbnail() %>">
+										</div>
+										<div class="parentCommentArea">
+											<span class="parentComment">
+											<a class="parentComment_Id">@ <%= rwComment.get(i).getNick() %></a>
+												<%= rwComment.get(i).getCommentContent() %>
+											</span>
+										</div>
 									</div>
-									<div class="parentCommentArea">
-										<span class="parentComment">
-										<a class="parentComment_Id">@ <%= rwComment.get(i).getNick() %></a>
-											<%= rwComment.get(i).getCommentContent() %>
-										</span>
-									</div>
+									<% if(loginUser != null){ %>
+										<span class="parentComment_apply" onclick="addCommentAreaDisplay(<%= rwComment.get(i).getCommentNo() %>)">답글 달기</span>
+										<span class="parentComment_apply"><%= rwComment.get(i).getRwDate() %></span>
+										<div class="addchlidCommentArea addchlidCommentArea<%= rwComment.get(i).getCommentNo() %> " id="addchlidCommentArea<%= rwComment.get(i).getCommentNo() %>">
+											<div class="childCommentInsert">
+												<div class="childCommentInsertProfileImageArea">
+													<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>">
+												</div>
+												<div class="childCommentInsertInputArea">
+													<input id='childComment<%= i %>' type="text">
+													<div onclick="addComment(<%= rwComment.get(i).getRwNo() %>, <%= rwComment.get(i).getCommentNo()%>, <%= i %>)">등록</div>
+												</div>
+											</div>
+										</div>
+									<% }else{ %>
+										<span class="parentComment_apply" style="padding-left:188px;"><%= rwComment.get(i).getRwDate() %></span>
+									<% } %>
 								</div>
-								<span class="parentComment_apply"><%= rwComment.get(i).getRwDate() %></span>
-							</div>
-						<% }else{ %>
-							<div class="addChildComment">
-								<div class="childComment-insertArea">
-									<div class="childCommentProfileImageArea">
-										<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+							<% }else{ %>
+								<div class="addChildComment">
+									<div class="childComment-insertArea">
+										<div class="childCommentProfileImageArea">
+											<img src="/triangleView/profileImg_upload/<%= rwComment.get(i).getThumbnail() %>">
+										</div>
+										<div class="childCommentArea">
+											<span class="childComment">
+											<a class="childComment_Id">@ <%= rwComment.get(i).getNick() %></a>
+												<%= rwComment.get(i).getCommentContent() %>
+											</span>
+										</div>
 									</div>
-									<div class="childCommentArea">
-										<span class="childComment">
-										<a class="childComment_Id">@ <%= rwComment.get(i).getNick() %></a>
-											<%= rwComment.get(i).getCommentContent() %>
-										</span>
-									</div>
+									<span class="childComment_apply"><%= rwComment.get(i).getRwDate() %></span>
 								</div>
-								<span class="childComment_apply"><%= rwComment.get(i).getRwDate() %></span>
-							</div>
+							<% } %>
 						<% } %>
-					<% } %>
-				</div>
+					</div>
+				<% } %>
 				<!--코멘트  -->
-				<div>
-					<div class="commentInsert">
-						<div class="commentInsertProfileImageArea">
-							<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
-						</div>
-						<div class="commentInsertInputArea">
-							<input type="text">
-							<div>검색</div>
+				<% if(loginUser != null){ %>
+					<div>
+						<div class="parentCommentInsert">
+							<div class="parentCommentInsertProfileImageArea">
+								<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>">
+							</div>
+							<div class="parentCommentInsertInputArea">
+								<input id='parentComment<%= rwNo %>' type="text">
+								<div onclick="addComment(<%= rwNo %>, -1, -1)">등록</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				<% }else{ %>
+					<div class="commentLoginInfoArea">댓글은 로그인 후 이용하세요</div>
+				<% } %>
 			</div>
 		</div>
 	</div>
