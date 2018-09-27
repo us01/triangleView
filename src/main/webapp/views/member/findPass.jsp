@@ -25,23 +25,6 @@
 </script>
     <!-- CSS -->
 <style>
-/* body {
-	font-family: '맑은고딕';
-}
-button {
-	width: 180px;
-	background-color: #F7323F;
-	border: none;
-	color: #FDEBEC;
-	padding: 6px;
-	text-align: center;
-	text-decoration: none;
-	font-size: 14px;
-	margin-top: 4px;
-	margin-bottom: 4px;
-	cursor: pointer;
-	border-radius: 5px;
-} */
 
 .btn-success {
 	width: 120px;
@@ -89,7 +72,7 @@ button {
 }
 
 #howTo{
-    font-size: 15px;
+    font-size: 14px;
     margin-left: 10px;
 }
 
@@ -133,7 +116,7 @@ button {
 </style>
 </head>
 <body>
-	<div class="page-header" style="text-align:center; display: block;">
+	<div class="page-header" style="text-align:center; display: block;  margin-top: 20px;">
 		<h2 style="font-size: 25px;"><img src="/triangleView/img/member/passFind.png" style="width:45px; margin-top:-10px">비밀번호 찾기</h2>
 	</div>
 	
@@ -158,11 +141,11 @@ button {
 				}
 		</script>
 		
-		<div class="input-group" style="text-align: -webkit-center;">
+		<div class="input-group" id="changePassBlock" style="text-align: -webkit-center; display: none;">
 			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
 			placeholder="인증번호를 입력해주세요" style="width:230px; margin-left:-55px; display:none;">
 			 <label id="pwdresult"></label><br> 
-			 <input type="button" class="btn-success" id="vertifyNum" value="인증" style="display: none; margin-top: -37px;"><br>
+			 <input type="button" class="btn-success" id="vertifyNum" value="인증" style="display: none; margin-top: -33px;"><br>
 		</div>
 	
 	<br>
@@ -174,6 +157,7 @@ button {
 				//이메일인증
 				$("#sendVertify").click(function(){
 					var id = $("#personMail").val();
+					$("#changePassBlock").css("display","block");
 					
 					$.ajax({
 						url : "sendPass.no",

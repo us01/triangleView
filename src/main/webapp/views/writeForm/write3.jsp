@@ -46,7 +46,7 @@
 
 	body {
 		margin:0px;
-		background:#fafafa;
+		/* background:#fafafa; */
 		font-family:'맑은고딕';
 	}
 
@@ -327,7 +327,7 @@ $(function(){
 <br>
 <br>
 <div class="everyThing3">
-<form class="writeForm" id="write3Test" name="write3Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center;"> 
+<form class="writeForm" id="write3Test" name="write3Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center;  border:1px solid black;"> 
 	<div class="container">
 		<h3 style="text-align:center; color:#f8585b;">동영상 리뷰</h3>
 		</div>

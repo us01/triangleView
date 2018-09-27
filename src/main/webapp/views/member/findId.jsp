@@ -128,8 +128,8 @@ button {
 }
 
 #howTo{
-    font-size: 15px;
-    margin-left: 10px;
+    font-size: 14px;
+   
 }
 
 #vertifyNum{
@@ -142,18 +142,26 @@ button {
 }
 </style>
 <script>
-	$(function(){
-		$("#personalnum").keyup(function() {
-			$(this).val($(this).val().replace(/[^0-9]/g, ""));
-		});
+
+$('#personalnum').keypress(function (event) { 
+	if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { 
+		event.preventDefault();
+		} 
 	});
+
+$('#checkNum').keypress(function (event) { 
+	if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { 
+		event.preventDefault();
+		} 
+	});
+
 </script>
 </head>
 
 <body>
 <div class="holder">
-	<div class="page-header" style="text-align:center; display: block;">
-		<h2 style="font-size: 25px;"><img src="/triangleView/img/member/idFind.png" style="width:50px; margin-top:-15px;">아이디 찾기</h2>
+	<div class="page-header" style="text-align:center; display: block; margin-top: 20px;">
+		<h2 style="font-size: 25px;"><img src="/triangleView/img/member/idFind.png" style="width:50px; margin-top:-10px;">아이디 찾기</h2>
 	</div>
 	
 	<div class="howToUse">
@@ -180,11 +188,11 @@ button {
 					$("#vertifyNum").css("display","block").css("align","center");
 				}
 			</script>
-		<div class="input-group" style="text-align: -webkit-center;">
+		<div class="input-group" id="changeNumberBlock" style="text-align: -webkit-center; display:none;">
 			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
 			placeholder="인증번호를 입력해주세요" style="width: 240px; margin-left:-45px; display: none;">
 			 <label id="pwdresult"></label><br> 
-			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none; margin-top: -27px;"><br>
+			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none; margin-top: -22px;"><br>
 		</div>
 	</div>
 	
@@ -212,20 +220,20 @@ button {
 					var resultText = "아이디 : " + num;
 					alert(resultText);
 					$("#p4").val(resultText).css("color", "red").css("font-size","20px"); */
+					 
 					 $("#p3").text("아이디 : " + data).css("color", "red").css("font-size","20px").css("text-align","center"); 
-					
 				},
 				error : function() {
 					console.log("실패!");
 				}
-
 			});
 		});
+
 
 		$("#sendVertify").click(function() {
 
 			var phone = $("#personalnum").val();
-
+			$("#changeNumberBlock").css("display","block");
 			$.ajax({
 				url : "snscheck.sns",
 				type : "post",
@@ -235,6 +243,7 @@ button {
 				success : function(data) {
 					$("#p2").text(data);
 					var num = data;
+					
 				},
 				error : function() {
 					console.log("실패!");

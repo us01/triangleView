@@ -50,12 +50,19 @@
 	function logout(){
 		location.href='<%= request.getContextPath() %>/logout.me';
 	}
+	
+	function changeProfile(){
+		location.href = '/triangleView/views/setting/settingPage.jsp';
+	}
 </script>
 </head>
+
+
 <body>
+
 	<div class="settingListArea">
 		<ul>
-			<li><p>프로필 편집</p></li>
+			<li onclick="changeProfile()"><p>프로필 편집</p></li>
 			<li onclick="modifyPwd()"><p>비밀번호 변경</p></li>
 			<li onclick="logout()"><p>로그아웃</p></li>
 			<li><p>취소</p></li>

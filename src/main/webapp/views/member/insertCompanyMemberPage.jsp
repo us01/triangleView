@@ -221,9 +221,41 @@ input[type=text],input[type=email],input[type=password], select {
 	//사업자등록번호체크
 	function onopen()
 	{
-		var url = "http://www.ftc.go.kr/bizCommPop.do?wrkr_no="+testGo.businessNo.value;
-		/* alert(url); */
-		window.open(url, "bizCommPop", "width=0, height=0;"); 
+		var biz = $("#businessNo").val();
+		var bizID= biz.toString();
+		//alert(bizID);
+		//bizID는 숫자만 10자리로 해서 문자열로 넘긴다. 
+		var checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1);
+		var tmpBizID, i, chkSum = 0, c2, remander;
+		bizID = bizID.replace(/-/gi, '');
+
+		for (i = 0; i <= 7; i++)
+			chkSum += checkID[i] * bizID.charAt(i);
+			
+		c2 = "0" + (checkID[8] * bizID.charAt(8));
+		c2 = c2.substring(c2.length - 2, c2.length);
+		chkSum += Math.floor(c2.charAt(0)) + Math.floor(c2.charAt(1));
+		//alert(chkSum);
+		remander = (10 - (chkSum % 10)) % 10;
+		//alert(remander);
+		//var scs = Math.floor(bizID.charAt(9));
+		//alert(scs);
+		if (Math.floor(bizID.charAt(9)) == remander){
+			alert('인증되었습니다.회원가입을 진행해주세요.');
+			$('#newMember').attr("disabled", false);
+			//alert('ㅎㅇㅎㅇ');
+			//return true; // OK! 
+			//110111006243
+			//1108141272
+			//8642700283
+		}else{
+			alert('사업자등록번호 오류입니다. 다시 입력해주세요.')
+			$('#newMember').attr("disabled", true);
+		}
+		//return false;
+		/* 		var url = "http://www.ftc.go.kr/bizCommPop.do?wrkr_no="+testGo.businessNo.value;
+		 alert(url);
+		 window.open(url, "bizCommPop", "width=0, height=0;");  */
 	}
 
 	function sample4_execDaumPostcode() {
