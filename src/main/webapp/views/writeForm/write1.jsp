@@ -30,7 +30,7 @@
 <style>
 body {
 	margin: 0px;
-	background: #fafafa;
+	/* background: #fafafa; */
 	font-family: '맑은고딕';
 }
 .everyThing1 {
@@ -431,12 +431,12 @@ $(function(){
 <br>
 <br>
 <div class="everyThing1">
-<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center;">
+<form class="writeForm" id="write1Test" name="write1Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center; border:1px solid black;">
 	<div class="container">
 		<h3 style="text-align:center; color:#f8585b;">카드형 리뷰</h3>
 		</div>
 		<hr>
-			
+		
 		<div class="input-group" style="display:-webkit-inline-box; text-align: left; width:650px; margin-left:-130px;">
 		<h5>제목</h5>
 			<input type="text" class="w3-input2 w3-change" id="title" name="title" style="text-align: center;

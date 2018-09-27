@@ -50,7 +50,7 @@
 <style>
 body {
 	margin: 0px;
-	background: #fafafa;
+	/* background: #fafafa; */
 	font-family: '맑은고딕';
 }
 
@@ -337,7 +337,7 @@ $(function(){
 <br>
 <br>
 <div class="everyThing2">
-	<form class="writeForm" id="write2Test" name="write2Test" action="" method="post" encType="multipart/form-data" style="margin: 15px; background:#fff;">
+	<form class="writeForm" id="write2Test" name="write2Test" action="" method="post" encType="multipart/form-data" style="margin: 15px; background:#fff;  border:1px solid black;">
 		<div class="container">
 			<h3 style="text-align: center; color: #f8585b;">텍스트 리뷰</h3>
 		</div>
