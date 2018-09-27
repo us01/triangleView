@@ -43,7 +43,7 @@
 		text-align:center;
 	}
 	.review-Form {
-		display: flex;
+		display: inline-flex;
 		width:1000px;
 		margin:0 auto;
 	}
@@ -302,6 +302,15 @@
 		font-size:12px;
 		color: #777D88;
 	}
+	.commentLoginInfoArea {
+		width:100%;
+		font-size:12px;
+		background:#f2f3f5;
+		height:46px;
+		text-align:center;
+		padding-top:15px;
+		color:#878787;
+	}
 	.comment-qty {
 		width:139px;
 		padding: 3px;
@@ -335,7 +344,23 @@
 		font-size:12px; 
 		text-align:right;
 	}
-	
+	.subSideArea {
+		display:inline;
+		width:100px;
+	}
+	.subSideArea button {
+		width: 70px;
+		background-color: #f8585b;
+		border: none;
+		color: #FDEBEC;
+		padding: 6px 0;
+		text-align: center;
+		text-decoration: none;
+		font-size: 14px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:5px;
+	}
 </style>
 <script>
 	function addCommentAreaDisplay(rwNo){
@@ -359,16 +384,26 @@
 			commentContent = $('#parentComment'+rwNo).val();
 		}else{
 			commentContent = $('#childComment'+inputId).val();
-			alert(commentContent);
 		}
-		alert("commentNo : " + commentNo);
+		
 		location.href='<%= request.getContextPath() %>/addComment?rwNo=' + rwNo + '&commentNo=' + commentNo + '&userNo=' + userNo + '&commentContent=' + commentContent;
+	}
+	
+	function subSiteMove(subSite){
+		$(location).attr('href', subSite);
 	}
 </script>
 </head>
 <body>
+	<% if(form.getCoorLink() != null){ %>
+	<div class="subSideArea"> 
+		<button onclick="subSiteMove('<%= form.getCoorLink() %>')">관련 링크</button>
+	</div>
+	<% } %>
 	<div class="review-Form">
-		<div class="contentArea"><%= form.getRwContent() %></div>
+		<div class="contentArea">
+			<%= form.getRwContent() %>
+		</div>
 		<div class="contentInfoArea">
 			<div>
 				<div class="contentinfo-header">
@@ -402,7 +437,7 @@
 								<div class="addParentComment">
 									<div class="parentComment-insertArea">
 										<div class="parentCommentProfileImageArea">
-											<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+											<img src="/triangleView/profileImg_upload/<%= rwComment.get(i).getThumbnail() %>">
 										</div>
 										<div class="parentCommentArea">
 											<span class="parentComment">
@@ -414,26 +449,26 @@
 									<% if(loginUser != null){ %>
 										<span class="parentComment_apply" onclick="addCommentAreaDisplay(<%= rwComment.get(i).getCommentNo() %>)">답글 달기</span>
 										<span class="parentComment_apply"><%= rwComment.get(i).getRwDate() %></span>
+										<div class="addchlidCommentArea addchlidCommentArea<%= rwComment.get(i).getCommentNo() %> " id="addchlidCommentArea<%= rwComment.get(i).getCommentNo() %>">
+											<div class="childCommentInsert">
+												<div class="childCommentInsertProfileImageArea">
+													<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>">
+												</div>
+												<div class="childCommentInsertInputArea">
+													<input id='childComment<%= i %>' type="text">
+													<div onclick="addComment(<%= rwComment.get(i).getRwNo() %>, <%= rwComment.get(i).getCommentNo()%>, <%= i %>)">등록</div>
+												</div>
+											</div>
+										</div>
 									<% }else{ %>
 										<span class="parentComment_apply" style="padding-left:188px;"><%= rwComment.get(i).getRwDate() %></span>
 									<% } %>
-									<div class="addchlidCommentArea addchlidCommentArea<%= rwComment.get(i).getCommentNo() %> " id="addchlidCommentArea<%= rwComment.get(i).getCommentNo() %>">
-										<div class="childCommentInsert">
-											<div class="childCommentInsertProfileImageArea">
-												<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
-											</div>
-											<div class="childCommentInsertInputArea">
-												<input id='childComment<%= i %>' type="text">
-												<div onclick="addComment(<%= rwComment.get(i).getRwNo() %>, <%= rwComment.get(i).getCommentNo()%>, <%= i %>)">등록</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							<% }else{ %>
 								<div class="addChildComment">
 									<div class="childComment-insertArea">
 										<div class="childCommentProfileImageArea">
-											<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+											<img src="/triangleView/profileImg_upload/<%= rwComment.get(i).getThumbnail() %>">
 										</div>
 										<div class="childCommentArea">
 											<span class="childComment">
@@ -453,7 +488,7 @@
 					<div>
 						<div class="parentCommentInsert">
 							<div class="parentCommentInsertProfileImageArea">
-								<img src="/triangleView/img/mypage/defaultProfileImage.jpg">
+								<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>">
 							</div>
 							<div class="parentCommentInsertInputArea">
 								<input id='parentComment<%= rwNo %>' type="text">
@@ -462,7 +497,7 @@
 						</div>
 					</div>
 				<% }else{ %>
-					<div>댓글은 로그인 후 이용하세요</div>
+					<div class="commentLoginInfoArea">댓글은 로그인 후 이용하세요</div>
 				<% } %>
 			</div>
 		</div>

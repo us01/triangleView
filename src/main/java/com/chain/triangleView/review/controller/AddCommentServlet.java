@@ -24,9 +24,9 @@ public class AddCommentServlet extends HttpServlet {
 		int result = new ReviewService().addComment(rwNo, commentNo, userNo, commentContent);
 		
 		if(result > 0){
-			System.out.println("성공");
+			
 		}else{
-			System.out.println("실패");
+			
 		}
 	}
 	

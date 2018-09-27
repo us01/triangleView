@@ -30,7 +30,7 @@
 
 <!-- CSS -->
 <style>
-body {
+/* body {
 	font-family: '맑은고딕';
 }
 
@@ -51,7 +51,7 @@ button {
 	margin-bottom: 4px;
 	cursor: pointer;
 	border-radius: 5px;
-}
+} */
 
 .btn-success {
 	width: 120px;

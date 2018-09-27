@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="/triangleView/css/w3.css" media="screen" title="no title" charset="utf-8">
 <link rel="stylesheet" href="/triangleView/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
 <link rel="stylesheet" href="/triangleView/css/style.css" media="screen" title="no title" charset="utf-8">
+<script
+	src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <style>

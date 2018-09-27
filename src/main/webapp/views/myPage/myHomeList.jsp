@@ -98,10 +98,11 @@
 		margin:0px;
 	}
 	.formArea {
+		display:inline-flex;
 		z-index: 300;
    		position: fixed;
    		left: 50%;
-   		margin-left:-500px;
+   		margin-left:-600px;
     	top: 110px;
 	}
 	@media all and (max-width:768px) {
@@ -119,8 +120,8 @@
 			},
 			success : function(data) {
 				$(".formArea").html(data);
-				document.getElementById('formAreaArea').style.display = 'block';
-				document.getElementById('formArea').style.display = 'block';
+				document.getElementById('formAreaArea').style.display = 'inline-flex';
+				document.getElementById('formArea').style.display = 'inline-flex';
 			}
 		});
 	}
@@ -139,9 +140,9 @@
 					<img src="/triangleView/review_upload/<%= reviews.get(i).getThumbnail() %>">
 				</div>
 				<div class="formType">
-					<% if(reviews.get(i).getRwType() == 0){ %>
+					<% if(reviews.get(i).getRwContentType() == 0){ %>
 						<img src="/triangleView/img/viewList/text.png">
-					<% }else if(reviews.get(i).getRwType() == 1){ %>
+					<% }else if(reviews.get(i).getRwContentType() == 1){ %>
 						<img src="/triangleView/img/viewList/card.png">
 					<% }else{ %>
 						<img src="/triangleView/img/viewList/video.png">

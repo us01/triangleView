@@ -8,6 +8,7 @@ public class RwComment implements Serializable{
 	private String commentContent;
 	private int commentNo;
 	private Boolean parentCommentNo;
+	private String thumbnail;
 	private String rwDate;
 	private int userNo;
 	private String nick;
@@ -16,13 +17,14 @@ public class RwComment implements Serializable{
 		super();
 	}
 
-	public RwComment(int rwNo, String commentContent, int commentNo, Boolean parentCommentNo, String rwDate, int userNo,
-			String nick) {
+	public RwComment(int rwNo, String commentContent, int commentNo, Boolean parentCommentNo, String thumbnail,
+			String rwDate, int userNo, String nick) {
 		super();
 		this.rwNo = rwNo;
 		this.commentContent = commentContent;
 		this.commentNo = commentNo;
 		this.parentCommentNo = parentCommentNo;
+		this.thumbnail = thumbnail;
 		this.rwDate = rwDate;
 		this.userNo = userNo;
 		this.nick = nick;
@@ -60,6 +62,14 @@ public class RwComment implements Serializable{
 		this.parentCommentNo = parentCommentNo;
 	}
 
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
 	public String getRwDate() {
 		return rwDate;
 	}
@@ -87,8 +97,8 @@ public class RwComment implements Serializable{
 	@Override
 	public String toString() {
 		return "RwComment [rwNo=" + rwNo + ", commentContent=" + commentContent + ", commentNo=" + commentNo
-				+ ", parentCommentNo=" + parentCommentNo + ", rwDate=" + rwDate + ", userNo=" + userNo + ", nick="
-				+ nick + "]";
+				+ ", parentCommentNo=" + parentCommentNo + ", thumbnail=" + thumbnail + ", rwDate=" + rwDate
+				+ ", userNo=" + userNo + ", nick=" + nick + "]";
 	}
 	
 }
