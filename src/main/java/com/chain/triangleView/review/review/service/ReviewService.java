@@ -28,11 +28,11 @@ public class ReviewService {
 		return reviewList;
 	}
 
-	public HashMap<String, Object> loadOneRevie(int rwNo) {
+	public HashMap<String, Object> loadOneRevie(int rwNo, int userNo) {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> reviewForm = null;
-		Form form = new ReviewDao().loadOneForm(con, rwNo);
+		Form form = new ReviewDao().loadOneForm(con, rwNo, userNo);
 		
 		if(form != null){
 			ArrayList<RwComment> rwComment = new ReviewDao().loadOneFormComment(con, rwNo);

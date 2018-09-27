@@ -80,7 +80,7 @@ public class ReviewDao {
 		return reviewList;
 	}
 
-	public Form loadOneForm(Connection con, int rwNo) {
+	public Form loadOneForm(Connection con, int rwNo, int userNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Form form = null;
@@ -92,6 +92,8 @@ public class ReviewDao {
 			pstmt.setInt(1, rwNo);
 			pstmt.setInt(2, rwNo);
 			pstmt.setInt(3, rwNo);
+			pstmt.setInt(4, userNo);
+			pstmt.setInt(5, rwNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -103,6 +105,7 @@ public class ReviewDao {
 				form.setRwCommentCount(rset.getInt("rwcommentcount"));
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
+				form.setLikeMe(rset.getInt("likeme"));
 				form.setThumbnail(rset.getString("filename"));
 				form.setCoorLink(rset.getString("coorlink"));
 				form.setWriteDate(rset.getString("rwwritedate"));

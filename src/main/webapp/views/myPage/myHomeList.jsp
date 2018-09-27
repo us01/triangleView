@@ -1,9 +1,11 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.chain.triangleView.userHome.userHome.vo.HomeReview"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member loginUser = (Member)session.getAttribute("loginUser");
 	HashMap<String, Object> userHome = (HashMap<String, Object>)request.getAttribute("userHome");
 	ArrayList<HomeReview> reviews = (ArrayList<HomeReview>)userHome.get("reviews");
 %>
@@ -102,7 +104,7 @@
 		z-index: 300;
    		position: fixed;
    		left: 50%;
-   		margin-left:-600px;
+   		margin-left:-500px;
     	top: 110px;
 	}
 	@media all and (max-width:768px) {
@@ -110,13 +112,14 @@
 	}
 </style>
 <script>
-	function loadReivewForm(rwNo, rwContentType){
+	function loadReivewForm(rwNo, rwContentType, userNo){
 		$.ajax({
 			url : "/triangleView/loadOneReviewForm.rf",
 			type : "GET",
 			data : {
-				'rwNo':rwNo,
-				'rwContentType':rwContentType
+				rwNo : rwNo,
+				rwContentType : rwContentType,
+				userNo : userNo
 			},
 			success : function(data) {
 				$(".formArea").html(data);
@@ -136,7 +139,11 @@
 	<div class="myHomeListArea">
 		<% for(int i = 0; i < reviews.size(); i++){ %>
 			<div class="viewForm">
-				<div class="viewMainImage" onclick="loadReivewForm(<%= reviews.get(i).getRwNo() %>, <%= reviews.get(i).getRwContentType() %>)">
+				<% if(loginUser != null){ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= reviews.get(i).getRwNo() %>, <%= reviews.get(i).getRwContentType() %>, <%= loginUser.getUserNo() %>)">
+				<% }else{ %>
+					<div class="viewMainImage" onclick="loadReivewForm(<%= reviews.get(i).getRwNo() %>, <%= reviews.get(i).getRwContentType() %>, -1)">
+				<% } %>
 					<img src="/triangleView/review_upload/<%= reviews.get(i).getThumbnail() %>">
 				</div>
 				<div class="formType">
