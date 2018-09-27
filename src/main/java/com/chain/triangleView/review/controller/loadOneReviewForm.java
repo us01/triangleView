@@ -21,8 +21,11 @@ public class loadOneReviewForm extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rwNo = Integer.parseInt(request.getParameter("rwNo"));
 		int rwContentType = Integer.parseInt(request.getParameter("rwContentType"));
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		HashMap<String, Object> reviewForm = new ReviewService().loadOneRevie(rwNo);
+		System.out.println("userNo : " + userNo);
+		
+		HashMap<String, Object> reviewForm = new ReviewService().loadOneRevie(rwNo, userNo);
 		
 		if(reviewForm != null){
 			if(rwContentType == 0){

@@ -150,12 +150,11 @@
 		
 	}
 	.reviewProfileImageArea {
-		width:42px;
-		height:42px;
+		width:50px;
+		height:50px;
 		border-radius:50%;
 		overflow:hidden;
 		margin-right:15px;
-		
 	}
 	.parentCommentProfileImageArea {
 		width:33px;
@@ -201,8 +200,8 @@
 		height:33px;
 	}
 	.reviewProfileImageArea img{
-		width:42px;
-		height:42px;
+		width:50px;
+		height:50px;
 	}
 	.addchlidCommentArea {
 		display:none;
@@ -290,7 +289,10 @@
 	.reviewSideContent {
 		padding: 16px;
 		width:268px;
-		text-align:left;
+		font-size:13px;
+		text-align:center;
+		color: #575757;
+		font-weight:bold;
 	}
 	.like-qty {
 		width:145px;
@@ -298,9 +300,13 @@
 		display:inline-block;
 		margin:0px;
 		padding-left:5px;
-		text-align:left;
+		text-align:center;
 		font-size:12px;
 		color: #777D88;
+	}
+	.like-qty img{
+		width:35px;
+		height:30px;
 	}
 	.commentLoginInfoArea {
 		width:100%;
@@ -317,32 +323,45 @@
 		display:inline-block;
 		margin:0px;
 		padding-right:5px;
-		text-align:right;
+		text-align:center;
 		font-size:12px;
 		color: #777D88;
 	}
+	.comment-qty img {
+		width:35px;
+		height:30px;
+	}
 	.reviewTitleArea P{
 		font-family:'맑은고딕';
-		display:inline-block;;
-		width:219px;
-		font-size:13px;
+		margin-bottom:0px;
+		font-weight:unset;
+		margin-top:0px;
+	}
+	.reviewTitleArea P:first-child { 
+		display:inline-block;
+		font-size:15px;
 		font-weight:bold;
+		margin-top:4px;
+		width:219px;
 		overflow:hidden;
 		white-space:nowrap;
 		text-overflow:ellipsis;
-		margin-top:0px;
-		margin-bottom:0px;
 		text-align:left;
-		font-weight:unset;
 	}
-	.reviewTitleArea P:nth-of-type(1){ 
-		font-size:14px;
-		font-weight:bold;
-		margin-top:10px;
-	}
-	.reviewTitleArea P:nth-of-type(2), .reviewTitleArea P:nth-of-type(3){
+	.reviewTitleArea P:nth-of-type(2) {
+		display:inline-block;
 		font-size:12px; 
+		text-align:left;
+		width:109px;
+		color: #575757;
+	}
+	
+	.reviewTitleArea P:nth-of-type(3) {
+		display:inline-block;
+		font-size:10px; 
 		text-align:right;
+		width:100px;
+		position: absolute;
 	}
 	.subSideArea {
 		display:inline;
@@ -413,8 +432,7 @@
 					<div class="reviewTitleArea">
 						<p><%= form.getRwTitle() %></p>
 						<br>
-						<p>@ <%= form.getNick() %> </p>
-						<br>
+						<p>@<%= form.getNick() %> </p>
 						<p><%= form.getWriteDate() %></p>
 					</div>
 				</div>
@@ -422,11 +440,17 @@
 					<div class="reviewSideContent">
 						<%= form.getRwComment() %>
 					</div>
-					<div class="like-qty">
-						<img src="/triangleView/img/reviewForm/like.png"><span><%= form.getRwLikeCount() %></span>명
-					</div>
 					<div class="comment-qty">
-						댓글 <span><%= form.getRwCommentCount() %></span>개
+						<img src="/triangleView/img/reviewForm/view.png">
+						<span><%= form.getRwCommentCount() %></span>
+					</div>
+					<div class="like-qty">
+						<% if(form.getLikeMe() == 0){ %>
+							<img src="/triangleView/img/reviewForm/nolove.png">
+						<% }else{ %>
+							<img src="/triangleView/img/reviewForm/love.png">
+						<% } %>
+						<span><%= form.getRwLikeCount() %></span>
 					</div>
 				</div>
 				<!--코멘트  -->
