@@ -48,11 +48,16 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
 
 <style>
-	body {
-		margin:0px;
-		background:#fafafa;
-		font-family:'맑은고딕';
-	}
+body {
+	margin: 0px;
+	background: #fafafa;
+	font-family: '맑은고딕';
+}
+
+.everyThing2 {
+	width: 1000px;
+	margin: 0 auto;
+}
 
 .container2 {
 	justify-content: space-between;
@@ -260,7 +265,69 @@
 	border-bottom: 1px solid #ccc;
 	width: 100%;
 }
+
+.fr-element fr-view{
+height:300px;
+}
 </style>
+<script>
+$(function(){
+    
+    $('#hash').focusout(function(){
+       
+       var input = $("#hash");
+       var str = input.val();
+        var res = str.substring(input.val().length-2, input.val().length);
+        var newStr = str.slice(0, -2);
+        
+        if(res == " #"){
+                     
+           input.val(newStr);
+        }
+        input.css('color','#f7323f').css("font-weight","Bold");
+    });
+    
+    $('#hash').focusin(function(){
+       
+       var input = $("#hash");
+       input.css('color','black').css("font-weight","");
+    });
+    
+    $('#hash').keydown(function(e) {
+       
+        var k = e.keyCode;
+        var input = $("#hash");
+        
+        if(input.val() == ""){
+              
+           input.val('#');
+        }
+        if ((90 >= k && k >= 65) // a ~ z
+                || (111 >= k && k >= 106) // keypad operator
+                || (192 >= k && k >= 186) // -,=./;
+                || (222 >= k && k >= 219) // ']\[
+                || k == 59 // FF ;
+                || k == 61 // FF =
+                || k == 173 // FF -
+                ) {
+            e.preventDefault();
+        }else if(k == 16){
+           
+           e.preventDefault();
+        }else if(k == 32){
+
+           var str = input.val();
+           var res = str.substring(input.val().length-1, input.val().length);
+           if(res == "#"){
+              e.preventDefault();                
+           }else{ 
+              e.preventDefault();
+              input.val(input.val()+' #');
+           }
+        }
+    });
+ });
+</script>
 
 </head>
 <body>
@@ -269,6 +336,7 @@
 <br>
 <br>
 <br>
+<div class="everyThing2">
 	<form class="writeForm" id="write2Test" name="write2Test" action="" method="post" encType="multipart/form-data" style="margin: 15px; background:#fff;">
 		<div class="container">
 			<h3 style="text-align: center; color: #f8585b;">텍스트 리뷰</h3>
@@ -276,7 +344,7 @@
 		<hr>
 
 		<div class="input-group"
-			style="display:-webkit-inline-box; text-align: left; width:650px; margin-left:220px;">
+			style="display:-webkit-inline-box; text-align: left; width:650px; margin-left:100px;">
 			<h5>제목</h5>
 			<input type="text" class="w3-input2 w3-change" id="title" name="title"
 				style="text-align: center; margin-left: 115px;"
@@ -286,7 +354,7 @@
 
 		<div class="input-group" style="display:-webkit-inline-box; text-align: left; margin-left: 205px;">
 			<div id="companySup"
-				style="width: 635px; display: -webkit-inline-box; margin-left: 15px;">
+				style="width: 635px; display: -webkit-inline-box; margin-left: -105px;">
 				<h5 style="display: inline-block;">기업후원 리뷰</h5>
 				<input type="checkbox" class="w3-check" name="companySpon" value="1"
 					style="margin-left: 33px;">
@@ -310,7 +378,7 @@
 			</div>
 		</div>
 
-		<div id="thumbNail" style="display:grid; margin-left:115px;">
+		<div id="thumbNail" style="display:grid; margin-left:-5px;">
 			<h5 style="display: inline-block; margin-left: 105px;">썸네일</h5>
 			<label name = "testGoGo" id="testGoGo" style="background-image: url(/triangleView/img/writeForm/imgplus.png);
 			background-size: 200px; width: 200px; height: 200px; display: inline-block; margin-left: 105px;">
@@ -334,26 +402,26 @@ function LoadImg(value) {
 }
 </script>
 
-		<div id="contentWrite2" style="text-align:center;     margin-left: 140px;">
+		<div id="contentWrite2" style="text-align:center; margin-left: 160px;">
 			<h5 style="margin-left: -835px;">게시글 작성</h5>
-				<section id="editor" style="text-align:left; width:650px; margin-left:222px; ">
-					<textarea id='edit' name="edit" style="margin-top: 30px;">
+				<section id="editor" style="text-align:left; width: 810px; margin-left: -60px; ">
+					<textarea id='edit' name="edit" style="margin-top: 30px; height:500px;">
 					</textarea> 
 			</section>
 		</div>
 		<br>
 		
-		<div class="hash" style="display:-webkit-inline-box; margin-left:225px;">
+		<div class="hash" style="display:-webkit-inline-box; margin-left:100px;">
 		<h5>해시태그</h5>
 			<input type="text" class="w3-input2 w3-change" id="hash" name="hash"
-				style="width:650px; height:30px; margin-left: 66px;" placeholder="hashtag를 입력해주세요">
+				style="width:650px; height:30px; margin-left: 88px;" placeholder="hashtag를 입력해주세요">
 		</div>
 		<br>
 		
 
-		<div style="display:-webkit-inline-box; width: 900px; margin-left:238px;">	
+		<div style="display:-webkit-inline-box; width: 900px; margin-left:113px;">	
 			<h5 style="margin-left: -12px;">한마디</h5>
-			<textarea id="introduce" class="w3-input2 w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:84px;"></textarea>
+			<textarea id="introduce" class="w3-input2 w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:105px;"></textarea>
 			<!-- <span id="text_counter"></span> -->
 		</div>
 		<!-- 140자 이상의 소개는 가입불가능 -->
@@ -378,10 +446,10 @@ function LoadImg(value) {
 				});
 			});
 		</script>
-		<div style="display:-webkit-inline-box; width: 900px; margin-left:234px;">
+		<div style="display:-webkit-inline-box; width: 900px; margin-left:106px;">
 			<h5 style="margin-left: -5px;">별점</h5>
 				<span class="star-input">
-  					<span class="input" style="margin-top:12px; margin-left: 102px;">
+  					<span class="input" style="margin-top:12px; margin-left: 120px;">
     					<input type="radio" name="star-input" id="p1" value="1"><label for="p1">0.5</label>
     					<input type="radio" name="star-input" id="p2" value="2"><label for="p2">1</label>
     					<input type="radio" name="star-input" id="p3" value="3"><label for="p3">1.5</label>
@@ -437,7 +505,7 @@ function LoadImg(value) {
 		</script>
 
 			<div class="container2" style="height: 50px; display: -webkit-inline-box;">
-				<div class="btn-holder" style="    margin-left: 250px;">
+				<div class="btn-holder" style="    margin-left: 120px;">
 					<button type="submit" class="subButton" id="end" onclick="submitAction();" style="width:350px; height: 35px;"> 
 						게시물 작성
 					</button>
@@ -538,5 +606,6 @@ function LoadImg(value) {
 		});
 	</script>
 	</form>
+	</div>
 </body>
 </html>

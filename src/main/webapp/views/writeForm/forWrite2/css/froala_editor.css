@@ -20,6 +20,13 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+/* <!-- 0926에 추가한것 --> */
+.fr-element{
+	height:300px;
+	
+}
+
+
 .fr-element,
 .fr-element:focus {
   outline: 0px solid transparent;

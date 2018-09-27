@@ -64,6 +64,42 @@ public class insertWrite1Servlet extends HttpServlet {
 			// 리뷰에 대한 기본적인 정보
 			String rwTitle = multiRequest.getParameter("title");
 			int categoryType = Integer.parseInt(multiRequest.getParameter("categoryCheck"));
+			//카테고리는 해시에 추가
+			String categoryHash ="";
+			switch (categoryType) {
+			case 1:
+				categoryHash = "자유";
+				break;
+			case 2:
+				categoryHash = "IT/가전";
+				break;
+			case 3:
+				categoryHash = "음악";
+				break;
+			case 4:
+				categoryHash = "뷰티";
+				break;
+			case 5:
+				categoryHash = "스포츠";
+				break;
+			case 6:
+				categoryHash = "금융";
+				break;
+			case 7:
+				categoryHash = "게임";
+				break;
+			case 8:
+				categoryHash = "취미";
+				break;
+			case 9:
+				categoryHash = "인생";
+				break;
+			default:
+				categoryHash = "오류";
+				break;
+			}
+			//System.out.println("되냐 ? " + categoryHash);
+			
 			String rwHash = multiRequest.getParameter("hash");
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
@@ -85,25 +121,49 @@ public class insertWrite1Servlet extends HttpServlet {
 				companySpon = 1;
 			}
 			
-			String resultHash = "";
-			if(rwHash != null){
-				//sha512로변환한 해시
-				MessageDigest digest;
-				try {
-					digest = MessageDigest.getInstance("SHA-512");
-					byte[] bytes = rwHash.getBytes(Charset.forName("UTF-8"));
-					digest.reset();
-					digest.update(bytes);
-					resultHash = Base64.getEncoder().encodeToString(digest.digest());
-				} catch (NoSuchAlgorithmException e) {
-					
-					e.printStackTrace();
-				}			
-			}else{
-				resultHash = "undefined";
+			String[] hashSplit = rwHash.split("#");
+			String[] resultHashSplit = hashSplit;
+			
+			for (int i = 1; i < hashSplit.length; i++) {
+				if (hashSplit[i] != null) {
+					String rmSpace = "";
+					rmSpace = hashSplit[i];
+					rmSpace = rmSpace.replaceAll("\\p{Z}", "");
+					//System.out.print("체크:" + rmSpace);
+					resultHashSplit[i] = rmSpace;
+					MessageDigest digest;
+					try {
+						digest = MessageDigest.getInstance("SHA-512");
+						byte[] bytes = resultHashSplit[i].getBytes(Charset.forName("UTF-8"));
+						digest.reset();
+						digest.update(bytes);
+						resultHashSplit[i] = Base64.getEncoder().encodeToString(digest.digest());
+						//System.out.println("바꾼거 : " + resultHashSplit[i]);
+					} catch (NoSuchAlgorithmException e) {
+
+						e.printStackTrace();
+					}
+				} else {
+					hashSplit[i] = "undefined";
+				}
 			}
 			
-			System.out.println("바뀌는가? : " + resultHash);
+			//카테고리처리
+			String categoryHashResult = "";
+			MessageDigest digest;
+			try {
+				digest = MessageDigest.getInstance("SHA-512");
+				byte[] bytes = categoryHash.getBytes(Charset.forName("UTF-8"));
+				digest.reset();
+				digest.update(bytes);
+				categoryHashResult = Base64.getEncoder().encodeToString(digest.digest());
+			} catch (NoSuchAlgorithmException e) {
+				
+				e.printStackTrace();
+			}			
+			
+			//System.out.println("넌 되지? : " + categoryHashResult);
+			
 			
 			Review rw = new Review();
 			rw.setRwTitle(rwTitle);
@@ -157,7 +217,7 @@ public class insertWrite1Servlet extends HttpServlet {
 			Member m = new Member();
 			m.setUserNo(userNo);
 			
-			int result = new ReviewService().write1Review(rw, m, fileList,resultHash);
+			int result = new ReviewService().write1Review(rw, m, fileList,resultHashSplit,categoryHashResult);
 			
 			if (result > 0) {
 				System.out.println("굿");

@@ -151,8 +151,9 @@ button {
 </head>
 
 <body>
+<div class="holder">
 	<div class="page-header" style="text-align:center; display: block;">
-		<h2 style="font-size: 28px;"><img src="/triangleView/img/member/idFind.png" style="width:50px; margin-top:-15px;">아이디 찾기</h2>
+		<h2 style="font-size: 25px;"><img src="/triangleView/img/member/idFind.png" style="width:50px; margin-top:-15px;">아이디 찾기</h2>
 	</div>
 	
 	<div class="howToUse">
@@ -169,7 +170,7 @@ button {
 			<input type="text" class="w3-input" id="personalnum" name="phone" placeholder="     전화번호를 입력해주세요" 
 			 style="width: 300px; margin-left: 15px; border: 1px solid red;"onFocus="this.style.backgroundImage='url(none)';"> 
 				<input type="submit" class="btn-success" id="sendVertify" value="인증번호 전송" onclick="change();"></input>
-			<p id="p2" style="width: 100px; height: 20px; /* display:none; */"></p>
+			<p id="p2" style="width: 100px; height: 20px; display:none; "></p>
 		</div>
 		<br>
 			<script>
@@ -181,9 +182,9 @@ button {
 			</script>
 		<div class="input-group" style="text-align: -webkit-center;">
 			<input type="text" name="checkNum" id="checkNum" class="w3-input w3-change" 
-			placeholder="인증번호를 입력해주세요" style="width: 240px; margin-left: 15px; display: none;">
+			placeholder="인증번호를 입력해주세요" style="width: 240px; margin-left:-45px; display: none;">
 			 <label id="pwdresult"></label><br> 
-			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none"><br>
+			 <input type="button" class="btn-success" name ="changePosi" id="vertifyNum" value="인증" style="display: none; margin-top: -27px;"><br>
 		</div>
 	</div>
 	
@@ -274,6 +275,6 @@ button {
 	</script>
 
 
-
+</div>
 </body>
 </html>

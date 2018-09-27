@@ -257,7 +257,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertWrite2Review");
+		String query = prop.getProperty("insertWrite1Review");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -266,16 +266,15 @@ public class ReviewDao {
 			pstmt.setInt(2, rw.getCategoryType());
 			pstmt.setString(3, rw.getRwContent());
 			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setString(5, rw.getRwHash());
+			pstmt.setDouble(5, rw.getRwGrade());
 			pstmt.setString(6, rw.getRwComment());
 			pstmt.setInt(7, rw.getRwSupport());
-			pstmt.setDouble(8, rw.getRwGrade());
+			
 			
 			result = pstmt.executeUpdate();
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			close(pstmt);
@@ -297,10 +296,9 @@ public class ReviewDao {
 			pstmt.setInt(2, rw.getCategoryType());
 			pstmt.setString(3, rw.getRwContent());
 			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setString(5, rw.getRwHash());
+			pstmt.setDouble(5, rw.getRwGrade());
 			pstmt.setString(6, rw.getRwComment());
 			pstmt.setInt(7, rw.getRwSupport());
-			pstmt.setDouble(8, rw.getRwGrade());
 			
 			result = pstmt.executeUpdate();
 			
@@ -404,10 +402,10 @@ public class ReviewDao {
 			pstmt.setInt(2, rw.getCategoryType());
 			pstmt.setString(3, rw.getRwContent());
 			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setString(5, rw.getRwHash());
+			pstmt.setDouble(5, rw.getRwGrade());
 			pstmt.setString(6, rw.getRwComment());
 			pstmt.setInt(7, rw.getRwSupport());
-			pstmt.setDouble(8, rw.getRwGrade());
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -541,7 +539,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Review rwResult = null;
-		//System.out.println("확이ㄴ " + m.getRwNo());
+		
 		String query = prop.getProperty("reviewNoCheck");
 		try {
 			pstmt = con.prepareStatement(query);
@@ -567,5 +565,7 @@ public class ReviewDao {
 		
 		return rwResult;
 	}
+
+
 
 }
