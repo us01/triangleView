@@ -13,7 +13,10 @@
 <link rel="stylesheet" href="/triangleView/css/style.css" media="screen" title="no title" charset="utf-8">
 <script src="/triangleView/js/jquery-3.3.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
-
+<script src="https://code.jquery.com/color/jquery.color-2.1.2.js"
+	integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+	crossorigin="anonymous">
+</script>
 <style>
 body {
 	font-family: '맑은고딕';
@@ -28,7 +31,7 @@ display:inline-block ; border: 1px solid black ; input[type=checkbox] {
 	font-size: 200px;
 }
 
-button {
+/* button {
 	width: 180px;
 	background-color: #f8585b;
 	border: none;
@@ -41,7 +44,7 @@ button {
 	margin-bottom: 4px;
 	cursor: pointer;
 	border-radius: 5px;
-}
+} */
 
 .subButton {
 	width: 180px;
@@ -302,70 +305,74 @@ input[type=text],input[type=email],input[type=password], select {
 	});
 
 	//회원 닉네임 체크
-	$(function() {
 
-		$("#nickCheck").click(
-				function() {
-					var nick = $("#nick").val();
-					$.ajax({
+//회원 닉네임 체크
 
-						url : "nickCheck.do",
-						data : {
-							nick : nick
-						},
-						type : "post",
-						success : function(data) {
-							var num = data;
-							if (num == 0) {
 
-								$("#nickResult").text("사용가능한 닉네임입니다.").css(
-										"color", "green");
-								$('#newMember').attr("disabled", false);
-							} else {
 
-								$("#nickResult").text("중복되는 닉네임입니다.").css(
-										"color", "red");
-								$('#newMember').attr("disabled", true);
-							}
-						},
-						error : function() {
-							console.log("서버 전송 실패");
+	$("#nickCheck").click(
+			function() {
+				var nick = $("#nick").val();
+				$.ajax({
+
+					url : "nickCheck.do",
+					data : {
+						nick : nick
+					},
+					type : "post",
+					success : function(data) {
+						var num = data;
+						if (num == 0) {
+
+							$("#nickResult").text("사용가능한 닉네임입니다.").css("color",
+									"green");
+							$('#newMember').attr("disabled", false);
+						} else {
+
+							$("#nickResult").text("중복되는 닉네임입니다.").css("color",
+									"red");
+							$('#newMember').attr("disabled", true);
 						}
-
-					});
+					},
+					error : function() {
+						console.log("서버 전송 실패");
+					}
 
 				});
-	});
+
+			});
 </script>
 </head>
 <body>
+<div class="generalMember">
    <form class="JoinForm" id="form" name="testGo" action="" method="post" encType="multipart/form-data">
 
       <div id="container" class="w3-container">
          <div class="page-header">
-            <h2 style="text-align:center;"><img src="/triangleView/img/member/reviewer.png" style="width:80px;">일반회원가입</h2>
+            <h2 style="text-align:center;"><img src="/triangleView/img/member/reviewer.png" style="width:80px; margin-top: -15px;">일반회원가입</h2>
          </div>
 
-         <div class="w3-card image" style="align:center;">
+         <div class="profileImage" style="align:center;">
             <p style="text-align: -webkit-left;">
-               <span class="w3-tag" style="margin-left:15px;background-color: white; color: black; margin-top: 57px;">프로필 이미지</span> 
-               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px;"/> 
+               <span class="w3-tag" style="margin-left:3px;background-color: white; color: black; margin-top: 57px;">프로필 이미지</span> 
+               <input type='file' id="imgInput" name="imgInput" accept="image/gif, image/jpeg, image/png" style="margin-left: 220px; visibility: hidden;" /> 
                <label for="imgInput" class="ico_test1" id="icon_test1">
                <img id="image_section" src="/triangleView/img/member/profile.png" width="150px" height="150px" alt="이미지 파일이 아닙니다." class="w3-circle"
-               style="margin-top: 40px;" />
+               style="margin-top: 30px; margin-left: -3px;" />
                </label>
             </p>
          </div>
 
          <div class="w3-container w3-form" id="mail1">
-            <p><span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">아이디(이메일)</span></p>
+            <p>
+            <span class="w3-tag" style="background-color: white; color:black; margin-top:20px; margin-left:-10px">아이디(이메일)</span></p>
             <div class="input-group" style="text-align: center;">
                <input type="email" class="w3-input w3-change myInt" id="userId" name="userId"
                   placeholder="아이디(이메일형식)" style="width:270px;"> <span class="input-group-btn">
 			<input type="button" class="btn-success" id="sendVertify" value="전송" style="margin-top:-50px; margin-right: -30px;"></input>
                </span>
                
-                <p id="p2" style="width: 100px; height: 20px;">
+                <p id="p2" style="width: 100px; height: 20px; display:none;">
                 
             </div>
          </div>
@@ -459,7 +466,7 @@ input[type=text],input[type=email],input[type=password], select {
 
          <div class="w3-container">
             <p>
-               <span class="w3-tag" style="background-color: white; color:black; margin-top: -30px;">관심사</span>
+               <span class="w3-tag" style="background-color: white; color:black; margin-top: -30px; margin-left: -5px;">관심사</span>
             </p>
             <input type="checkbox" class="w3-check" name="category" value="1">자유
             <input type="checkbox" class="w3-check" name="category" value="2">IT/가전
@@ -476,7 +483,7 @@ input[type=text],input[type=email],input[type=password], select {
 
          <div class="w3-container" style="margin-top: 20px;">
             <p>
-               <span class="w3-tag" style="background-color: white; color:black;margin-top: -25px;">자기소개</span>
+               <span class="w3-tag" style="background-color: white; color:black;margin-top: -25px; margin-left: -5px;">자기소개</span>
             </p>
             <textarea id="intro" rows="5" style="width: 490px; resize: none;" name="intro" ></textarea>
             <!-- <span id="text_counter"></span> -->
@@ -484,7 +491,7 @@ input[type=text],input[type=email],input[type=password], select {
 
          <div class="w3-container" style="text-align: center; height: 40px;">
             <input type="button" class="subButton" id="newMember" value="일반회원가입" disabled="disabled" onclick="youHaveTo()"></input>
-			<input type="button" class="subButton" onclick="end();" value="가입취소"></input>
+			<input type="reset" class="subButton" onclick="end();" value="가입취소"></input>
          </div>
         
 			<script>
@@ -584,5 +591,6 @@ input[type=text],input[type=email],input[type=password], select {
 
 		</div>
    </form>
+   </div>
 </body>
 </html>
