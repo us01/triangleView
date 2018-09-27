@@ -430,6 +430,19 @@
 	function myAdmin(){
 		location.href="/triangleView/views/admin/main/mainpage1.jsp";
 	}
+	
+	function openqna(){
+		location.href="/triangleView/views/etc/qna.jsp";
+	}
+	
+	function openboard(){
+		location.href="/triangleView/views/etc/board.jsp";
+	}
+	
+	function openprovision(){
+		location.href="/triangleView/views/etc/provision.jsp";
+	}
+	
 </script>
 </head>
 <body>
@@ -442,7 +455,7 @@
 							<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
 						</a>
 					<% }else { %>
-						<a href="index.jsp">
+						<a href="/triangleView/index.jsp">
 							<img id="main_Logo" src="/triangleView/img/main/main_logo_white.png">
 						</a>
 					<% } %>
@@ -507,10 +520,10 @@
 					<ul>
 						<li>
 							<div>
-								<a>공지사항</a><br>
-								<a>자주 묻는 질문</a><br>
-								<a>1:1문의</a><br>
-								<a>약관 및 정책</a>
+								<a onclick="openboard();">공지사항</a><br>
+								<a onclick="openqna();">자주 묻는 질문</a><br>
+								<a href="https://open.kakao.com/o/sGuoSQZ" target="_blank">1:1문의</a><br>
+								<a onclick="openprovision();">약관 및 정책</a>
 							</div>
 						</li>
 					</ul></li>
