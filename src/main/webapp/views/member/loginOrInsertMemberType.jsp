@@ -152,6 +152,7 @@
 		$(".insertMemberTypeArea").css("margin-left", "-175px");
 		$(".insertMemberTypeArea").css("background-color", "white" );
 		$(".insertMemberTypeArea").css("width", "380px" );
+		$(".insertMemberTypeArea").css("border-radius ", "10px" );
 		
 		$.ajax({
 			url : "/triangleView/views/member/findId.jsp",
@@ -159,6 +160,7 @@
 			success : function(data) {
 				$(".insertMemberTypeArea").html(data);
 				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
+				document.getElementById('insertMemberTypeArea').style.borderRadius = '15px'; 
 				document.getElementById('insertMemberTypeArea').style.display = 'block';
 			}
 		});
@@ -173,6 +175,7 @@
 			data : "html",
 			success : function(data) {
 				$(".insertMemberTypeArea").html(data);
+				document.getElementById('insertMemberTypeArea').style.borderRadius = '15px';
 				document.getElementById('insertMemberTypeAearArea').style.display = 'block';
 				document.getElementById('insertMemberTypeArea').style.display = 'block';
 			}

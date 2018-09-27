@@ -73,18 +73,30 @@ public class ReviewService {
 		return searchReviewList;
 	}
 	
-	public int write2Review(Review rw, Member m, ArrayList<Attachment> fileList) {
+	public int write2Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
 		int result = 0;
 		int result1 = new ReviewDao().write2Review(con,rw,m);
 		int result2 = 0;
-
+		int result3 = 0;
+		int result4 = 0;
+		
+		if(result1 > 0){
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			for(int i =0; i < resultHashSplit.length; i++){
+				String resultHash = resultHashSplit[i];
+				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
+			}
+			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+		}
+		
+		
 		if(fileList != null){
 			
 			result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m);
 		}
 		
-		if(result1 > 0 && result2>0){
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
 			result = 1;
 		}else{
@@ -96,18 +108,30 @@ public class ReviewService {
 		return result;
 	}
 
-	public int write3Review(Review rw, Member m, ArrayList<Attachment> fileList) {
+	public int write3Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
 		int result = 0;
 		int result1 = new ReviewDao().write3Review(con,rw,m);
 		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
 
+		
+		if(result1 > 0){
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			for(int i =0; i < resultHashSplit.length; i++){
+				String resultHash = resultHashSplit[i];
+				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
+			}
+			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+		}
+		
 		if(fileList != null){
 			
 			result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m);
 		}
 		
-		if(result1 > 0 && result2>0){
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
 			result = 1;
 		}else{
@@ -145,19 +169,22 @@ public class ReviewService {
 		return result;
 	}
 
-	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList, String resultHash) {
+	public int write1Review(Review rw, Member m, ArrayList<Attachment> fileList, String[] resultHashSplit, String categoryHashResult) {
 		Connection con = getConnection();
 		
 		int result = 0;
 		int result1 = new ReviewDao().write1Review(con,rw,m);
 		int result2 = 0;
 		int result3 = 0;
+		int result4 = 0;
 		
 		if(result1 > 0){
-			/*int rwNo = new Review().reviewNoCheck(con, rw);*/
-			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);
-			System.out.println("두번쨰체크 : " + rwNoCheck);
-			result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
+			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			for(int i =1; i < resultHashSplit.length; i++){
+				String resultHash = resultHashSplit[i];
+				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
+			}
+			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
 		}
 		
 		if(fileList != null){
@@ -166,7 +193,7 @@ public class ReviewService {
 		}
 		
 			
-		if(result1 > 0 && result2>0 && result3>0){
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
 			result = 1;
 		}else{

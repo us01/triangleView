@@ -34,6 +34,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
+.everyThing3{
+	width: 1000px;
+    margin: 0 auto;
+}
+
 .container2 .btn-holder {
 	justify-content: flex-end;
 	display: flex;
@@ -253,7 +258,64 @@
 	width: 100%;
 }
 </style>
+<script>
+$(function(){
+    
+    $('#hash').focusout(function(){
+       
+       var input = $("#hash");
+       var str = input.val();
+        var res = str.substring(input.val().length-2, input.val().length);
+        var newStr = str.slice(0, -2);
+        
+        if(res == " #"){
+                     
+           input.val(newStr);
+        }
+        input.css('color','#f7323f').css("font-weight","Bold");
+    });
+    
+    $('#hash').focusin(function(){
+       
+       var input = $("#hash");
+       input.css('color','black').css("font-weight","");
+    });
+    
+    $('#hash').keydown(function(e) {
+       
+        var k = e.keyCode;
+        var input = $("#hash");
+        
+        if(input.val() == ""){
+              
+           input.val('#');
+        }
+        if ((90 >= k && k >= 65) // a ~ z
+                || (111 >= k && k >= 106) // keypad operator
+                || (192 >= k && k >= 186) // -,=./;
+                || (222 >= k && k >= 219) // ']\[
+                || k == 59 // FF ;
+                || k == 61 // FF =
+                || k == 173 // FF -
+                ) {
+            e.preventDefault();
+        }else if(k == 16){
+           
+           e.preventDefault();
+        }else if(k == 32){
 
+           var str = input.val();
+           var res = str.substring(input.val().length-1, input.val().length);
+           if(res == "#"){
+              e.preventDefault();                
+           }else{ 
+              e.preventDefault();
+              input.val(input.val()+' #');
+           }
+        }
+    });
+ });
+</script>
 
 </head>
 
@@ -264,7 +326,7 @@
 <br>
 <br>
 <br>
-
+<div class="everyThing3">
 <form class="writeForm" id="write3Test" name="write3Test" action="" method="post" encType="multipart/form-data" style="margin: 15px;background:#fff;text-align:center;"> 
 	<div class="container">
 		<h3 style="text-align:center; color:#f8585b;">동영상 리뷰</h3>
@@ -302,7 +364,7 @@
 		</div>
 	<br>
 	
-	<div id="thumbNail" style="display: block; text-align: left; margin-left: 222px;">
+	<div id="thumbNail" style="display: block; text-align: left; margin-left: 90px;">
 			<h5 style="display: inline-block;">썸네일</h5><br>
 			<label name = "testGoGo" id="testGoGo" style="background-image: url(/triangleView/img/writeForm/imgplus.png);
 			background-size: 200px; width: 200px; height: 200px; display: inline-block;">
@@ -331,7 +393,7 @@
 		</script>
 		
 
-	<div class="layer" id="youtubeUpload" style="text-align: left; margin-left: 222px;">
+	<div class="layer" id="youtubeUpload" style="text-align: left; margin-left: 90px;">
 	<h5>게시글 작성</h5>
 		<div class="input-group">
 		<label>URL주소를 입력해주세요</label>
@@ -343,7 +405,7 @@
 	<br>
 
 
-	<div style="text-align:left; margin-left:222px;">
+	<div style="text-align:left; margin-left:90px;">
 	<h5>미리보기</h5>
 		<iframe id="video_test" name="video_test" width="424" height="238" src="" frameborder="0"
 		 value="hoo" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -395,7 +457,7 @@
 		<br>
 		
 
-		<div style="display:-webkit-inline-box; width: 900px; margin-left:135px;">	
+		<div style="display:-webkit-inline-box; width: 900px; margin-left:103px;">	
 			<h5 style="margin-left: -12px;">한마디</h5>
 			<textarea id="introduce" class="w3-input2 w3-change" name="introduce" rows="5" style="width:650px; height:120px; margin-left:94px;"></textarea>
 			<!-- <span id="text_counter"></span> -->
@@ -423,10 +485,10 @@
 				});
 	</script>
 
-		<div style="display:-webkit-inline-box; width: 900px; margin-left:125px;">
+		<div style="display:-webkit-inline-box; width: 900px; margin-left:98px;">
 			<h5 style="margin-left: -5px;">별점</h5>
 				<span class="star-input">
-  					<span class="input" style="margin-top:12px; margin-left: 102px;">
+  					<span class="input" style="margin-top:12px; margin-left: 105px;">
     					<input type="radio" name="star-input" id="p1" value="1"><label for="p1">0.5</label>
     					<input type="radio" name="star-input" id="p2" value="2"><label for="p2">1</label>
     					<input type="radio" name="star-input" id="p3" value="3"><label for="p3">1.5</label>
@@ -536,6 +598,6 @@
 			}
 			</script>
 </form>
-
+</div>
 </body>
 </html>
