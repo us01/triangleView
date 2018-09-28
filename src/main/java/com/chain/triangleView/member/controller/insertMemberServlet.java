@@ -94,7 +94,7 @@ public class insertMemberServlet extends HttpServlet {
          String address2 = multiRequest.getParameter("sample4_jibunAddress");
          String phone = multiRequest.getParameter("phone");
          // 최종 주소(DB에 저장할)
-         String address = address1 + " " + address2;
+         String address = address1 + "-" + address2;
          if(address.equals(" ")){
         	 address = null;
          }

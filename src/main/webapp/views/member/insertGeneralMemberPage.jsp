@@ -309,8 +309,6 @@ input[type=text],input[type=email],input[type=password], select {
 
 //회원 닉네임 체크
 
-
-
 	$("#nickCheck").click(
 			function() {
 				var nick = $("#nick").val();
@@ -373,7 +371,7 @@ input[type=text],input[type=email],input[type=password], select {
 			<input type="button" class="btn-success" id="sendVertify" value="전송" style="margin-top:-50px; margin-right: -30px;"></input>
                </span>
                
-                <p id="p2" style="width: 100px; height: 20px; display:none;">
+                <p id="p2" style="width: 100px; height: 20px; /* display:none; */">
                 
             </div>
          </div>

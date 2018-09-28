@@ -1,6 +1,9 @@
+<%@page import="com.chain.triangleView.member.member.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,17 +41,19 @@ table {
 
 .container {
 	width: 800px;
-	height: 450px;
+	height: 600px;
 	border: 1px solid black;
 	text-align: center;
 	display: inline-block;
+	
 }
 
 .menu {
 	display: inline-block;
 	border: 1px solid white;
 	width: 120px;
-	height: 450px;
+	height: 600px;
+	float:left;
 	border: 1px solid black;
 }
 
@@ -56,13 +61,14 @@ table {
 	display: inline-block;
 	border: 1px solid white;
 	width: 670px;
-	height: 450px;
+	height: 600px;
+	float:left;
 }
 
 
 .subMenu1, .subMenu2, .subMenu3,.subMenu4, .subMenu5 {
 	width:118px;
-	height:50px;
+	padding: 20px 0;
 	border: 1px solid gray;
 	background-color: white;
 	display:table;
@@ -70,6 +76,7 @@ table {
     font-size: 16px;
 	line-height: 20px;
 	vertical-align:middle;
+	/* 	height:50px; */
    /*  display: block; */
    /*  height: 100%; */
    /* padding: 16px 16px 16px 30px; */
@@ -98,18 +105,17 @@ border-left: 2px solid transparent;
 
 </head>
 <body>
-<jsp:include page="../main/header/headerNav.jsp" flush="true" />
-<br>
-<br>
-<br>
-<br>
-	<div name="outLine" class="outLine">
+	<jsp:include page="../main/header/headerNav.jsp" flush="true">
+		<jsp:param name="loginUser" value="<%= loginUser %>"/>
+	</jsp:include>
+	
+	<div name="outLine" class="outLine" style="margin-top:90px;">
 		<div id="container" class="container">
 			<div class="menu">
 				<div class="subMenu1" onclick="changeProfile()">
 					프로필수정
 				</div>
-				<div class="subMenu2">
+				<div class="subMenu2" onclick="changePassword();">
 					비밀번호수정
 				</div>
 				<div class="subMenu3">
@@ -142,6 +148,20 @@ function changeProfile(){
 		}
 	});
 }
+
+function changePassword(){
+	
+	$.ajax({
+		url : "/triangleView/views/setting/passwordChange.jsp",
+		data : "html",
+		success : function(data) {
+			
+			$(".show").html(data);
+			
+		}
+	});
+}
+
 
 </script>
 </body>
