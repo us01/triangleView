@@ -142,6 +142,11 @@
 		cursor : pointer;
 		
 	}
+	
+	#writeReviewBtn:hover{
+	
+		cursor : pointer;		
+	}
 </style>
 <script>
 	function followListBlock(meNo){
@@ -182,57 +187,61 @@
 </head>
 <body>
 	<div class="leftContent" id="leftContentDiv">
-		<% if(loginUser != null){ %>
-			<ul class="leftProfile">
-				<li>
-					<div class="leftProfileImage">
-						<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>" style="border-radius:50%; width:120px; height:120px;">
-					</div>
-				</li>
-				<li>
-					<p class="introduction">
-						<%= loginUser.getIntro() %>
-					</p>
-				</li>
-				<li>
-					<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
-				</li>
-				<li>
-					<h6 onclick="followListBlock(<%= loginUser.getUserNo()%> )">팔로잉</h6>
-					<p class="follow" onclick="followListBlock( <%= loginUser.getUserNo()%> )"><%= followCountMember.getFollowingCount() %></p>
-				</li>
-				<li>
-					<h6 onclick="followingListBlock(<%= loginUser.getUserNo() %>)">팔로워</h6>
-					<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= followCountMember.getFollowCount() %></p>
-				</li>
-				<li>
-					<h6>관심주제</h6>
-					<div class="interest">
-						<div class="category">게임</div>
-						<div class="category">취미</div>
-						<div class="category">IT</div>
-						<div class="category">인생</div>
-						<div class="category">금융</div>
-						<div class="category">스포츠</div>
-						<div class="category">뷰티</div>
-						<div class="category">동물</div>
-						<div class="category">기타</div>
-					</div>
-				</li>
-			</ul>
-		<% }else{ %>
-			<script>
-				$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack3.png)');
-			</script>
-			<div class="logoutleftArea">
-				<p style="margin-botton : 10px;"><b>회원 전용 <br/><br/>
-					서비스입니다. <br/><br/>
-					로그인 후 이용해 <br/><br/>
-					주세요!</b></p>
-				<div class="logoutInBtn" onclick="insertMemberTypeDisplayBlock()"><b>로그인</b></div>
-				<div class="logoutInBtn" onclick="choiseInsertMemberPageMove()"><b>회원가입</b></div>
-			</div>
-		<% } %>
+			<div>
+			<% if(loginUser != null){ %>
+				<ul class="leftProfile">
+					<li>
+						<div class="leftProfileImage">
+							<img src="/triangleView/profileImg_upload/<%= loginUser.getThumbnail() %>" style="border-radius:50%; width:120px; height:120px;">
+						</div>
+					</li>
+					<li>
+						<p class="introduction">
+							<%= loginUser.getIntro() %>
+						</p>
+					</li>
+					<li>
+						<h6 class="nickNameArea">@&nbsp;<%= loginUser.getNick()%></h6>
+					</li>
+					<li>
+						<h6 onclick="followListBlock(<%= loginUser.getUserNo()%> )">팔로잉</h6>
+						<p class="follow" onclick="followListBlock( <%= loginUser.getUserNo()%> )"><%= followCountMember.getFollowingCount() %></p>
+					</li>
+					<li>
+						<h6 onclick="followingListBlock(<%= loginUser.getUserNo() %>)">팔로워</h6>
+						<p class="follower" onclick="followingListBlock(<%= loginUser.getUserNo() %>)"><%= followCountMember.getFollowCount() %></p>
+					</li>
+					<li>
+						<h6>관심주제</h6>
+						<div class="interest">
+							<div class="category">게임</div>
+							<div class="category">취미</div>
+							<div class="category">IT</div>
+							<div class="category">인생</div>
+							<div class="category">금융</div>
+							<div class="category">스포츠</div>
+							<div class="category">뷰티</div>
+							<div class="category">동물</div>
+							<div class="category">기타</div>
+						</div>
+					</li>
+				</ul>
+			<% }else{ %>
+				<script>
+					$("#leftContentDiv").css('backgroundImage','url(/triangleView/img/main/loginBack3.png)');
+				</script>
+				<div class="logoutleftArea">
+					<p style="margin-botton : 10px;"><b>회원 전용 <br/><br/>
+						서비스입니다. <br/><br/>
+						로그인 후 이용해 <br/><br/>
+						주세요!</b></p>
+					<div class="logoutInBtn" onclick="insertMemberTypeDisplayBlock()"><b>로그인</b></div>
+				</div>
+			<% } %>
+		</div>
+		<div onclick="uploadView();" style="width:152px; height : 0px;" id="writeReviewBtn">
+			<img src="/triangleView/img/main/writeBtn.png">
+		</div>
 	</div>
 	<div id="followUserArea" class="followUserArea"></div>
 	<div id="followUserAreaArea" class="w3-modal" onclick="followgListBlock()"></div>
@@ -250,6 +259,7 @@
 				}
 			});
 		}
+		
 	</script>
 </body>
 </html>
