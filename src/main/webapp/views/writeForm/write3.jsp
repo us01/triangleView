@@ -360,7 +360,7 @@ $(function(){
 				<option value="9" name="category">인생</option>
 			</select>
 			
-			
+			<!-- 암ㄴ아망망마ㅣㅓ이ㅏ머이ㅏㅓㅣ아 -->
 			</div>
 		</div>
 	<br>
