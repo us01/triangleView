@@ -23,19 +23,16 @@ public class loadOneReviewForm extends HttpServlet {
 		int rwContentType = Integer.parseInt(request.getParameter("rwContentType"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		System.out.println("userNo : " + userNo);
-		
 		HashMap<String, Object> reviewForm = new ReviewService().loadOneRevie(rwNo, userNo);
 		
 		if(reviewForm != null){
+			request.setAttribute("reviewForm", reviewForm);
+			
 			if(rwContentType == 0){
-				request.setAttribute("reviewForm", reviewForm);
 				request.getRequestDispatcher("/views/reviewFormPage/textForm.jsp").forward(request, response);
 			}else if(rwContentType == 1){
-				request.setAttribute("reviewForm", reviewForm);
 				request.getRequestDispatcher("/views/reviewFormPage/cardForm.jsp").forward(request, response);
 			}else{
-				request.setAttribute("reviewForm", reviewForm);
 				request.getRequestDispatcher("/views/reviewFormPage/videoForm.jsp").forward(request, response);
 			}
 		}else{

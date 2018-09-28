@@ -11,17 +11,20 @@ public class Form implements Serializable{
 	private String coorLink;
 	private String thumbnail;
 	private int likeMe;
+	private int rwGrade;
 	private int rwCommentCount;
 	private String rwHash;
 	private String nick;
 	private int rwNo;
+	private int rwContentType;
 	
 	public Form() {
 		super();
 	}
 
 	public Form(String rwContent, String writeDate, String rwComment, String rwTitle, int rwLikeCount, String coorLink,
-			String thumbnail, int likeMe, int rwCommentCount, String rwHash, String nick, int rwNo) {
+			String thumbnail, int likeMe, int rwGrade, int rwCommentCount, String rwHash, String nick, int rwNo,
+			int rwContentType) {
 		super();
 		this.rwContent = rwContent;
 		this.writeDate = writeDate;
@@ -31,10 +34,12 @@ public class Form implements Serializable{
 		this.coorLink = coorLink;
 		this.thumbnail = thumbnail;
 		this.likeMe = likeMe;
+		this.rwGrade = rwGrade;
 		this.rwCommentCount = rwCommentCount;
 		this.rwHash = rwHash;
 		this.nick = nick;
 		this.rwNo = rwNo;
+		this.rwContentType = rwContentType;
 	}
 
 	public String getRwContent() {
@@ -101,6 +106,14 @@ public class Form implements Serializable{
 		this.likeMe = likeMe;
 	}
 
+	public int getRwGrade() {
+		return rwGrade;
+	}
+
+	public void setRwGrade(int rwGrade) {
+		this.rwGrade = rwGrade;
+	}
+
 	public int getRwCommentCount() {
 		return rwCommentCount;
 	}
@@ -133,12 +146,20 @@ public class Form implements Serializable{
 		this.rwNo = rwNo;
 	}
 
+	public int getRwContentType() {
+		return rwContentType;
+	}
+
+	public void setRwContentType(int rwContentType) {
+		this.rwContentType = rwContentType;
+	}
+
 	@Override
 	public String toString() {
 		return "Form [rwContent=" + rwContent + ", writeDate=" + writeDate + ", rwComment=" + rwComment + ", rwTitle="
 				+ rwTitle + ", rwLikeCount=" + rwLikeCount + ", coorLink=" + coorLink + ", thumbnail=" + thumbnail
-				+ ", likeMe=" + likeMe + ", rwCommentCount=" + rwCommentCount + ", rwHash=" + rwHash + ", nick=" + nick
-				+ ", rwNo=" + rwNo + "]";
+				+ ", likeMe=" + likeMe + ", rwGrade=" + rwGrade + ", rwCommentCount=" + rwCommentCount + ", rwHash="
+				+ rwHash + ", nick=" + nick + ", rwNo=" + rwNo + ", rwContentType=" + rwContentType + "]";
 	}
-
+	
 }

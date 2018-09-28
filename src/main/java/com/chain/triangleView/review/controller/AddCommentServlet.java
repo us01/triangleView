@@ -1,12 +1,15 @@
 package com.chain.triangleView.review.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chain.triangleView.review.review.service.ReviewService;
+import com.chain.triangleView.review.review.vo.RwComment;
 
 public class AddCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,9 +27,14 @@ public class AddCommentServlet extends HttpServlet {
 		int result = new ReviewService().addComment(rwNo, commentNo, userNo, commentContent);
 		
 		if(result > 0){
+			ArrayList<RwComment> rwComment = new ReviewService().loadOneFormComment(rwNo);
 			
+			request.setAttribute("rwComment", rwComment);
+			request.setAttribute("rwNo", rwNo);
+			request.getRequestDispatcher("/views/reviewFormPage/commentsForm.jsp").forward(request, response);
 		}else{
-			
+			request.setAttribute("msg", "리뷰 조회를 실패했어요");
+			request.getRequestDispatcher("/views/errorPage/errorPage.jsp");
 		}
 	}
 	

@@ -56,7 +56,7 @@ public class insertWrite3Servlet extends HttpServlet {
 			String root = request.getSession().getServletContext().getRealPath("/");
 
 			// 저장경로설정
-			String savePath = root + "thumbnail_upload/";
+			String savePath = root + "review_upload/";
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",

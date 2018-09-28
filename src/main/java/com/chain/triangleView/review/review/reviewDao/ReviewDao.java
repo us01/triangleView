@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.chain.triangleView.member.member.vo.Attachment;
 import com.chain.triangleView.member.member.vo.Member;
+import com.chain.triangleView.review.review.vo.CardFormImages;
 import com.chain.triangleView.review.review.vo.Form;
 import com.chain.triangleView.review.review.vo.Review;
 import com.chain.triangleView.review.review.vo.RwComment;
@@ -106,6 +107,8 @@ public class ReviewDao {
 				form.setRwLikeCount(rset.getInt("rwlikecount"));
 				form.setRwComment(rset.getString("rwcomment"));
 				form.setLikeMe(rset.getInt("likeme"));
+				form.setRwGrade(rset.getInt("rwgrade"));
+				form.setRwContentType(rset.getInt("rwcontenttype"));
 				form.setThumbnail(rset.getString("filename"));
 				form.setCoorLink(rset.getString("coorlink"));
 				form.setWriteDate(rset.getString("rwwritedate"));
@@ -256,33 +259,34 @@ public class ReviewDao {
 		return searchReviewList;
 	}
 	
-	public int write2Review(Connection con, Review rw, Member m) {
+	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		String query = prop.getProperty("insertWrite1Review");
-		
+
+		String query = prop.getProperty("insertWrite2Attachment");
+
 		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setInt(1, m.getUserNo());
-			pstmt.setInt(2, rw.getCategoryType());
-			pstmt.setString(3, rw.getRwContent());
-			pstmt.setString(4, rw.getRwTitle());
-			pstmt.setDouble(5, rw.getRwGrade());
-			pstmt.setString(6, rw.getRwComment());
-			pstmt.setInt(7, rw.getRwSupport());
-			
-			
-			result = pstmt.executeUpdate();
-			
-			
+			for(int i = 0; i < fileList.size(); i++){
+				int j = i;
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
+
+				result += pstmt.executeUpdate();
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
@@ -409,9 +413,7 @@ public class ReviewDao {
 			pstmt.setString(6, rw.getRwComment());
 			pstmt.setInt(7, rw.getRwSupport());
 			
-			
 			result = pstmt.executeUpdate();
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -453,29 +455,25 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int write2Review(Connection con, Review rw, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("insertWrite2Attachment");
-
+		String query = prop.getProperty("insertWrite2Review");
 		try {
-			for(int i = 0; i < fileList.size(); i++){
-				int j = i;
-				pstmt = con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2,fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+			pstmt.setInt(1, m.getUserNo());
+			pstmt.setInt(2, rw.getCategoryType());
+			pstmt.setString(3, rw.getRwContent());
+			pstmt.setString(4, rw.getRwTitle());
+			pstmt.setDouble(5, rw.getRwGrade());
+			pstmt.setString(6, rw.getRwComment());
+			pstmt.setInt(7, rw.getRwSupport());
 
-				result += pstmt.executeUpdate();
-			}
+			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			close(pstmt);
@@ -569,6 +567,39 @@ public class ReviewDao {
 		return rwResult;
 	}
 
-
+	public ArrayList<CardFormImages> loadOneFormCardImg(Connection con, int rwNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<CardFormImages> cardImageList = null;
+		ResultSet rset = null;
+		String query  = prop.getProperty("loadOneFormCardImg");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, rwNo);
+			
+			rset = pstmt.executeQuery();
+			
+			cardImageList = new ArrayList<CardFormImages>();
+			while(rset.next()){
+				CardFormImages list = new CardFormImages();
+				
+				list.setFileCode(rset.getInt("filecode"));
+				list.setFileName(rset.getString("filename"));
+				list.setFileSeqNo(rset.getInt("fileseqno"));
+				list.setReviewNo(rset.getInt("reviewno"));
+				list.setTableType(rset.getInt("tabletype"));
+				
+				cardImageList.add(list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return cardImageList;
+	}
 
 }
