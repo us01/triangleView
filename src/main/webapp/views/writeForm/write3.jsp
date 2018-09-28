@@ -359,6 +359,8 @@ $(function(){
 				<option value="8" name="category">취미</option>
 				<option value="9" name="category">인생</option>
 			</select>
+			
+			
 			</div>
 		</div>
 	<br>
