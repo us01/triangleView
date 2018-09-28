@@ -260,7 +260,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertWrite1Review");
+		String query = prop.getProperty("insertWrite2Review");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -422,7 +422,7 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int insertWrite1Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -433,12 +433,13 @@ public class ReviewDao {
 				int j = i;
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2,fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
 				result += pstmt.executeUpdate();
 			}
@@ -453,7 +454,7 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int insertWrite2Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -464,12 +465,13 @@ public class ReviewDao {
 				int j = i;
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2,fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
 				result += pstmt.executeUpdate();
 			}
@@ -483,8 +485,7 @@ public class ReviewDao {
 
 		return result;
 	}
-
-	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m) {
+	public int insertWrite3Attachment(Connection con, ArrayList<Attachment> fileList, Member m, Review rwNoCheck) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -495,12 +496,13 @@ public class ReviewDao {
 				int j = i;
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setString(1, fileList.get(i).getOriginName());
-				pstmt.setString(2, fileList.get(i).getChangeName());
-				pstmt.setString(3, fileList.get(i).getFileSize());
-				pstmt.setString(4, fileList.get(i).getFileType());
-				pstmt.setInt(5, m.getUserNo());
-				pstmt.setInt(6, j);
+				pstmt.setInt(1, rwNoCheck.getRwNo());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3,fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFileSize());
+				pstmt.setString(5, fileList.get(i).getFileType());
+				pstmt.setInt(6, m.getUserNo());
+				pstmt.setInt(7, j);
 
 				result += pstmt.executeUpdate();
 			}

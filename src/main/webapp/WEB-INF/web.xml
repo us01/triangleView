@@ -194,6 +194,18 @@
    	<description></description>
    	<servlet-class>com.chain.triangleView.review.controller.LoginHotReveiwServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<servlet-name>updateMemberServlet</servlet-name>
+   	<display-name>updateMemberServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.updateMemberServlet</servlet-class>
+   </servlet>
+   <servlet>
+   	<servlet-name>updatePasswordServlet</servlet-name>
+   	<display-name>updatePasswordServlet</display-name>
+   	<description></description>
+   	<servlet-class>com.chain.triangleView.member.controller.updatePasswordServlet</servlet-class>
+   </servlet>
    <servlet-mapping>
       <servlet-name>logoutMainReviewSelectService</servlet-name>
       <url-pattern>/logoutMain.rl</url-pattern>
@@ -297,5 +309,13 @@
    <servlet-mapping>
    	<servlet-name>LoginHotReveiwServlet</servlet-name>
    	<url-pattern>/loginHotReview</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updateMemberServlet</servlet-name>
+   	<url-pattern>/updateMember.me</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>updatePasswordServlet</servlet-name>
+   	<url-pattern>/updatePassword.me</url-pattern>
    </servlet-mapping>
    </web-app>

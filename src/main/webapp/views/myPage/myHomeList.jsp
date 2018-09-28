@@ -144,7 +144,7 @@
 				<% }else{ %>
 					<div class="viewMainImage" onclick="loadReivewForm(<%= reviews.get(i).getRwNo() %>, <%= reviews.get(i).getRwContentType() %>, -1)">
 				<% } %>
-					<img src="/triangleView/review_upload/<%= reviews.get(i).getThumbnail() %>">
+					<img src="<%= request.getContextPath() %>/review_upload/<%= reviews.get(i).getThumbnail() %>">
 				</div>
 				<div class="formType">
 					<% if(reviews.get(i).getRwContentType() == 0){ %>

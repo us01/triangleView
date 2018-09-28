@@ -51,10 +51,11 @@ public class insertWrite2Servlet extends HttpServlet {
 			String fileExtend = null;
 
 			// 루트체크
-			String root = request.getSession().getServletContext().getRealPath("/");
+			/*String root = request.getSession().getServletContext().getRealPath("/");*/
+			String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
 
 			// 저장경로설정
-			String savePath = root + "thumbnail_upload/";
+			String savePath = root + "review_upload/";
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -103,12 +104,12 @@ public class insertWrite2Servlet extends HttpServlet {
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member)(request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			double rwGrade = 0.0;
+			int rwGrade = 0;
 			if(multiRequest.getParameter("rwGrade") == null){
 				rwGrade = 0;
 			}else{
-				double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
-				rwGrade = rwGrade2 / 2;
+				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
+				
 			}
 			
 			String companySponCheck = multiRequest.getParameter("companySpon");
@@ -215,21 +216,20 @@ public class insertWrite2Servlet extends HttpServlet {
 
 	            }
 			
-			
-			Member m = new Member();
-			m.setUserNo(userNo);
-			
-			int result = new ReviewService().write2Review(rw, m, fileList,resultHashSplit,categoryHashResult);
-			
-			if(result > 0){
-				System.out.println("굿");
-			}else{
-				System.out.println("다시");
+				Member m = new Member();
+				m.setUserNo(userNo);
+
+				int result = new ReviewService().write2Review(rw, m, fileList, resultHashSplit, categoryHashResult);
+
+				if (result > 0) {
+					System.out.println("굿");
+				} else {
+					System.out.println("다시");
+				}
+
 			}
-			
 		}
-		}
-		
+
 	}
 
 	/**

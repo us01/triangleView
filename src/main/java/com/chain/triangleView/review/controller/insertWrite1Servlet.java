@@ -53,9 +53,11 @@ public class insertWrite1Servlet extends HttpServlet {
 
 			// 루트체크
 			String root = request.getSession().getServletContext().getRealPath("/");
-
+			
+			//C:\Users\jihun\git\triangleView\target\m2e-wtp\web-resources\review_upload/
+			//String root = "C:/Users/jihun/git/triangleView/src/main/webapp/img/";
 			// 저장경로설정
-			String savePath = root + "thumbnail_upload/";
+			String savePath = root + "review_upload";
 
 			// 파일저장이름 설정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -104,12 +106,12 @@ public class insertWrite1Servlet extends HttpServlet {
 			String rwComment = multiRequest.getParameter("introduce");
 			Member loginUser = (Member) (request.getSession().getAttribute("loginUser"));
 			int userNo = loginUser.getUserNo();
-			double rwGrade = 0.0;
+			int rwGrade = 0;
 			if(multiRequest.getParameter("rwGrade") == null){
 				rwGrade = 0;
 			}else{
-				double rwGrade2 = Double.parseDouble(multiRequest.getParameter("rwGrade"));
-				rwGrade = rwGrade2 / 2;
+				rwGrade = Integer.parseInt(multiRequest.getParameter("rwGrade"));
+				
 			}
 
 			String rwContent = "";

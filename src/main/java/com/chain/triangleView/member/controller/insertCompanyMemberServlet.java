@@ -95,7 +95,7 @@ public class insertCompanyMemberServlet extends HttpServlet {
 			        }
 					
 					// 최종 주소(DB에 저장할)
-					String address = address1 + " " + address2;
+					String address = address1 + "-" + address2;
 					 if(address.equals(" ")){
 			        	 address = null;
 			         }

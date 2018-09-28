@@ -83,18 +83,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
-			for(int i =0; i < resultHashSplit.length; i++){
+			
+			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
-		}
-		
-		
-		if(fileList != null){
 			
-			result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m);
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite2Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
+		
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
@@ -119,17 +120,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
-			for(int i =0; i < resultHashSplit.length; i++){
+			
+			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite3Attachment(con,fileList,m);
-		}
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
 			commit(con);
@@ -180,17 +183,19 @@ public class ReviewService {
 		
 		if(result1 > 0){
 			Review rwNoCheck = new ReviewDao().reviewNoCheck(con, m);	
+			
 			for(int i =1; i < resultHashSplit.length; i++){
 				String resultHash = resultHashSplit[i];
 				result3 = new ReviewDao().insertHashtag(con,rwNoCheck,resultHash);
 			}
 			result4 = new ReviewDao().insertHashtag(con,rwNoCheck,categoryHashResult);
+			
+			if(fileList != null){
+				
+				result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m,rwNoCheck);
+			}
 		}
 		
-		if(fileList != null){
-			
-			result2 = new ReviewDao().insertWrite1Attachment(con,fileList,m);
-		}
 		
 			
 		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0){
