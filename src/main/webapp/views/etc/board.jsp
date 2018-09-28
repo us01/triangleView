@@ -32,7 +32,7 @@
 	#accordian h3 {
 		font-size: 18px;
 		line-height: 34px;
-		padding: 0 10px;
+		padding: 0 0px;
 		cursor: pointer;
 	}
 	#accordian h3:hover {
@@ -93,7 +93,7 @@
 	<div class="contentsArea">
 			<div id="accordian">
 			<hr>
-			<ul>
+			<ul style="padding-left : 0px;">
 				<li>
 					<h3><span></span>어떻게하면 파워리뷰어가 될 수 있나요?<hr></h3>
 					<ul>
